@@ -1,0 +1,20 @@
+/** @define App */
+
+.Menu {
+  font-family: 'proxima-nova', sans-serif;
+  font-weight: 300;
+  color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  width: 15vw;
+  height: 100vh;
+  border-right: 2px solid #fff;
+
+  label {
+    display: block;
+
+  }
+}

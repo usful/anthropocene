@@ -1,0 +1,13 @@
+/** @define LogoContainer */
+
+.LogoContainer {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  svg {
+    display: block;
+  }
+}

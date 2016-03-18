@@ -1,0 +1,28 @@
+/** @define TextRoll */
+
+@import '../../styles/variables.scss';
+
+.TextRoll {
+  position: absolute;
+
+  strong, span, h1, h2, h3, h4, h5, h6 {
+    font-size: 300%;
+    font-weight: 400;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.5em;
+    padding-right: 0.2em;
+  }
+
+  strong {
+    font-size: 350%;
+    font-style: italic;
+  }
+
+  h1 {
+    font-size: 400%;
+  }
+
+  h2 {
+    font-size: 300%;
+  }
+}

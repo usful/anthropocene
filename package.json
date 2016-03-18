@@ -1,0 +1,58 @@
+{
+  "name": "anthropocene",
+  "version": "1.0.0",
+  "description": "anthropocene",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./node_modules/http-server/bin/http-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/usful/anthropocene.git"
+  },
+  "keywords": [
+    "anthropocene"
+  ],
+  "author": "Clinton Robinson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/usful/anthropocene/issues"
+  },
+  "homepage": "https://github.com/usful/anthropocene#readme",
+  "dependencies": {
+    "autoprefixer": "^6.3.3",
+    "babel-core": "^6.5.2",
+    "babel-loader": "^6.2.3",
+    "babel-preset-es2015": "^6.5.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "css-loader": "^0.23.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.8.5",
+    "gl-react": "^2.2.0",
+    "gl-react-dom": "^2.2.0",
+    "glsl-fast-gaussian-blur": "^1.0.2",
+    "glslify": "^5.0.2",
+    "glslify-loader": "^1.0.2",
+    "http-server": "^0.9.0",
+    "postcss": "^5.0.16",
+    "postcss-bem-linter": "^2.3.3",
+    "postcss-custom-properties": "^5.0.0",
+    "postcss-import": "^8.0.2",
+    "postcss-loader": "^0.8.1",
+    "precss": "^1.4.0",
+    "raw-loader": "^0.5.1",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "react-motion": "^0.4.2",
+    "react-svg-morph": "^0.1.3",
+    "style-loader": "^0.13.0",
+    "suitcss-base": "^1.0.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.12.14"
+  },
+  "devDependencies": {
+    "postcss-scss": "^0.1.5"
+  }
+}
