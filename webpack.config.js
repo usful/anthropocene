@@ -28,7 +28,7 @@ module.exports = {
       { test: /\.js[x]?$/, exclude: /node_modules/, loader: 'babel-loader', query: {presets: ['react', 'es2015', 'stage-0']} },
       { test: /\.(scss|css)$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader') },
       { test: /\.(png|jpg)$/, loader: 'file-loader?name=images/[name].[ext]' },
-      { test: /\.woff$/, loader: 'file-loader?name=fonts/[name].[ext]' },
+      { test: /\.woff$/, loader: 'file-loader?name=fonts/[name].[ext]' }
     ]
   },
   // just for testing in the example page

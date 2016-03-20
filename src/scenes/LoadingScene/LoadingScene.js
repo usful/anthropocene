@@ -2,18 +2,14 @@ import 'styles/base.scss';
 import './LoadingScene.scss';
 
 import React, {Component} from 'react';
-import ReactDom from 'react-dom';
 import {Motion, spring} from 'react-motion';
 
 import slowSpring from '../../utils/springs/slow';
 import fastSpring from '../../utils/springs/fast';
-import dimensions from '../../utils/dimensions';
 
-import WordMark from '../../components/WordMark/WordMark';
-import WordMarkInverted from '../../components/WordMarkInverted/WordMarkInverted';
-import Logo from '../../components/Logo/Logo';
 import LogoInverted from '../../components/LogoInverted/LogoInverted';
 import LogoContainer from '../../components/LogoContainer/LogoContainer';
+import TextRoll from '../../components/TextRoll/TextRoll';
 
 import AudioPlayer from '../../components/AudioPlayer/AudioPlayer';
 
@@ -26,12 +22,16 @@ export default class LoadingScene extends Component {
       phase2: false,
       phase3: false,
       phase4: false,
+      skipped: false,
       introVolume: 0
     };
   }
 
   static defaultProps = {
-    onDone: function() {}
+    muted: false,
+    onDone: function() {},
+    width: window.outerWidth,
+    height: window.outerHeight
   };
 
   startPhase1() {
@@ -56,15 +56,19 @@ export default class LoadingScene extends Component {
 
   introVidProgress(e) {
     if (e.target.currentTime > 13 && !this.state.phase4) {
-      this.props.onDone(this);
       this.startPhase4();
     }
   }
 
+  skip() {
+    this.setState({phase1: true, phase2: true, phase3: true, phase4: true, skipped: true});
+    this.refs.textRoll.skip();
+  }
+
   render() {
     return (
-      <div className="LoadingScene" style={{width: dimensions.width + 'px', height: dimensions.height + 'px'}}>
-        <Motion defaultStyle={ {opacity: 1} } style={ {opacity: spring((this.state.introVidActive) ? 1 : 1, fastSpring)}}>
+      <div className="LoadingScene" style={{width: this.props.width + 'px', height: this.props.height + 'px'}}>
+        <Motion defaultStyle={ {opacity: 1} } style={ {opacity: spring(1, fastSpring)}}>
           {style =>
             <div className="video-wrapper" style={style}>
               <video ref={(el) => this.introVid = el} loop onCanPlay={this.startPhase1.bind(this)}
@@ -76,7 +80,7 @@ export default class LoadingScene extends Component {
         </Motion>
 
         <Motion defaultStyle={{volume: 0}} style={{volume: spring(this.state.introVolume, slowSpring)}}>
-          {value => <AudioPlayer src="audio/intro.mp3" play={this.state.phase2} volume={value.volume}/> }
+          {value => <AudioPlayer src="audio/intro.mp3" play={this.state.phase2} volume={value.volume} muted={this.props.muted} /> }
         </Motion>
 
         <Motion defaultStyle={{opacity: 1}} style={{opacity: spring(this.state.phase2 ? 0 : 1, slowSpring)}}>
@@ -87,11 +91,26 @@ export default class LoadingScene extends Component {
         <Motion defaultStyle={{opacity: 1}} style={{opacity: spring(!this.state.phase3 ? 1 : 0, slowSpring)}}>
           {style => <div className="overlay inverted intro-text"
                          style={{opacity: style.opacity, display: this.state.phase4 ? 'none' : 'block'}}>
-            <LogoContainer inverted={true} color='#fff' top='20vh' bottom='60vh' width="20em">
+            <LogoContainer inverted={true} color='#fff' top='30vh' bottom='60vh' width="19em">
               <LogoInverted/>
             </LogoContainer>
           </div>}
         </Motion>
+
+        <TextRoll ref="textRoll" play={this.state.phase4} onDone={this.props.onDone.bind(this)} >
+          <span>We</span>
+          <span>have</span>
+          <span>reached</span>
+          <br/>
+          <span>a</span>
+          <strong>historic</strong>
+          <span>and</span>
+          <strong>unprecedented</strong>
+          <br/>
+          <span>moment</span>
+          <span>in human</span>
+          <span>history.</span>
+        </TextRoll>
       </div>
     )
   }

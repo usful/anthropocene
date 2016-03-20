@@ -3,68 +3,135 @@
 @import '../../styles/variables.scss';
 
 .App {
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
 
-  .TextRoll {
-    right: 5vw;
-    top: 30vh;
-
-    transform: perspective(200px) rotateY(45deg);
-    transition: transform $transition;
+  section.support {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
   }
 
-  menu.top-nav {
+  section.main {
     position: absolute;
-    top: 2em;
+    top: 0;
     left: 0;
+    margin: 0;
+    padding: 0;
     width: 100%;
-    text-align: center;
-    opacity: 0;
-    transform: translateY(-5em);
-    transition: transform $transition, opacity $transition;
+    height: 100%;
+    perspective: 50vw;
+    perspective-origin: 50% 50%;
 
-    &:hover {
-    }
+    opacity: 1;
 
-    &.visible {
-      transform: translateY(-1em);
+    transition: opacity $transition;
+
+
+    menu.controls {
+      margin: 0;
+      padding: 0;
+      position: absolute;
+      cursor: pointer;
+      color: #fff;
+      transform-origin: 0 50%;
+      transform: translate3d(94vw, 7vh, -4vw) scale3d(1, 1, 1);
       opacity: 0.5;
 
+      transition: opacity $transitionQuick, color $transitionQuick, transform $transitionQuick;
+
+      &.dark {
+        color: #333;
+      }
+
       &:hover {
-        transform: translateY(0);
         opacity: 1;
+        transform: translate3d(94vw, 7vh, -3vw) scale3d(1.1, 1.1, 1);
+      }
+
+      i {
+        box-sizing: border-box;
+        border-radius: 1em;
+        width: 2em;
+        height: 2em;
+        padding: 0.5em;
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 150%;
+
+        transition: color $transitionQuick;
+
+        &.fa-volume-up.true {
+          display: none;
+        }
+
+        &.fa-volume-off.false {
+          display: none;
+        }
+
+        &.fa-fast-forward.true {
+          visibility: hidden;
+        }
       }
     }
 
-    a {
-      display: inline-block;
-      vertical-align: top;
-      color: #fff;
-      padding-right: 2em;
-      margin-right: 2em;
-      border-right: 1px solid #fff;
-      text-transform: uppercase;
-      text-decoration: none;
-      letter-spacing: 0.2em;
-      font-size: 80%;
-      line-height: 1em;
-      opacity: 0.75;
+    menu.top-nav {
+      position: absolute;
+      top: 2em;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      opacity: 0;
+      transform: translate3d(0, -5em, -1vw);
+      transition: transform $transition, opacity $transition;
 
-      transition: opacity $transition;
+      &.visible {
+        transform: translate3d(0, -1em, -1vw);
+        opacity: 0.75;
 
-      &:hover {
-        opacity: 1;
+        &:hover {
+          transform: translate3d(0, 0, 0);
+          opacity: 1;
+        }
       }
 
-      &:last-child {
-        margin-right: 0;
-        border-right: none;
+      a {
+        display: inline-block;
+        vertical-align: top;
+        color: #fff;
+        padding-right: 2em;
+        margin-right: 2em;
+        border-right: 1px solid #fff;
+        text-transform: uppercase;
+        text-decoration: none;
+        letter-spacing: 0.2em;
+        font-size: 75%;
+        line-height: 1em;
+        opacity: 0.75;
+
+        transition: opacity $transition;
+
+        &:hover {
+          opacity: 1;
+        }
+
+        &.logo {
+          border-right: none;
+          fill: #fff;
+
+          svg {
+            margin-top: -0.75em;
+            width: 3em;
+          }
+        }
+
+        &:last-child {
+          margin-right: 0;
+          border-right: none;
+        }
       }
     }
   }

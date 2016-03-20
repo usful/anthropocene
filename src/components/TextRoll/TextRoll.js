@@ -2,11 +2,9 @@ import 'styles/base.scss';
 import './TextRoll.scss';
 
 import React, {Component} from 'react';
-import ReactDom from 'react-dom';
 import {Motion, spring} from 'react-motion';
 
 import fastSpring from '../../utils/springs/fast';
-import dimensions from '../../utils/dimensions';
 
 export default class TextRoll extends Component {
   constructor(props) {
@@ -25,8 +23,7 @@ export default class TextRoll extends Component {
     play: false,
     className: '',
     wait: 250,
-    width: 200,
-    units: 'px',
+    style: {},
     onDone: function() {}
   };
 
@@ -49,6 +46,15 @@ export default class TextRoll extends Component {
     }
   }
 
+  skip() {
+    for (let line of this.state.lines) {
+      line.playing = true;
+    }
+
+    this.setState({lines: this.state.lines});
+    this.props.onDone();
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.play && !this.state.playing) {
       this.setState({playing: true});
@@ -63,7 +69,7 @@ export default class TextRoll extends Component {
 
   render() {
     return (
-      <div className={`TextRoll ${this.props.className}`} style={ {width: this.props.width + this.props.units} }>
+      <div className={`TextRoll ${this.props.className}`} style={this.props.style}>
         {this.state.lines.map(line =>
           <Motion key={line.id} defaultStyle={ {opacity:0} } style={ {opacity:spring(line.playing ? 1 : 0, fastSpring)} }>
             {style => React.cloneElement(line.el, {...line.el.props, style: style})}

@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import ReactDom from 'react-dom';
-
 
 export default class AudioPlayer extends Component {
   constructor(props) {
@@ -10,13 +8,15 @@ export default class AudioPlayer extends Component {
   }
 
   static defaultProps = {
+    muted: false,
     play: false,
     volume: 1,
     src: '',
+    delay: 0,
     onCanPlay: function() {}
   };
 
-  componentWillUpdate(nextProps, nextState) {
+  componentWillUpdate(nextProps) {
 
     if (nextProps.play && !this.playing) {
       this.refs.audio.play();
@@ -28,12 +28,26 @@ export default class AudioPlayer extends Component {
       this.playing = false;
     }
 
-    this.refs.audio.volume = nextProps.volume / 100;
+    this.refs.audio.volume = nextProps.muted ? 0 : nextProps.volume / 100;
   }
 
+  ended(e) {
+    if (this.props.loop && this.props.delay > 0) {
+      setTimeout(() => this.refs.audio.play(), this.props.delay);
+    }
+  }
+
+  play() {
+    this.refs.audio.play();
+  }
+  
   render() {
     return (
-      <audio ref="audio" onCanPlay={this.props.onCanPlay.bind(this)} autoPlay={this.props.autoPlay} loop={this.props.loop}>
+      <audio ref="audio"
+             onCanPlay={this.props.onCanPlay.bind(this)}
+             onEnded={this.ended.bind(this)}
+             autoPlay={this.props.autoPlay}
+             loop={this.props.loop && this.props.delay === 0}>
         <source type="audio/mp3" src={this.props.src}/>
       </audio>
     )
