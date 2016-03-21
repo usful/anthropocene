@@ -21,14 +21,14 @@ export default class FifthScene extends SceneComponent {
 
   render() {
     return (
-      <div className={this.getClasses.call(this)} style={this.getStyle.call(this)}>
-        <div className="video-wrapper">
-          <video ref="video" loop>
+      <div className={this.classes} style={this.style}>
+        <div className="video-wrapper" style={this.videoStyle}>
+          <video ref="video" loop onCanPlay={this.fireCanPlay.bind(this)}>
             <source type="video/mp4" src="vids/clip13.mp4"/>
           </video>
         </div>
 
-        <TextRoll ref="textRoll" play={this.state.phase1 && this.state.playing} onDone={this.props.onDone.bind(this)} >
+        <TextRoll ref="textRoll" visible={this.state.visible} onDone={this.props.onDone.bind(this)}>
           <span>More</span>
           <span>text</span>
           <span>that</span>

@@ -31,4 +31,21 @@
       color: #999;
     }
   }
+
+  .loading {
+    position: absolute;
+    display: block;
+    top: 80vh;
+    left: 17vw;
+    width: 66vw;
+    height: 2px;
+
+    .loading-bar {
+      height: 2px;
+      background-color: rgba(0,0,0,0.33);
+      opacity: 0;
+
+      transition: all $transitionLong;
+    }
+  }
 }

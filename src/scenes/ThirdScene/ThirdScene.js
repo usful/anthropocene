@@ -21,26 +21,27 @@ export default class ThirdScene extends SceneComponent {
 
   render() {
     return (
-      <div className={this.getClasses.call(this)} style={this.getStyle.call(this)}>
-        <div className="video-wrapper">
-          <video ref="video" loop>
+      <div className={this.classes} style={this.style}>
+        <div className="video-wrapper" style={this.videoStyle}>
+          <video ref="video" loop onCanPlay={this.fireCanPlay.bind(this)}>
             <source type="video/mp4" src="vids/water.mp4"/>
           </video>
         </div>
 
-        <TextRoll ref="textRoll" play={this.state.phase1 && this.state.playing} onDone={this.props.onDone.bind(this)} >
-          <span>This</span>
-          <span>is</span>
-          <span>another</span>
-          <span>meaningful</span>
+        <TextRoll ref="textRoll" visible={this.state.visible} onDone={this.props.onDone.bind(this)} >
+          <span>Climate change,</span>
+          <strong>extinctions,</strong>
           <br/>
-          <strong>sentence</strong>
-          <span>with</span>
-          <span>impactful</span>
-          <span>copy</span>
+          <span>food shortages,</span>
+          <span>and</span>
+          <strong>diseases</strong>
           <br/>
-          <span>that is</span>
-          <span>important.</span>
+          <span>have all</span>
+          <span>been linked</span>
+          <span>to</span>
+          <br/>
+          <strong>human</strong>
+          <span>activity.</span>
         </TextRoll>
       </div>
     )

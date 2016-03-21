@@ -21,26 +21,26 @@ export default class SecondScene extends SceneComponent {
 
   render() {
     return (
-      <div className={this.getClasses.call(this)} style={this.getStyle.call(this)}>
-        <div className="video-wrapper">
-          <video ref="video" loop>
+      <div className={this.classes} style={this.style}>
+        <div className="video-wrapper" style={this.videoStyle}>
+          <video ref="video" loop onCanPlay={this.fireCanPlay.bind(this)}>
             <source type="video/mp4" src="vids/clip7.mp4"/>
           </video>
         </div>
 
-        <TextRoll ref="textRoll" play={this.state.phase1 && this.state.playing} onDone={this.props.onDone.bind(this)} >
-          <span>This</span>
-          <span>is</span>
-          <span>another</span>
-          <span>meaningful</span>
+        <TextRoll ref="textRoll" visible={this.state.visible} onDone={this.props.onDone.bind(this)} >
+          <span>As a</span>
+          <strong>civilization,</strong>
+          <span>humanity</span>
           <br/>
-          <strong>sentence</strong>
-          <span>with</span>
-          <span>impactful</span>
-          <span>copy</span>
+          <span>has</span>
+          <span>spent its</span>
+          <strong>entire history</strong>
+          <span>carving</span>
           <br/>
-          <span>that is</span>
-          <span>important.</span>
+          <span>an existence</span>
+          <span>out of</span>
+          <span>the planet.</span>
         </TextRoll>
       </div>
     )

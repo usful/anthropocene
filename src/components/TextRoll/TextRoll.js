@@ -24,6 +24,7 @@ export default class TextRoll extends Component {
     className: '',
     wait: 250,
     style: {},
+    visible: true,
     onDone: function() {}
   };
 
@@ -63,26 +64,37 @@ export default class TextRoll extends Component {
     this.props.onDone();
   }
 
+  play() {
+    this.setState({playing: true});
+    setTimeout(this.rollLine.bind(this), this.props.wait);
+  }
+
+  reset() {
+    this.setState({playing: false});
+    this.unrollLines();
+  }
+
   componentWillReceiveProps(nextProps) {
-    if (nextProps.play && !this.state.playing) {
-      this.setState({playing: true});
-      setTimeout(this.rollLine.bind(this), this.props.wait);
-    }
-
-    if (!nextProps.play && this.state.playing) {
-      this.setState({playing: false});
-      this.unrollLines();
-    }
-
     if (nextProps.children.length !== this.state.lines.length) {
       let count = 0;
       this.setState({lines: nextProps.children.map(child => ({id: count++, el: child, playing: false})) || []});
     }
   }
 
+  get style() {
+    return {
+      ...this.props.style,
+      opacity: this.props.visible ? 1 : 0
+    }
+  }
+
+  get className() {
+    return `TextRoll ${this.props.className}`;
+  }
+
   render() {
     return (
-      <div className={`TextRoll ${this.props.className}`} style={this.props.style}>
+      <div className={this.className} style={this.style}>
         {this.state.lines.map(line =>
           <Motion key={line.id} defaultStyle={ {opacity:0} } style={ {opacity:spring(line.playing ? 1 : 0, fastSpring)} }>
             {style => React.cloneElement(line.el, {...line.el.props, style: style})}

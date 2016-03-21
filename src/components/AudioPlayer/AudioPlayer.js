@@ -17,7 +17,7 @@ export default class AudioPlayer extends Component {
     onEnd: function() {}
   };
 
-  componentWillUpdate(nextProps) {
+  componentWillReceiveProps(nextProps) {
 
     if (nextProps.play && !this.playing) {
       this.refs.audio.play();
@@ -43,7 +43,11 @@ export default class AudioPlayer extends Component {
   play() {
     this.refs.audio.play();
   }
-  
+
+  get readyState() {
+    return this.refs.audio.readyState;
+  }
+
   render() {
     return (
       <audio ref="audio"

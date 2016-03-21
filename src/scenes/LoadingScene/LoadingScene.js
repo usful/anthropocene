@@ -15,6 +15,8 @@ import TextRoll from '../../components/TextRoll/TextRoll';
 
 import AudioPlayer from '../../components/AudioPlayer/AudioPlayer';
 
+const TOTAL_SCENES = 5;
+
 export default class LoadingScene extends SceneComponent {
   constructor(props) {
     super(props);
@@ -32,6 +34,14 @@ export default class LoadingScene extends SceneComponent {
     };
   }
 
+  fireCanPlay(e) {
+    if (!this.state.canPlayFired && this.refs.video.readyState >= 2 && this.introAudio.readyState >= 2) {
+      this.props.onCanPlay.call(this, e);
+      this.setState({canPlayFired: true});
+      this.startPhase1();
+    }
+  }
+
   startPhase1() {
     this.setState({phase1: true});
 
@@ -39,7 +49,7 @@ export default class LoadingScene extends SceneComponent {
   }
 
   startPhase2() {
-    this.introVid.play();
+    this.refs.video.play();
 
     if (!this.state.phase2) {
       this.setState({phase2: true, introVolume: 100});
@@ -53,6 +63,7 @@ export default class LoadingScene extends SceneComponent {
 
   introVidProgress(e) {
     if (e.target.currentTime > 13 && !this.state.phase4) {
+      this.refs.textRoll.play();
       this.setState({phase4: true, introVolume: 0});
     }
   }
@@ -62,22 +73,21 @@ export default class LoadingScene extends SceneComponent {
     this.refs.textRoll.skip();
   }
 
+  get loadingBarStyle() {
+    return {width: Math.ceil((this.props.loadingState / TOTAL_SCENES) * 100) + '%', opacity: this.props.loadingState >= TOTAL_SCENES ? 0 : 1};
+  }
+
   render() {
     return (
-      <div className={this.getClasses.call(this)} style={this.getStyle.call(this)}>`
-        <Motion defaultStyle={ {opacity: 1} } style={ {opacity: spring(1, fastSpring)}}>
-          {style =>
-            <div className="video-wrapper" style={style}>
-              <video ref={(el) => this.introVid = el} loop onCanPlay={this.startPhase1.bind(this)}
-                     onTimeUpdate={this.introVidProgress.bind(this)}>
-                <source type="video/mp4" src="vids/empty-lake.mp4"/>
-              </video>
-            </div>
-          }
-        </Motion>
+      <div className={this.classes} style={this.style}>
+        <div className="video-wrapper" style={this.videoStyle}>
+          <video ref="video" loop onCanPlay={this.fireCanPlay.bind(this)} onTimeUpdate={this.introVidProgress.bind(this)}>
+            <source type="video/mp4" src="vids/empty-lake.mp4"/>
+          </video>
+        </div>
 
         <Motion defaultStyle={{volume: 0}} style={{volume: spring(this.state.introVolume, slowSpring)}}>
-          {value => <AudioPlayer src="audio/intro.mp3" play={this.state.phase2} volume={value.volume} muted={this.props.muted} /> }
+          {value => <AudioPlayer ref={(el) => this.introAudio = el} src="audio/intro.mp3" play={this.state.phase2} onCanPlay={this.fireCanPlay.bind(this)} volume={value.volume} muted={this.props.muted} /> }
         </Motion>
 
         <Motion defaultStyle={{opacity: 1}} style={{opacity: spring(this.state.phase2 ? 0 : 1, slowSpring)}}>
@@ -94,7 +104,7 @@ export default class LoadingScene extends SceneComponent {
           </div>}
         </Motion>
 
-        <TextRoll ref="textRoll" play={this.state.phase4 && this.state.playing} onDone={this.props.onDone.bind(this)} >
+        <TextRoll ref="textRoll" visible={this.state.visible} onDone={this.props.onDone.bind(this)} >
           <span>We</span>
           <span>have</span>
           <span>reached</span>
@@ -108,6 +118,10 @@ export default class LoadingScene extends SceneComponent {
           <span>in human</span>
           <span>history.</span>
         </TextRoll>
+
+        <div className="loading">
+          <div className="loading-bar" style={this.loadingBarStyle}></div>
+        </div>
       </div>
     )
   }

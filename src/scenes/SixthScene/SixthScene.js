@@ -1,5 +1,5 @@
 import 'styles/base.scss';
-import './FourthScene.scss';
+import './SixthScene.scss';
 
 import React, {Component} from 'react';
 import {Motion, spring} from 'react-motion';
@@ -7,11 +7,11 @@ import {Motion, spring} from 'react-motion';
 import SceneComponent from '../SceneComponent';
 import TextRoll from '../../components/TextRoll/TextRoll';
 
-export default class FourthScene extends SceneComponent {
+export default class SixthScene extends SceneComponent {
   constructor(props) {
     super(props);
 
-    this.name = 'FourthScene';
+    this.name = 'SixthScene';
   }
 
   skip() {
@@ -24,26 +24,23 @@ export default class FourthScene extends SceneComponent {
       <div className={this.classes} style={this.style}>
         <div className="video-wrapper" style={this.videoStyle}>
           <video ref="video" loop onCanPlay={this.fireCanPlay.bind(this)}>
-            <source type="video/mp4" src="vids/clip3.mp4"/>
+            <source type="video/mp4" src="vids/clip11.mp4"/>
           </video>
         </div>
 
-        <TextRoll ref="textRoll" visible={this.state.visible} onDone={this.props.onDone.bind(this)} >
+        <TextRoll ref="textRoll" visible={this.state.visible} onDone={this.props.onDone.bind(this)}>
+          <span>This project</span>
           <br/>
-          <strong>Anthropocene</strong>
-          <span>reflects</span>
-          <span>the</span>
+          <span>is to</span>
+          <span>draw</span>
+          <span>attention,</span>
           <br/>
-          <strong>mass</strong>
+          <strong>viscerally</strong>
           <span>and</span>
-          <span>irreversible</span>
-          <span>impact</span>
+          <strong>undeniably,</strong>
           <br/>
-          <span>humans have</span>
-          <span>wrought</span>
-          <span>on the</span>
-          <br/>
-          <span>planet.</span>
+          <span>to</span>
+          <span>our impact.</span>
         </TextRoll>
       </div>
     )

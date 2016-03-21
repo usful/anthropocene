@@ -4,7 +4,7 @@
 $boxShadow: -0.25em 0.5em 1em 0.5em rgba(0,0,0,0.05);
 $textShadow: -0.1em 0.1em rgba(0,0,0,0.05);
 
-.Menu {
+.SideMenu {
   font-family: 'proxima-nova', sans-serif;
   font-weight: 300;
   position: absolute;
@@ -18,7 +18,7 @@ $textShadow: -0.1em 0.1em rgba(0,0,0,0.05);
   transform: translate3d(8vw, 30vh, -4vw) rotateY(15deg);
   transition: opacity $transition, transform $transition;
 
-  &.opened {
+  &.true {
     opacity: $opacityBase;
 
     &:hover {

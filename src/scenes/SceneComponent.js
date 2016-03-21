@@ -8,18 +8,28 @@ export default class SceneComponent extends Component {
       visible: false,
       playing: false,
       phase1: false,
-      skipped: false
+      skipped: false,
+      canPlayFired: false
     };
   }
 
   static defaultProps = {
+    loadingState: 0,
     muted: false,
-    onDone: function() {},
     width: window.outerWidth,
     height: window.outerHeight,
     delay: 2000,
-    opacity: 1
+    opacity: 1,
+    onDone: function() {},
+    onCanPlay: function() {}
   };
+
+  fireCanPlay() {
+    if (!this.state.canPlayFired) {
+      this.props.onCanPlay.call(this);
+      this.setState({canPlayFired: true});
+    }
+  }
 
   play() {
     this.setState({playing:true});
@@ -31,14 +41,12 @@ export default class SceneComponent extends Component {
 
   stop() {
     this.setState({playing: false});
-
-    setTimeout(function() {
-
-    }.bind(this), this.props.delay)
+    if (this.refs.textRoll) this.refs.textRoll.reset();
   }
 
   startPhase1() {
     this.setState({phase1:true});
+    if (this.refs.textRoll) this.refs.textRoll.play();
   }
 
   show() {
@@ -46,6 +54,7 @@ export default class SceneComponent extends Component {
   }
 
   hide() {
+    this.stop();
     this.setState({visible: false});
   }
 
@@ -57,11 +66,19 @@ export default class SceneComponent extends Component {
     return null;
   }
 
-  getStyle() {
+  get style() {
     return {width: this.props.width + 'px', height: this.props.height + 'px'};
   }
 
-  getClasses() {
-    return `${this.name} Scene ${this.state.playing ? 'playing' : 'not-playing'} ${this.state.visible ? 'visible' : 'not-visible'}`;
+  get classes() {
+    return `Scene ${this.name} ${this.state.playing ? 'playing' : 'not-playing'} ${this.state.visible ? 'visible' : 'not-visible'}`;
+  }
+
+  get videoOpacity() {
+    return this.state.visible ? this.props.opacity : 0;
+  }
+
+  get videoStyle() {
+    return {opacity: this.videoOpacity};
   }
 };
