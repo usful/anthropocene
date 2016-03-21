@@ -13,7 +13,8 @@ export default class AudioPlayer extends Component {
     volume: 1,
     src: '',
     delay: 0,
-    onCanPlay: function() {}
+    onCanPlay: function() {},
+    onEnd: function() {}
   };
 
   componentWillUpdate(nextProps) {
@@ -35,6 +36,8 @@ export default class AudioPlayer extends Component {
     if (this.props.loop && this.props.delay > 0) {
       setTimeout(() => this.refs.audio.play(), this.props.delay);
     }
+
+    this.props.onEnd(e);
   }
 
   play() {

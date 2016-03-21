@@ -15,15 +15,15 @@ $textShadow: -0.1em 0.1em rgba(0,0,0,0.05);
   font-size: 100%;
 
   opacity: 0;
-  transform: translate3d(8vw, 20vh, -4vw) rotateY(15deg);
+  transform: translate3d(8vw, 30vh, -4vw) rotateY(15deg);
   transition: opacity $transition, transform $transition;
 
   &.opened {
-    opacity: 0.45;
+    opacity: $opacityBase;
 
     &:hover {
-      opacity: 1;
-      transform: translate3d(8vw, 15vh, 5vw) rotateY(0deg);
+      opacity: $opacityHover;
+      transform: translate3d(8vw, 15vh, 5vw) rotateY(3deg);
     }
   }
 
@@ -55,10 +55,14 @@ $textShadow: -0.1em 0.1em rgba(0,0,0,0.05);
       cursor: pointer;
 
       transform-origin: 0 50%;
-      transition: transform $transitionTimeQuick;
+      transition: transform $transitionHeart;
 
       &:hover {
         transform: scale3d(1.33, 1.33, 1);
+      }
+
+      &:active {
+        transform: $scaleHeartBeat;
       }
     }
 

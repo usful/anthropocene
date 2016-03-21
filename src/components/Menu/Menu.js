@@ -9,20 +9,21 @@ export default class Menu extends Component {
     super(props);
 
     this.state = {
-      selected: 1,
+      selected: 0,
       menu: [
-        {key: 1, name: 'Introduction'},
-        {key: 2, name: 'The Digger'},
-        {key: 3, name: 'Water'},
-        {key: 4, name: 'Time is up'},
-        {key: 5, name: 'What you can do'}
+        {key: 0, name: 'Introduction'},
+        {key: 1, name: 'The Digger'},
+        {key: 2, name: 'Water'},
+        {key: 3, name: 'Time is up'},
+        {key: 4, name: 'What you can do'}
       ]
     }
   }
 
   static defaultProps = {
     open: false,
-    onMenuChange: function() {}
+    onMenuChange: function() {},
+    opacity: 1
   };
 
   menuClicked(menu) {
@@ -32,7 +33,7 @@ export default class Menu extends Component {
 
   render() {
     return (
-      <menu className={`Menu ${this.props.open ? 'opened' : 'closed'}`}>
+      <menu className={`Menu ${this.props.open ? 'opened' : 'closed'}`} style={{opacity: this.props.opacity}}>
         {this.state.menu.map(menu =>
           <label key={menu.key}
                  className={this.state.selected === menu.key ? 'selected' : 'not-selected'}

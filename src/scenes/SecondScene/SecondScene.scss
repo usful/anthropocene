@@ -1,0 +1,8 @@
+/** @define SecondScene */
+
+@import "../../styles/variables.scss";
+@import "../scene.scss";
+
+.SecondScene {
+  @mixin scene;
+}

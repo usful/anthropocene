@@ -7,67 +7,64 @@ import {Motion, spring} from 'react-motion';
 import slowSpring from '../../utils/springs/slow';
 import fastSpring from '../../utils/springs/fast';
 
+import SceneComponent from '../SceneComponent';
+
 import LogoInverted from '../../components/LogoInverted/LogoInverted';
 import LogoContainer from '../../components/LogoContainer/LogoContainer';
 import TextRoll from '../../components/TextRoll/TextRoll';
 
 import AudioPlayer from '../../components/AudioPlayer/AudioPlayer';
 
-export default class LoadingScene extends Component {
+export default class LoadingScene extends SceneComponent {
   constructor(props) {
     super(props);
 
+    this.name = 'LoadingScene';
+
     this.state = {
-      phase1: false,
+      ...this.state,
+      playing: true,
+      visible: true,
       phase2: false,
       phase3: false,
       phase4: false,
-      skipped: false,
       introVolume: 0
     };
   }
 
-  static defaultProps = {
-    muted: false,
-    onDone: function() {},
-    width: window.outerWidth,
-    height: window.outerHeight
-  };
-
   startPhase1() {
     this.setState({phase1: true});
 
-    setTimeout(this.startPhase2.bind(this), 2000);
+    setTimeout(this.startPhase2.bind(this), this.props.delay);
   }
 
   startPhase2() {
-    this.setState({phase2: true, introVolume: 100});
     this.introVid.play();
-    setTimeout(this.startPhase3.bind(this), 5000);
+
+    if (!this.state.phase2) {
+      this.setState({phase2: true, introVolume: 100});
+      setTimeout(this.startPhase3.bind(this), this.props.delay*2);
+    }
   }
 
   startPhase3() {
     this.setState({phase3: true});
   }
 
-  startPhase4() {
-    this.setState({phase4: true, introVolume: 0});
-  }
-
   introVidProgress(e) {
     if (e.target.currentTime > 13 && !this.state.phase4) {
-      this.startPhase4();
+      this.setState({phase4: true, introVolume: 0});
     }
   }
 
   skip() {
-    this.setState({phase1: true, phase2: true, phase3: true, phase4: true, skipped: true});
+    this.setState({phase1: true, phase2: true, phase3: true, phase4: true, skipped: true, introVolume: 0});
     this.refs.textRoll.skip();
   }
 
   render() {
     return (
-      <div className="LoadingScene" style={{width: this.props.width + 'px', height: this.props.height + 'px'}}>
+      <div className={this.getClasses.call(this)} style={this.getStyle.call(this)}>`
         <Motion defaultStyle={ {opacity: 1} } style={ {opacity: spring(1, fastSpring)}}>
           {style =>
             <div className="video-wrapper" style={style}>
@@ -97,7 +94,7 @@ export default class LoadingScene extends Component {
           </div>}
         </Motion>
 
-        <TextRoll ref="textRoll" play={this.state.phase4} onDone={this.props.onDone.bind(this)} >
+        <TextRoll ref="textRoll" play={this.state.phase4 && this.state.playing} onDone={this.props.onDone.bind(this)} >
           <span>We</span>
           <span>have</span>
           <span>reached</span>

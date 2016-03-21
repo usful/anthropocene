@@ -46,6 +46,14 @@ export default class TextRoll extends Component {
     }
   }
 
+  unrollLines() {
+    for (let line of this.state.lines) {
+      line.playing = false;
+    }
+
+    this.setState({lines: this.state.lines});
+  }
+
   skip() {
     for (let line of this.state.lines) {
       line.playing = true;
@@ -59,6 +67,11 @@ export default class TextRoll extends Component {
     if (nextProps.play && !this.state.playing) {
       this.setState({playing: true});
       setTimeout(this.rollLine.bind(this), this.props.wait);
+    }
+
+    if (!nextProps.play && this.state.playing) {
+      this.setState({playing: false});
+      this.unrollLines();
     }
 
     if (nextProps.children.length !== this.state.lines.length) {

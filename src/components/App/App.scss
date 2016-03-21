@@ -24,22 +24,22 @@
     width: 100%;
     height: 100%;
     perspective: 50vw;
-    perspective-origin: 50% 50%;
+    perspective-origin: 25% -20%;
 
-    opacity: 1;
+    opacity: $opacityHover;
 
     transition: opacity $transition;
 
 
-    menu.controls {
+    menu.controls, menu.social {
       margin: 0;
       padding: 0;
       position: absolute;
       cursor: pointer;
       color: #fff;
       transform-origin: 0 50%;
-      transform: translate3d(94vw, 7vh, -4vw) scale3d(1, 1, 1);
-      opacity: 0.5;
+
+      opacity: $opacityBase;
 
       transition: opacity $transitionQuick, color $transitionQuick, transform $transitionQuick;
 
@@ -47,9 +47,28 @@
         color: #333;
       }
 
-      &:hover {
-        opacity: 1;
-        transform: translate3d(94vw, 7vh, -3vw) scale3d(1.1, 1.1, 1);
+      &.controls {
+        transform: translate3d(94vw, 7vh, -4vw) scale3d(1, 1, 1);
+
+        &:hover {
+          opacity: $opacityHover;
+          transform: translate3d(94vw, 7vh, -3vw) scale3d(1.1, 1.1, 1);
+        }
+      }
+
+      &.social {
+        width: 100%;
+        transform: translate3d(0, 95vh, -4vw) scale3d(1, 1, 1);
+        text-align: center;
+
+        &:hover {
+          opacity: $opacityHover;
+          transform: translate3d(0, 95, -3vw) scale3d(1.1, 1.1, 1);
+        }
+
+        &.dark {
+          opacity: 0;
+        }
       }
 
       i {
@@ -62,7 +81,7 @@
         vertical-align: middle;
         font-size: 150%;
 
-        transition: color $transitionQuick;
+        transition: color $transitionQuick, transform $transitionHeart;
 
         &.fa-volume-up.true {
           display: none;
@@ -75,26 +94,30 @@
         &.fa-fast-forward.true {
           visibility: hidden;
         }
+
+        &:active {
+          transform: $scaleHeartBeat;
+        }
       }
     }
 
     menu.top-nav {
       position: absolute;
-      top: 2em;
+      top: 0;
       left: 0;
       width: 100%;
       text-align: center;
       opacity: 0;
-      transform: translate3d(0, -5em, -1vw);
+      transform: translate3d(0, -1vh, -1vw);
       transition: transform $transition, opacity $transition;
 
       &.visible {
-        transform: translate3d(0, -1em, -1vw);
-        opacity: 0.75;
+        transform: translate3d(0, 4vh, -1vw);
+        opacity: $opacityBase;
 
         &:hover {
-          transform: translate3d(0, 0, 0);
-          opacity: 1;
+          transform: translate3d(0, 6vh, 0);
+          opacity: $opacityHover;
         }
       }
 
@@ -110,12 +133,12 @@
         letter-spacing: 0.2em;
         font-size: 75%;
         line-height: 1em;
-        opacity: 0.75;
+        opacity: $opacityBase;
 
         transition: opacity $transition;
 
         &:hover {
-          opacity: 1;
+          opacity: $opacityHover;
         }
 
         &.logo {
