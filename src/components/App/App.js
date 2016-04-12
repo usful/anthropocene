@@ -3,7 +3,7 @@ import 'styles/base.scss';
 import './App.scss';
 
 import React, {Component} from 'react';
-import {Motion, spring} from 'react-motion';
+import ReactDOM from 'react-dom';
 
 import AudioPlayer from '../AudioPlayer/AudioPlayer';
 import SideMenu from '../SideMenu/SideMenu';
@@ -24,7 +24,7 @@ const OPACITY_CUTOFF = 0.30; //the point at which to trigger the sharing page.
 const SCENES = ['loadingScene', 'secondScene', 'thirdScene', 'fourthScene', 'fifthScene', 'sixthScene'];
 const HEART_BEAT_START = 1000; //ms
 
-export default class App extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
 
@@ -165,3 +165,4 @@ export default class App extends Component {
   }
 }
 
+export default App;

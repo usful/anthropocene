@@ -4,6 +4,7 @@ var customProperties  = require('postcss-custom-properties');
 var autoprefixer      = require('autoprefixer');
 var precss            = require('precss');
 var postcssImport     = require('postcss-import');
+var cssnano           = require('cssnano');
 
 module.exports = {
   entry: {
@@ -47,11 +48,16 @@ module.exports = {
       customProperties(),
       postcssImport({
         addDependencyTo: webpack
-      })
+      }),
+      cssnano()
     ]
   },
   plugins: [
-    new ExtractTextPlugin('app.css')
+    new ExtractTextPlugin('app.css'),
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: false,
+      mangle: true
+    })
   ],
   watch: true
 };
