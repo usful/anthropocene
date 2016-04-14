@@ -1,14 +1,18 @@
+$transitionType: ease;
+
 $transitionTime: 1s;
-$transitionType: ease-out;
 $transition: $transitionTime $transitionType;
 
-$transitionTimeQuick: 0.5s;
+$transitionTimeQuick: 250ms;
 $transitionQuick: $transitionTimeQuick $transitionType;
+
+$transitionTimeReallyQuick: 125ms;
+$transitionQuick: $transitionTimeReallyQuick $transitionType;
 
 $transitionTimeLong: 2s;
 $transitionLong: $transitionTimeLong $transitionType;
 
-$transitionTimeHeart: 0.65s;
+$transitionTimeHeart: 650ms;
 $transitionHeart: $transitionTimeHeart $transitionType;
 
 $opacityBase: 0.75;

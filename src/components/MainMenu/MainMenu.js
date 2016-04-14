@@ -1,5 +1,5 @@
 import 'styles/base.scss';
-import './TopMenu.scss';
+import './MainMenu.scss';
 
 import React, {Component} from 'react';
 import {Motion, spring} from 'react-motion';
@@ -9,7 +9,7 @@ import Logo from '../Logo/Logo';
 const OPACITY_BASE = 1;
 const OPACITY_HOVER = 1;
 
-export default class TopMenu extends Component {
+export default class MainMenu extends Component {
   constructor(props) {
     super(props);
 
@@ -23,8 +23,8 @@ export default class TopMenu extends Component {
   static defaultProps = {
     open: false,
     opacity: 1,
-    onMenuChange: function () {
-    }
+    onMenuChange: (e) => false,
+    onCloseMenu: (e) => false
   };
 
   menuClicked(menu) {
@@ -32,30 +32,9 @@ export default class TopMenu extends Component {
     this.props.onMenuChange(menu);
   }
 
-  mouseEnter() {
-    this.setState({hovering: true, opacity: this.props.open ? OPACITY_HOVER : 0});
-  }
-
-  mouseLeave() {
-    this.setState({hovering: false, opacity: this.props.open ? OPACITY_BASE : 0});
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.open && !this.state.open) {
-      //Menu opening
-      this.setState({opacity:OPACITY_BASE});
-    } else if (!nextProps.open && this.state.open) {
-      //Menu closing
-      this.setState({opacity: 0});
-    }
-  }
-
   render() {
     return (
-      <menu className={`TopMenu ${this.props.open}`}
-            onMouseEnter={this.mouseEnter.bind(this)}
-            onMouseOut={this.mouseLeave.bind(this)}
-            style={{opacity: this.state.opacity * this.props.opacity}}>
+      <menu className={`MainMenu ${this.props.open ? 'open' : 'closed'}`} onCloseMenu={this.props.onCloseMenu}>
         <a href="#" className="logo"><Logo/></a>
         <a href="http://theanthropocene.org/anthropocene/">Anthropocene Defined</a>
         <a href="http://theanthropocene.org/the-project/">The Project</a>

@@ -14,7 +14,8 @@ export default class TextRoll extends Component {
     this.state = {
       playing: false,
       text: null,
-      lines: []
+      lines: [],
+      done: false
     };
   }
 
@@ -42,7 +43,8 @@ export default class TextRoll extends Component {
     if (changed) {
       this.setState({lines: this.state.lines});
       setTimeout(this.rollLine.bind(this), this.props.wait);
-    } else {
+    } else if (!this.state.done) {
+      this.setState({done: true});
       this.props.onDone();
     }
   }
@@ -60,7 +62,7 @@ export default class TextRoll extends Component {
       line.playing = true;
     }
 
-    this.setState({lines: this.state.lines});
+    this.setState({lines: this.state.lines, done: true});
     this.props.onDone();
   }
 

@@ -1,4 +1,4 @@
 export default {
-  stiffness: 20,
-  damping: 40
+  stiffness: 30,
+  damping: 30
 };

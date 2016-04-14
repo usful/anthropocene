@@ -1,0 +1,87 @@
+/** @define MainMenu */
+@import "../../styles/variables.scss";
+
+menu.MainMenu {
+  background-image: linear-gradient(to bottom, rgba(0,0,0,0.85), rgba(0,0,0,0.7)), url('/img/tailings.jpg');
+  background-size: cover;
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  padding: 5vh 5vw;
+  text-align: center;
+  transform: translate3d(-100vw, 0, 1px);
+  transition: transform $transitionHeart;
+  z-index: 400;
+
+  &.open {
+    opacity: 1;
+    transform: translate3d(0, 0, 1px);
+  }
+
+  button.close {
+    position: absolute;
+    font-size: 150%;
+    top: 4vh;
+    left: 3vw;
+    color: #fff;
+    cursor: pointer;
+    transform: scale3d(1, 1, 1);
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+    transition: transform $transitionQuick;
+
+    &:hover {
+      transform: scale3d(1.2, 1.2, 1);
+    }
+
+    &:active {
+      transform: scale3d(0.9, 0.9, 1);
+      outline: none;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  a {
+    display: inline-block;
+    vertical-align: top;
+    color: #ddd;
+    fill: #ddd;
+    padding-right: 2em;
+    margin-right: 2em;
+    border-right: 1px solid #fff;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 0.2em;
+    font-size: 75%;
+    line-height: 1em;
+
+    transition: color $transitionQuick, fill $transitionQuick;
+
+    &.logo {
+      border-right: none;
+
+      svg {
+        margin-top: -0.75em;
+        width: 3em;
+      }
+    }
+
+    &:hover {
+      color: #fff;
+      fill: #fff;
+    }
+
+    &:last-child {
+      margin-right: 0;
+      border-right: none;
+    }
+  }
+}

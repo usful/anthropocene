@@ -15,7 +15,8 @@ import TextRoll from '../../components/TextRoll/TextRoll';
 
 import AudioPlayer from '../../components/AudioPlayer/AudioPlayer';
 
-const TOTAL_SCENES = 5;
+const TOTAL_SCENES = 5; // total amount of scenes, for loading purposes.
+const INTRO_TIMING = 5; // seconds
 
 export default class LoadingScene extends SceneComponent {
   constructor(props) {
@@ -24,7 +25,7 @@ export default class LoadingScene extends SceneComponent {
     this.name = 'LoadingScene';
 
     this.state = {
-      ...this.state,
+      ... this.state,
       playing: true,
       visible: true,
       phase2: false,
@@ -43,7 +44,7 @@ export default class LoadingScene extends SceneComponent {
   }
 
   startPhase1() {
-    this.setState({phase1: true});
+    this.setState({phase1: true, introVolume: 100});
 
     setTimeout(this.startPhase2.bind(this), this.props.delay);
   }
@@ -52,8 +53,8 @@ export default class LoadingScene extends SceneComponent {
     this.refs.video.play();
 
     if (!this.state.phase2) {
-      this.setState({phase2: true, introVolume: 100});
-      setTimeout(this.startPhase3.bind(this), this.props.delay*2);
+      this.setState({phase2: true});
+      setTimeout(this.startPhase3.bind(this), this.props.delay);
     }
   }
 
@@ -61,10 +62,18 @@ export default class LoadingScene extends SceneComponent {
     this.setState({phase3: true});
   }
 
+  startPhase4() {
+    this.setState({phase4: true});
+  }
+
+  startPhase5() {
+    this.setState({phase5: true, introVolume: 0});
+  }
+
   introVidProgress(e) {
-    if (e.target.currentTime > 13 && !this.state.phase4) {
+    if (e.target.currentTime > INTRO_TIMING && !this.state.phase4) {
       this.refs.textRoll.play();
-      this.setState({phase4: true, introVolume: 0});
+      this.startPhase4();
     }
   }
 
@@ -87,35 +96,28 @@ export default class LoadingScene extends SceneComponent {
         </div>
 
         <Motion defaultStyle={{volume: 0}} style={{volume: spring(this.state.introVolume, slowSpring)}}>
-          {value => <AudioPlayer ref={(el) => this.introAudio = el} src="audio/intro.mp3" play={this.state.phase2} onCanPlay={this.fireCanPlay.bind(this)} volume={value.volume} muted={this.props.muted} /> }
+          {value => <AudioPlayer ref={(el) => this.introAudio = el} src="audio/intro.mp3" play={this.state.phase1} onCanPlay={this.fireCanPlay.bind(this)} volume={value.volume} muted={this.props.muted} /> }
         </Motion>
 
-        <Motion defaultStyle={{opacity: 1}} style={{opacity: spring(this.state.phase2 ? 0 : 1, slowSpring)}}>
-          {style => <div className="underlay"
-                         style={{opacity: style.opacity, display: this.state.phase3 ? 'none' : 'block'}}></div> }
-        </Motion>
+        <div className="underlay" style={{opacity: this.state.phase2 ? 0 : 1, display: this.state.phase3 ? 'none' : 'block'}}></div>
 
-        <Motion defaultStyle={{opacity: 1}} style={{opacity: spring(!this.state.phase3 ? 1 : 0, slowSpring)}}>
-          {style => <div className="overlay inverted intro-text"
-                         style={{opacity: style.opacity, display: this.state.phase4 ? 'none' : 'block'}}>
-            <LogoContainer inverted={true} color='#fff' top='30vh' bottom='60vh' width="19em">
-              <LogoInverted/>
-            </LogoContainer>
-          </div>}
-        </Motion>
+        <div className="overlay inverted intro-text" style={{opacity: this.state.phase3 ? 0 : 1, display: this.state.phase4 ? 'none' : 'block'}}>
+          <LogoContainer inverted={true} color='#fff' top='30vh' bottom='60vh' width="18em">
+            <LogoInverted/>
+          </LogoContainer>
+        </div>
 
-        <TextRoll ref="textRoll" visible={this.state.visible} onDone={this.props.onDone.bind(this)} >
+        <TextRoll ref="textRoll" visible={this.state.visible} onDone={() => {this.startPhase5(); this.props.onDone.call(this);}} >
           <span>We</span>
           <span>have</span>
           <span>reached</span>
           <br/>
-          <span>a</span>
-          <strong>historic</strong>
-          <span>and</span>
+          <span>an</span>
           <strong>unprecedented</strong>
-          <br/>
           <span>moment</span>
-          <span>in human</span>
+          <br/>
+          <span>in</span>
+          <span>planetary</span>
           <span>history.</span>
         </TextRoll>
 

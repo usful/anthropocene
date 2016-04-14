@@ -18,7 +18,7 @@ export default class SceneComponent extends Component {
     muted: false,
     width: window.outerWidth,
     height: window.outerHeight,
-    delay: 2000,
+    delay: 1250,
     opacity: 1,
     onDone: function() {},
     onCanPlay: function() {}

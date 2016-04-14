@@ -17,22 +17,33 @@ export default class LogoContainer extends Component {
     width: null
   };
 
-  getStyle() {
+  get style() {
     return {
       backgroundColor: this.props.inverted ? this.props.color : 'transparent'
-    }
+    };
   }
 
-  getTopStyle() {
-    return Object.assign(this.getStyle(), {
+  get topStyle() {
+    return {
+      ... this.style,
       height: this.props.top || '10em'
-    });
+    };
   }
 
-  getBottomStyle() {
-    return Object.assign(this.getStyle(), {
+  get bottomStyle() {
+    return {
+      ... this.style,
       height: this.props.bottom || '10em'
-    });
+    };
+  }
+
+  get mainStyle() {
+    return {
+      padding: 0,
+      backgroundColor: this.props.backgroundColor || 'transparent',
+      width: this.props.width || 'auto',
+      fill: this.props.color
+    };
   }
 
   render() {
@@ -40,22 +51,22 @@ export default class LogoContainer extends Component {
       <table className="LogoContainer">
         <tbody>
           <tr>
-            <td style={this.getTopStyle()}></td>
-            <td style={this.getTopStyle()}></td>
-            <td style={this.getTopStyle()}></td>
+            <td style={this.topStyle}></td>
+            <td style={this.topStyle}></td>
+            <td style={this.topStyle}></td>
           </tr>
           <tr>
-            <td style={this.getStyle()}></td>
-            <td style={{backgroundColor: this.props.backgroundColor || 'transparent', width: this.props.width || 'auto', fill: this.props.color}}>{this.props.children}</td>
-            <td style={this.getStyle()}></td>
+            <td style={this.style}></td>
+            <td style={this.mainStyle}>{this.props.children}</td>
+            <td style={this.style}></td>
           </tr>
           <tr>
-            <td style={this.getBottomStyle()}></td>
-            <td style={this.getBottomStyle()}></td>
-            <td style={this.getBottomStyle()}></td>
+            <td style={this.bottomStyle}></td>
+            <td style={this.bottomStyle}></td>
+            <td style={this.bottomStyle}></td>
           </tr>
         </tbody>
       </table>
-    )
+    );
   }
 }

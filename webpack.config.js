@@ -8,7 +8,7 @@ var cssnano           = require('cssnano');
 
 module.exports = {
   entry: {
-    homepage: './src/components/App/App.js'
+    homepage: './src/App/App.js'
   },
   output: {
     path: './dist/',
@@ -24,8 +24,6 @@ module.exports = {
   },
   module: {
     loaders:[
-      { test: /\.(glsl|frag|vert)$/, loader: 'raw', exclude: /node_modules/ },
-      { test: /\.(glsl|frag|vert)$/, loader: 'glslify', exclude: /node_modules/},
       { test: /\.js[x]?$/, exclude: /node_modules/, loader: 'babel-loader', query: {presets: ['react', 'es2015', 'stage-0']} },
       { test: /\.(scss|css)$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader') },
       { test: /\.(png|jpg)$/, loader: 'file-loader?name=images/[name].[ext]' },
@@ -55,7 +53,7 @@ module.exports = {
   plugins: [
     new ExtractTextPlugin('app.css'),
     new webpack.optimize.UglifyJsPlugin({
-      sourceMap: false,
+      sourceMap: true,
       mangle: true
     })
   ],
