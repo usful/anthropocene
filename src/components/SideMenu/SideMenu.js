@@ -4,7 +4,7 @@ import './SideMenu.scss';
 import React, {Component} from 'react';
 import {Motion, spring} from 'react-motion';
 
-const OPACITY_BASE = 0.75;
+const OPACITY_BASE = 1;
 const OPACITY_HOVER = 1;
 
 export default class SideMenu extends Component {
@@ -38,14 +38,6 @@ export default class SideMenu extends Component {
     this.props.onMenuChange(menu);
   }
 
-  mouseEnter() {
-    this.setState({hovering: true, opacity: this.props.open ? OPACITY_HOVER : 0});
-  }
-
-  mouseLeave() {
-    this.setState({hovering: false, opacity: this.props.open ? OPACITY_BASE : 0});
-  }
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.open && !this.state.open) {
       //Menu opening
@@ -59,8 +51,6 @@ export default class SideMenu extends Component {
   render() {
     return (
       <menu className={`SideMenu ${this.props.open}`}
-            onMouseEnter={this.mouseEnter.bind(this)}
-            onMouseOut={this.mouseLeave.bind(this)}
             style={{opacity: this.state.opacity * this.props.opacity}}>
         {this.state.menu.map(menu =>
           <label key={menu.key}

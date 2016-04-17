@@ -1,7 +1,7 @@
 /** @define MainMenu */
 @import "../../styles/variables.scss";
 
-menu.MainMenu {
+.MainMenu {
   background-image: linear-gradient(to bottom, rgba(0,0,0,0.85), rgba(0,0,0,0.7)), url('/img/tailings.jpg');
   background-size: cover;
   box-sizing: border-box;
@@ -49,39 +49,82 @@ menu.MainMenu {
     }
   }
 
-  a {
+  .WordMark {
+    display: block;
+    margin: 5em auto 7em auto;
+    width: 33vw;
+    fill: rgba(255,255,255,0.9);
+    stroke: rgba(255,255,255,0.9);
+  }
+
+  div.left, div.right {
+    box-sizing: border-box;
     display: inline-block;
-    vertical-align: top;
-    color: #ddd;
-    fill: #ddd;
-    padding-right: 2em;
-    margin-right: 2em;
-    border-right: 1px solid #fff;
-    text-transform: uppercase;
-    text-decoration: none;
-    letter-spacing: 0.2em;
-    font-size: 75%;
-    line-height: 1em;
+    vertical-align: middle;
+    width: 50%;
+    padding: 0 10%;
+  }
 
-    transition: color $transitionQuick, fill $transitionQuick;
+  p {
+    color: rgba(255,255,255,0.9);
+  }
 
-    &.logo {
-      border-right: none;
+  h1 {
+    color: rgba(255,255,255,0.9);
+    margin: 0 0 1em 0;
+    font-size: 110%;
+    font-weight: normal;
+  }
 
-      svg {
-        margin-top: -0.75em;
-        width: 3em;
+  .share {
+    margin-top: 2em;
+
+    .IconButton {
+      margin: 0 0.25em;
+    }
+  }
+
+  footer {
+    margin: 8em 0;
+
+    p {
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      font-size: 80%;
+    }
+  }
+
+  menu {
+    box-sizing: border-box;
+    text-align: center;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+
+    hr {
+      height: 1px;
+      border: none;
+      background: rgba(255,255,255,0.33);
+      margin: 1em auto;
+      width: 3em;
+    }
+
+    a {
+      display: block;
+      color: rgba(255,255,255,0.5);
+      padding: 0.5em 0;
+      margin: 0.5em 0;
+      text-transform: uppercase;
+      text-decoration: none;
+      letter-spacing: 0.2em;
+      font-size: 100%;
+      line-height: 1em;
+
+      transition: color $transitionQuick;
+
+      &:hover {
+        color: rgba(255,255,255,1);
       }
-    }
-
-    &:hover {
-      color: #fff;
-      fill: #fff;
-    }
-
-    &:last-child {
-      margin-right: 0;
-      border-right: none;
     }
   }
 }

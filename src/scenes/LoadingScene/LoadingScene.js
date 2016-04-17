@@ -16,7 +16,7 @@ import TextRoll from '../../components/TextRoll/TextRoll';
 import AudioPlayer from '../../components/AudioPlayer/AudioPlayer';
 
 const TOTAL_SCENES = 5; // total amount of scenes, for loading purposes.
-const INTRO_TIMING = 5; // seconds
+const INTRO_TIMING = 2; // seconds
 
 export default class LoadingScene extends SceneComponent {
   constructor(props) {

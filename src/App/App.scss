@@ -51,8 +51,8 @@
   }
 
   > section.main {
-    perspective: 50vw;
-    perspective-origin: 25% -20%;
+    perspective: 70vw;
+    perspective-origin: 50% 50%;
 
     opacity: $opacityHover;
 
@@ -63,14 +63,10 @@
       cursor: pointer;
       color: #fff;
       transform-origin: 0 50%;
-
+      font-size: 150%;
       opacity: $opacityBase;
 
       transition: opacity $transitionQuick, color $transitionQuick, transform $transitionQuick;
-
-      &.dark {
-        color: #333;
-      }
 
       &.controls {
         transform: translate3d(94vw, 7vh, -4vw);
@@ -88,85 +84,20 @@
         &:hover {
           opacity: $opacityHover;
         }
-
-        &.dark {
-          opacity: 0;
-        }
       }
 
-      i {
-        box-sizing: border-box;
-        border-radius: 1em;
-        width: 2em;
-        height: 2em;
-        padding: 0.5em;
-        display: inline-block;
-        vertical-align: middle;
-        font-size: 150%;
-
-        transition: color $transitionQuick, transform $transitionHeart;
-
-        &.fa-volume-up.true {
-          display: none;
-        }
-
-        &.fa-volume-off.false {
-          display: none;
-        }
-
-        &.fa-fast-forward.true {
-          visibility: hidden;
-        }
-
-        &:hover {
-          transform: scale3d(1.33, 1.33, 1);
-        }
-
-        &:active {
-          transform: $scaleHeartBeat;
-        }
+      .IconButton {
+        margin: 0 0.33em;
       }
     }
   }
 
-  button.burger {
+  .IconButton.menu {
     position: absolute;
+    z-index: 32678;
     font-size: 150%;
     top: 5vh;
     left: 4vw;
-    color: #fff;
-    cursor: pointer;
-    transform: scale3d(1, 1, 1);
-    -webkit-font-smoothing: antialiased;
-    font-smoothing: antialiased;
-    transition: all $transitionHeart;
-    z-index: 32678;
-
-    i {
-      opacity: 0;
-      transition: opacity $transitionHeart;
-
-      &.fa-times {
-        margin-left: -1em;
-      }
-
-      &.fa-bars-btm {
-        opacity: 1;
-      }
-    }
-
-    &:hover {
-      transform: scale3d(1.2, 1.2, 1);
-    }
-
-    &:active {
-      transform: scale3d(0.9, 0.9, 1);
-      outline: none;
-    }
-
-    &:focus {
-      outline: none;
-    }
   }
 
   &.share-mode {
@@ -196,16 +127,8 @@
       transform: translate3d(33vw, 0, 0);
     }
 
-    button.burger {
-      left: 96vw;
-
-      i.fa-times {
-        opacity: 1;
-      }
-
-      i.fa-bars-btm {
-        opacity: 0;
-      }
+    .IconButton.menu {
+      left: 94vw;
     }
   }
 }

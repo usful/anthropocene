@@ -15,16 +15,11 @@ $textShadow: -0.1em 0.1em rgba(0,0,0,0.05);
   font-size: 100%;
 
   opacity: 0;
-  transform: translate3d(8vw, 30vh, -4vw) rotateY(15deg);
+  transform: translate3d(8vw, 30vh, -4vw);
   transition: opacity $transition, transform $transition;
 
   &.true {
     opacity: $opacityBase;
-
-    &:hover {
-      opacity: $opacityHover;
-      transform: translate3d(8vw, 15vh, 5vw) rotateY(3deg);
-    }
   }
 
 

@@ -1,0 +1,82 @@
+@import "../../styles/variables.scss";
+
+/** @define IconButton */
+.IconButton {
+  display: inline-block;
+  width: 2em;
+  height: 2em;
+  padding: 0.5em;
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+  cursor: pointer;
+
+  transform: scale3d(1, 1, 1);
+  transition: all $transitionQuick;
+
+  .wrapper {
+    position: relative;
+    width: 2em;
+    height: 2em;
+  }
+
+  svg {
+    position: absolute;
+    top: -0.55em;
+    left: -0.55em;
+
+    circle, rect {
+      fill: rgba(255,255,255,0);
+      stroke: rgba(255,255,255,0.5);
+      stroke-width: 1px;
+      stroke-dasharray: 360;
+      stroke-dashoffset: 360;
+
+      transition: all 650ms ease-in-out;
+    }
+
+    circle {
+      display: none;
+    }
+  }
+
+  i.fa {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    opacity: 1;
+    transition: opacity $transitionHeart;
+
+    &.active-icon {
+      opacity: 0;
+    }
+  }
+
+  &:hover {
+    svg {
+      circle, rect {
+        stroke: rgba(255,255,255,1);
+        stroke-dashoffset: 0;
+      }
+    }
+  }
+
+  &:active {
+    transform: scale3d(0.85, 0.85, 1);
+    outline: none;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &.true {
+    i {
+      opacity: 0;
+
+      &.active-icon {
+        opacity: 1;
+      }
+    }
+  }
+}

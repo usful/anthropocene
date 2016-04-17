@@ -8,6 +8,7 @@ import ReactDOM from 'react-dom';
 import AudioPlayer from '../components/AudioPlayer/AudioPlayer';
 import SideMenu from '../components/SideMenu/SideMenu';
 import MainMenu from '../components/MainMenu/MainMenu';
+import IconButton from '../components/IconButton/IconButton';
 
 import LoadingScene from '../scenes/LoadingScene/LoadingScene';
 import SecondScene from '../scenes/SecondScene/SecondScene';
@@ -112,10 +113,11 @@ class App extends Component {
   }
 
   mouseMove(e) {
-    let x = Math.floor(e.clientX / this.state.width * 100);
-    let y = Math.floor(e.clientY / this.state.height * 100);
+    let x = Math.floor(e.clientX / this.state.width * 100) * 0.8;
+    let y = Math.floor(e.clientY / this.state.height * 100) * 0.8;
 
-    this.setState({perspectiveOrigin: `${x/2}% ${0-(y/2)}%`});
+    //this.setState({perspectiveOrigin: `${x/2}% ${0-(y/2)}%`});
+    this.setState({perspectiveOrigin: `${x}% ${y}%`});
   }
 
   menuChanged(menu) {
@@ -186,25 +188,22 @@ class App extends Component {
 
           <SideMenu open={this.state.loaded} onMenuChange={this.menuChanged.bind(this)} opacity={this.state.siteOpacity}/>
 
-          <menu className={`controls ${this.state.loaded ? 'light' : 'dark'}`}>
-            <i className={`fa fa-fast-forward ${this.state.loaded}`} title="Skip Intro" onClick={this.skipIntro.bind(this)}/>
-            <i className={`fa fa-volume-up ${this.state.muted}`} title="Sound off" onClick={this.toggleMute.bind(this)} />
-            <i className={`fa fa-volume-off ${this.state.muted}`} title="Sound on" onClick={this.toggleMute.bind(this)} />
+          <menu className={`controls`}>
+            <IconButton icon="fast-forward" title="Skip Intro" onClick={this.skipIntro.bind(this)}/>
+            <IconButton icon="volume-up"
+                        iconActive="volume-off"
+                        title={this.state.muted ? "Sound On" : "Sound Off"}
+                        active={this.state.muted} onClick={this.toggleMute.bind(this)}/>
           </menu>
 
-          <menu className={`social ${this.state.loaded ? 'light' : 'dark'}`}>
-            <i className="fa fa-facebook-official" title="Facebook" onClick={this.beSocial.bind(this)} />
-            <i className="fa fa-twitter" title="Twitter" onClick={this.beSocial.bind(this)} />
+          <menu className={`social`}>
           </menu>
 
         </section>
 
         <MainMenu open={this.state.menuOpen} onCloseMenu={() => this.setState({menuOpen:false})} onMenuChange={this.menuChanged.bind(this)}/>
 
-        <button className="burger" onClick={() => this.setState({menuOpen: !this.state.menuOpen})}>
-          <i className="fa fa-bars-btm" />
-          <i className="fa fa-times" />
-        </button>
+        <IconButton className="menu" icon="bars-btm" iconActive="times" active={this.state.menuOpen} onClick={() => this.setState({menuOpen: !this.state.menuOpen})}/>
 
         <AudioPlayer src="audio/background.mp3" play={this.state.loaded} loop={true} volume={this.state.shareMode ? 0 : 50} muted={this.state.muted}/>
         <AudioPlayer src="audio/heartbeat.mp3" play={this.state.loaded} loop={true} onEnd={this.theHeartBeats.bind(this)} delay={this.state.beat} volume={25} muted={this.state.muted}/>
