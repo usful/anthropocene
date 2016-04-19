@@ -28,22 +28,36 @@ export default class FourthScene extends SceneComponent {
           </video>
         </div>
 
-        <TextRoll ref="textRoll" visible={this.state.visible} onDone={this.props.onDone.bind(this)} >
-          <br/>
+        <TextRoll ref="textRoll" style={{textShadow: this.textShadow, fontSize: '75%'}} visible={this.state.visible} onDone={this.props.onDone.bind(this)} >
+          <span>The</span>
           <strong>Anthropocene</strong>
-          <span>reflects</span>
-          <span>the</span>
-          <br/>
-          <strong>mass</strong>
+          <strong>Working</strong>
+          <strong>Group,</strong>
+          <span>a</span>
+          <span>group</span>
+          <span>of</span>
+          <span>scientists</span>
           <span>and</span>
-          <span>irreversible</span>
-          <span>impact</span>
-          <br/>
-          <span>humans have</span>
-          <span>wrought</span>
-          <span>on the</span>
-          <br/>
-          <span>planet.</span>
+          <span>geologists,</span>
+          <span>has</span>
+          <span>proposed</span>
+          <span>the</span>
+          <span>title</span>
+          <span>Anthropocene</span>
+          <span>as</span>
+          <span>the</span>
+          <span>name</span>
+          <span>of</span>
+          <span>our</span>
+          <span>current</span>
+          <span>geological</span>
+          <span>epoch,</span>
+          <span>in</span>
+          <span>recognition</span>
+          <span>of</span>
+          <span>profound</span>
+          <strong>human</strong>
+          <span>impact.</span>
         </TextRoll>
       </div>
     )

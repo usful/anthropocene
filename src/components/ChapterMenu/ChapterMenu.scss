@@ -1,0 +1,70 @@
+/** @define ChapterMenu */
+@import "../../styles/variables.scss";
+
+$softWhite: rgba(255,255,255,0.66);
+$offWhite: rgba(255,255,255,0.9);
+$boxShadow: -0.25em 0.5em 1em 0.5em rgba(0,0,0,0.05);
+
+.ChapterMenu {
+  font-family: 'proxima-nova', sans-serif;
+  font-weight: 300;
+  position: absolute;
+  bottom: 5vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+
+  opacity: 0;
+  transform: translate3d(0, 0, -4vw);
+  transition: opacity $transition, transform $transition;
+
+  &.true {
+    opacity: 1;
+  }
+
+  menu {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+
+    label {
+      padding: 1em 2em;
+      position: relative;
+      display: inline-block;
+      vertical-align: bottom;
+      color: $softWhite;
+      transition: color $transitionHeart;
+      border-bottom: 1px dotted $softWhite;
+      text-align: center;
+
+      .box {
+        display: inline-block;
+        vertical-align: middle;
+        border: 1px solid $softWhite;
+        background-color: transparent;
+        height: 1em;
+        width: 1em;
+        margin-right: 1em;
+        bottom: 0;
+        transition: background-color $transitionHeart;
+      }
+
+      span {
+        display: inline-block;
+        vertical-align: middle;
+        text-transform: uppercase;
+      }
+
+      &.selected {
+        color: $offWhite;
+        border-bottom: 1px solid $offWhite;
+
+        .box {
+          border: 1px solid $offWhite;
+          background-color: $offWhite;
+        }
+      }
+    }
+  }
+}

@@ -6,7 +6,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 
 import AudioPlayer from '../components/AudioPlayer/AudioPlayer';
-import SideMenu from '../components/SideMenu/SideMenu';
+import ChapterMenu from '../components/ChapterMenu/ChapterMenu';
 import MainMenu from '../components/MainMenu/MainMenu';
 import IconButton from '../components/IconButton/IconButton';
 
@@ -43,6 +43,8 @@ class App extends Component {
     this.state = {
       ... this.savedState,
       loadingState: 0,
+      perspectiveX: 50,
+      perspectiveY: 50,
       width: window.outerWidth,
       height: window.outerHeight
     };
@@ -116,8 +118,7 @@ class App extends Component {
     let x = Math.floor(e.clientX / this.state.width * 100) * 0.8;
     let y = Math.floor(e.clientY / this.state.height * 100) * 0.8;
 
-    //this.setState({perspectiveOrigin: `${x/2}% ${0-(y/2)}%`});
-    this.setState({perspectiveOrigin: `${x}% ${y}%`});
+    this.setState({perspectiveX: x, perspectiveY: y});
   }
 
   menuChanged(menu) {
@@ -157,6 +158,10 @@ class App extends Component {
     this.refs[SCENES[this.state.lastMenu]].play();
   }
 
+  get perspectiveOrigin() {
+    return `${this.state.perspectiveX}% ${this.state.perspectiveY}%`;
+  }
+
   render() {
     return (
       <div className={`App ${this.state.shareMode ? 'share-mode' : 'story-mode'} ${this.state.menuOpen ? 'menu-open' : 'menu-closed'}`} >
@@ -169,24 +174,53 @@ class App extends Component {
           </div>
         </section>
 
-        <section className="main" style={{perspectiveOrigin: this.state.perspectiveOrigin}} onMouseMove={this.mouseMove.bind(this)}>
+        <section className="main" style={{perspectiveOrigin: this.perspectiveOrigin}} onMouseMove={this.mouseMove.bind(this)}>
           <LoadingScene ref="loadingScene"
+                        perspectiveX={this.state.perspectiveX}
+                        perspectiveY={this.state.perspectiveY}
                         onCanPlay={this.increaseLoadingState.bind(this)}
                         onDone={this.loadingSceneDone.bind(this)}
                         muted={this.state.muted}
                         width={this.state.width}
                         height={this.state.height}
                         opacity={this.state.siteOpacity}
-                        loadingState={this.state.loadingState}
-          />
+                        loadingState={this.state.loadingState}/>
 
-          <SecondScene ref="secondScene"  width={this.state.width} height={this.state.height} opacity={this.state.siteOpacity} onCanPlay={this.increaseLoadingState.bind(this)}/>
-          <ThirdScene ref="thirdScene" width={this.state.width} height={this.state.height} opacity={this.state.siteOpacity} onCanPlay={this.increaseLoadingState.bind(this)}/>
-          <FourthScene ref="fourthScene" width={this.state.width} height={this.state.height} opacity={this.state.siteOpacity} onCanPlay={this.increaseLoadingState.bind(this)}/>
-          <FifthScene ref="fifthScene" width={this.state.width} height={this.state.height} opacity={this.state.siteOpacity} onCanPlay={this.increaseLoadingState.bind(this)}/>
+          <SecondScene ref="secondScene"
+                       perspectiveX={this.state.perspectiveX}
+                       perspectiveY={this.state.perspectiveY}
+                       width={this.state.width}
+                       height={this.state.height}
+                       opacity={this.state.siteOpacity}
+                       onCanPlay={this.increaseLoadingState.bind(this)}/>
+
+          <ThirdScene ref="thirdScene"
+                      perspectiveX={this.state.perspectiveX}
+                      perspectiveY={this.state.perspectiveY}
+                      width={this.state.width}
+                      height={this.state.height}
+                      opacity={this.state.siteOpacity}
+                      onCanPlay={this.increaseLoadingState.bind(this)}/>
+
+          <FourthScene ref="fourthScene"
+                       perspectiveX={this.state.perspectiveX}
+                       perspectiveY={this.state.perspectiveY}
+                       width={this.state.width}
+                       height={this.state.height}
+                       opacity={this.state.siteOpacity}
+                       onCanPlay={this.increaseLoadingState.bind(this)}/>
+
+          <FifthScene ref="fifthScene"
+                      perspectiveX={this.state.perspectiveX}
+                      perspectiveY={this.state.perspectiveY}
+                      width={this.state.width}
+                      height={this.state.height}
+                      opacity={this.state.siteOpacity}
+                      onCanPlay={this.increaseLoadingState.bind(this)}/>
+
           <SixthScene ref="sixthScene" width={this.state.width} height={this.state.height} opacity={this.state.siteOpacity} onCanPlay={this.increaseLoadingState.bind(this)}/>
 
-          <SideMenu open={this.state.loaded} onMenuChange={this.menuChanged.bind(this)} opacity={this.state.siteOpacity}/>
+          <ChapterMenu open={this.state.loaded} onMenuChange={this.menuChanged.bind(this)} opacity={this.state.siteOpacity}/>
 
           <menu className={`controls`}>
             <IconButton icon="fast-forward" title="Skip Intro" onClick={this.skipIntro.bind(this)}/>
@@ -196,14 +230,11 @@ class App extends Component {
                         active={this.state.muted} onClick={this.toggleMute.bind(this)}/>
           </menu>
 
-          <menu className={`social`}>
-          </menu>
-
+          <IconButton className="menu" icon="bars-btm" iconActive="times" active={this.state.menuOpen} onClick={() => this.setState({menuOpen: !this.state.menuOpen})}/>
         </section>
 
         <MainMenu open={this.state.menuOpen} onCloseMenu={() => this.setState({menuOpen:false})} onMenuChange={this.menuChanged.bind(this)}/>
 
-        <IconButton className="menu" icon="bars-btm" iconActive="times" active={this.state.menuOpen} onClick={() => this.setState({menuOpen: !this.state.menuOpen})}/>
 
         <AudioPlayer src="audio/background.mp3" play={this.state.loaded} loop={true} volume={this.state.shareMode ? 0 : 50} muted={this.state.muted}/>
         <AudioPlayer src="audio/heartbeat.mp3" play={this.state.loaded} loop={true} onEnd={this.theHeartBeats.bind(this)} delay={this.state.beat} volume={25} muted={this.state.muted}/>
@@ -212,5 +243,9 @@ class App extends Component {
     )
   }
 }
+
+setTimeout(function() {
+  ReactDOM.render(<App/>, document.getElementById('viewport'));
+},1000);
 
 export default App;

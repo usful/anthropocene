@@ -12,11 +12,7 @@ module.exports = {
   },
   output: {
     path: './dist/',
-    filename: 'app.js',
-
-    // just for testing in the example page
-    library: 'App',
-    libraryTarget: 'umd'
+    filename: 'app.js'
   },
   resolve: {
     modulesDirectories: ['node_modules', './src'],
@@ -30,15 +26,7 @@ module.exports = {
       { test: /\.woff$/, loader: 'file-loader?name=fonts/[name].[ext]' }
     ]
   },
-  // just for testing in the example page
-  externals: {
-    'react': {
-      commonjs: 'react',
-      commonjs2: 'react',
-      amd: 'react',
-      root: 'React'
-    }
-  },
+
   postcss: function(webpack) {
     return [
       precss(),

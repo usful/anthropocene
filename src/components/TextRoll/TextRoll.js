@@ -20,10 +20,10 @@ export default class TextRoll extends Component {
   }
 
   static defaultProps = {
-    text: 'Hello World',
     play: false,
+    align: 'left',
     className: '',
-    wait: 250,
+    wait: 150,
     style: {},
     visible: true,
     onDone: function() {}
@@ -91,18 +91,18 @@ export default class TextRoll extends Component {
   }
 
   get className() {
-    return `TextRoll ${this.props.className}`;
+    return `TextRoll ${this.props.className} ${this.props.align}`;
   }
 
   render() {
     return (
-      <div className={this.className} style={this.style}>
-        {this.state.lines.map(line =>
-          <Motion key={line.id} defaultStyle={ {opacity:0} } style={ {opacity:spring(line.playing ? 1 : 0, fastSpring)} }>
-            {style => React.cloneElement(line.el, {...line.el.props, style: style})}
-          </Motion>
-        )}
-      </div>
-    )
+      <table className={this.className} style={this.style}>
+        <tbody>
+          <tr>
+            <td>{this.state.lines.map(line => React.cloneElement(line.el, {key: line.id, style: {opacity: line.playing ? 1 : 0}}))}</td>
+          </tr>
+        </tbody>
+      </table>
+    );
   }
 }

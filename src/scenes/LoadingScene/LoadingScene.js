@@ -107,15 +107,13 @@ export default class LoadingScene extends SceneComponent {
           </LogoContainer>
         </div>
 
-        <TextRoll ref="textRoll" visible={this.state.visible} onDone={() => {this.startPhase5(); this.props.onDone.call(this);}} >
+        <TextRoll ref="textRoll" style={{textShadow: this.textShadow, fontSize: '125%'}} align={"right"} visible={this.state.visible} onDone={() => {this.startPhase5(); this.props.onDone.call(this);}} >
           <span>We</span>
           <span>have</span>
           <span>reached</span>
-          <br/>
           <span>an</span>
           <strong>unprecedented</strong>
           <span>moment</span>
-          <br/>
           <span>in</span>
           <span>planetary</span>
           <span>history.</span>

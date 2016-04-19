@@ -18,6 +18,8 @@ export default class SceneComponent extends Component {
     muted: false,
     width: window.outerWidth,
     height: window.outerHeight,
+    perspectiveX: 50,
+    perspectiveY: 50,
     delay: 1250,
     opacity: 1,
     onDone: function() {},
@@ -66,8 +68,14 @@ export default class SceneComponent extends Component {
     return null;
   }
 
+  get textShadow() {
+    let offset = (val) => (val/100-0.15);
+
+    return `${offset(this.props.perspectiveX)}em ${offset(this.props.perspectiveY)}em 2em rgba(0,0,0,1)`;
+  }
+
   get style() {
-    return {width: this.props.width + 'px', height: this.props.height + 'px'};
+    return {width: `${this.props.width}px`, height: `${this.props.height}px`};
   }
 
   get classes() {

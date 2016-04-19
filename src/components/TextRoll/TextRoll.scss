@@ -4,28 +4,51 @@
 
 .TextRoll {
   position: absolute;
-  opacity: 1;
+  top: -5vh;
+  width: 33vw;
+  height: 100vh;
 
+  opacity: 1;
   transition: opacity $transition;
 
+  tbody, tr, td {
+    height: 100vh;
+    width: 100%;
+    vertical-align: middle;
+  }
+
   strong, span, h1, h2, h3, h4, h5, h6 {
-    font-size: 350%;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 300%;
     font-weight: 400;
-    color: #fff;
-    line-height: 1.5em;
-    padding-right: 0.2em;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.4em;
+    padding-right: 0.25em;
+    opacity: 0;
+    transition: opacity $transition;
   }
 
   strong {
-    font-size: 400%;
+    font-size: 300%;
     font-style: italic;
   }
 
   h1 {
-    font-size: 400%;
+    font-size: 300%;
   }
 
   h2 {
-    font-size: 300%;
+    font-size: 250%;
+  }
+
+  &.left {
+    left: 10vw;
+    text-align: left;
+  }
+
+  &.right {
+    right: 10vw;
+    text-align: right;
   }
 }

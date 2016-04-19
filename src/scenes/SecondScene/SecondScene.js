@@ -28,19 +28,26 @@ export default class SecondScene extends SceneComponent {
           </video>
         </div>
 
-        <TextRoll ref="textRoll" visible={this.state.visible} onDone={this.props.onDone.bind(this)} >
-          <span>As a</span>
-          <strong>civilization,</strong>
-          <span>humanity</span>
-          <br/>
-          <span>has</span>
-          <span>spent its</span>
-          <strong>entire history</strong>
-          <span>carving</span>
-          <br/>
-          <span>an existence</span>
-          <span>out of</span>
-          <span>the planet.</span>
+        <TextRoll ref="textRoll" style={{textShadow: this.textShadow, fontSize: '90%'}}  align={"right"} visible={this.state.visible} onDone={this.props.onDone.bind(this)} >
+          <span>As</span>
+          <span>a</span>
+          <span>species,</span>
+          <span>humans</span>
+          <span>now</span>
+          <span>arguably</span>
+          <span>change</span>
+          <span>the</span>
+          <span>earth</span>
+          <span>and</span>
+          <span>its</span>
+          <span>processes</span>
+          <span>more</span>
+          <span>than</span>
+          <span>all</span>
+          <span>other</span>
+          <span>natural</span>
+          <span>forces</span>
+          <span>combined.</span>
         </TextRoll>
       </div>
     )
