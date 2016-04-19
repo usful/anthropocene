@@ -69,7 +69,7 @@
       transition: opacity $transitionQuick, color $transitionQuick, transform $transitionQuick;
 
       &.controls {
-        transform: translate3d(94vw, 7vh, -4vw);
+        transform: translate3d(90vw, 7vh, -5vw);
 
         &:hover {
           opacity: $opacityHover;
@@ -78,7 +78,7 @@
 
       &.social {
         width: 100%;
-        transform: translate3d(0, 95vh, -4vw);
+        transform: translate3d(0, 95vh, -5vw);
         text-align: center;
 
         &:hover {
@@ -94,10 +94,10 @@
 
   .IconButton.menu {
     position: absolute;
-    z-index: 32678;
     font-size: 150%;
-    top: 5vh;
-    left: 4vw;
+    top: 0;
+    left: 0;
+    transform: translate3d(5vw, 5vh, -3vw);
   }
 
   &.share-mode {
@@ -109,7 +109,7 @@
 
     section.main {
       menu.social {
-        transform: translate3d(0, 75vh, -4vw) scale3d(1, 1, 1);
+        transform: translate3d(0, 75vh, -5vw) scale3d(1, 1, 1);
       }
 
       .Scene {
@@ -125,10 +125,6 @@
   &.menu-open {
     section.main .Scene {
       transform: translate3d(33vw, 0, 0);
-    }
-
-    .IconButton.menu {
-      left: 94vw;
     }
   }
 }

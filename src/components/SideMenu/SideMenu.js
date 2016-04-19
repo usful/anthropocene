@@ -18,10 +18,9 @@ export default class SideMenu extends Component {
       menu: [
         {key: 0, name: 'Introduction'},
         {key: 1, name: 'Our Existence'},
-        {key: 2, name: 'The Cost'},
-        {key: 3, name: 'The Anthropocene'},
-        {key: 4, name: 'Something'},
-        {key: 5, name: 'This Project'}
+        {key: 2, name: 'The Human Signature'},
+        {key: 3, name: 'Anthropocene'},
+        {key: 4, name: 'The Project'}
       ]
     }
   }

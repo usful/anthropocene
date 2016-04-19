@@ -52,10 +52,12 @@ module.exports = {
   },
   plugins: [
     new ExtractTextPlugin('app.css'),
+    /**
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
       mangle: true
     })
+     */
   ],
   watch: true
 };

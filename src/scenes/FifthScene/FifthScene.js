@@ -29,18 +29,20 @@ export default class FifthScene extends SceneComponent {
         </div>
 
         <TextRoll ref="textRoll" visible={this.state.visible} onDone={this.props.onDone.bind(this)}>
-          <span>More</span>
-          <span>text</span>
-          <span>that</span>
-          <span>is</span>
-          <br/>
-          <strong>super</strong>
-          <span>impactful</span>
+          <span>This</span>
+          <span>Project</span>
+          <span>aims</span>
+          <span>to</span>
+          <span>collect,</span>
+          <span>display</span>
           <span>and</span>
-          <span>very</span>
-          <br/>
-          <span>short</span>
-          <span>and sweet.</span>
+          <span>debate</span>
+          <span>the</span>
+          <span>evidence</span>
+          <span>of</span>
+          <span>human</span>
+          <strong>planetary</strong>
+          <span>domination.</span>
         </TextRoll>
       </div>
     )

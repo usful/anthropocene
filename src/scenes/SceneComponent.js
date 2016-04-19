@@ -20,6 +20,8 @@ export default class SceneComponent extends Component {
     height: window.outerHeight,
     delay: 1250,
     opacity: 1,
+    perspectiveX: 50,
+    perspectiveY: 50,
     onDone: function() {},
     onCanPlay: function() {}
   };
@@ -64,6 +66,14 @@ export default class SceneComponent extends Component {
 
   render() {
     return null;
+  }
+
+  get textShadow() {
+    let compute = (val) => (val/100 * 0.5 - 0.25);
+
+    let shadow = `${compute(this.props.perspectiveX)}em ${compute(this.props.perspectiveY)}em 0.75em rgba(0,0,0,0.66)`;
+    console.log(shadow);
+    return shadow;
   }
 
   get style() {

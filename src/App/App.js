@@ -44,7 +44,9 @@ class App extends Component {
       ... this.savedState,
       loadingState: 0,
       width: window.outerWidth,
-      height: window.outerHeight
+      height: window.outerHeight,
+      perspectiveX: 50,
+      perspectiveY: 50
     };
 
     window.addEventListener('resize', this.windowResized.bind(this));
@@ -116,8 +118,11 @@ class App extends Component {
     let x = Math.floor(e.clientX / this.state.width * 100) * 0.8;
     let y = Math.floor(e.clientY / this.state.height * 100) * 0.8;
 
-    //this.setState({perspectiveOrigin: `${x/2}% ${0-(y/2)}%`});
-    this.setState({perspectiveOrigin: `${x}% ${y}%`});
+    this.setState({perspectiveX: x, perspectiveY: y});
+  }
+
+  get perspectiveOrigin() {
+    return `${this.state.perspectiveX}% ${this.state.perspectiveY}%`;
   }
 
   menuChanged(menu) {
@@ -169,8 +174,10 @@ class App extends Component {
           </div>
         </section>
 
-        <section className="main" style={{perspectiveOrigin: this.state.perspectiveOrigin}} onMouseMove={this.mouseMove.bind(this)}>
+        <section className="main" style={{perspectiveOrigin: this.perspectiveOrigin}} onMouseMove={this.mouseMove.bind(this)}>
           <LoadingScene ref="loadingScene"
+                        perspectiveX={this.state.perspectiveX}
+                        perspectiveY={this.state.perspectiveY}
                         onCanPlay={this.increaseLoadingState.bind(this)}
                         onDone={this.loadingSceneDone.bind(this)}
                         muted={this.state.muted}
@@ -199,11 +206,12 @@ class App extends Component {
           <menu className={`social`}>
           </menu>
 
+          <IconButton className="menu" icon="bars-btm" iconActive="times" active={this.state.menuOpen} onClick={() => this.setState({menuOpen: !this.state.menuOpen})}/>
+
         </section>
 
-        <MainMenu open={this.state.menuOpen} onCloseMenu={() => this.setState({menuOpen:false})} onMenuChange={this.menuChanged.bind(this)}/>
 
-        <IconButton className="menu" icon="bars-btm" iconActive="times" active={this.state.menuOpen} onClick={() => this.setState({menuOpen: !this.state.menuOpen})}/>
+        <MainMenu open={this.state.menuOpen} onCloseMenu={() => this.setState({menuOpen:false})} onMenuChange={this.menuChanged.bind(this)}/>
 
         <AudioPlayer src="audio/background.mp3" play={this.state.loaded} loop={true} volume={this.state.shareMode ? 0 : 50} muted={this.state.muted}/>
         <AudioPlayer src="audio/heartbeat.mp3" play={this.state.loaded} loop={true} onEnd={this.theHeartBeats.bind(this)} delay={this.state.beat} volume={25} muted={this.state.muted}/>

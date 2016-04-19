@@ -28,20 +28,29 @@ export default class ThirdScene extends SceneComponent {
           </video>
         </div>
 
-        <TextRoll ref="textRoll" visible={this.state.visible} onDone={this.props.onDone.bind(this)} >
-          <span>Climate change,</span>
-          <strong>extinctions,</strong>
-          <br/>
-          <span>food shortages,</span>
+        <TextRoll ref="textRoll" style={{fontSize: '75%'}} visible={this.state.visible} onDone={this.props.onDone.bind(this)} >
+          <span>Climate</span>
+          <span>change,</span>
+          <span>extinctions,</span>
+          <span>invasive</span>
+          <span>species</span>
+          <span>technofossils</span>
+          <span>anthroturbation</span>
+          <span>terraforming</span>
+          <span>of</span>
+          <span>land</span>
           <span>and</span>
-          <strong>diseases</strong>
-          <br/>
-          <span>have all</span>
-          <span>been linked</span>
-          <span>to</span>
-          <br/>
-          <strong>human</strong>
-          <span>activity.</span>
+          <span>redirection</span>
+          <span>of</span>
+          <span>water</span>
+          <span>are</span>
+          <span>all</span>
+          <span>part</span>
+          <span>of</span>
+          <span>the</span>
+          <span>indelible</span>
+          <span>human</span>
+          <span>signature.</span>
         </TextRoll>
       </div>
     )

@@ -15,7 +15,7 @@ $textShadow: -0.1em 0.1em rgba(0,0,0,0.05);
   font-size: 100%;
 
   opacity: 0;
-  transform: translate3d(8vw, 30vh, -4vw);
+  transform: translate3d(5vw, 30vh, -6vw);
   transition: opacity $transition, transform $transition;
 
   &.true {

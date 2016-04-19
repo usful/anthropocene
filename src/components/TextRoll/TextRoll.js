@@ -2,9 +2,6 @@ import 'styles/base.scss';
 import './TextRoll.scss';
 
 import React, {Component} from 'react';
-import {Motion, spring} from 'react-motion';
-
-import fastSpring from '../../utils/springs/fast';
 
 export default class TextRoll extends Component {
   constructor(props) {
@@ -23,7 +20,7 @@ export default class TextRoll extends Component {
     text: 'Hello World',
     play: false,
     className: '',
-    wait: 250,
+    wait: 150,
     style: {},
     visible: true,
     onDone: function() {}
@@ -96,13 +93,11 @@ export default class TextRoll extends Component {
 
   render() {
     return (
-      <div className={this.className} style={this.style}>
-        {this.state.lines.map(line =>
-          <Motion key={line.id} defaultStyle={ {opacity:0} } style={ {opacity:spring(line.playing ? 1 : 0, fastSpring)} }>
-            {style => React.cloneElement(line.el, {...line.el.props, style: style})}
-          </Motion>
-        )}
-      </div>
+      <table className={this.className} style={this.style}>
+        <tbody><tr><td>
+          {this.state.lines.map(line =>React.cloneElement(line.el, {key: line.id, style: {opacity: line.playing ? 1 : 0}}))}
+        </td></tr></tbody>
+      </table>
     )
   }
 }
