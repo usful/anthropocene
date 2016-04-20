@@ -14,7 +14,7 @@ import InfoSection from '../../components/InfoSection/InfoSection';
 import AudioPlayer from '../../components/AudioPlayer/AudioPlayer';
 
 const TOTAL_SCENES = 5; // total amount of scenes, for loading purposes.
-const INTRO_TIMING = 4; // seconds
+const INTRO_TIMING = 3; // seconds
 
 export default class LoadingScene extends SceneComponent {
   constructor(props) {
@@ -66,6 +66,7 @@ export default class LoadingScene extends SceneComponent {
 
   startPhase5() {
     this.setState({phase5: true, introVolume: 0});
+    setTimeout(() => this.showInfo(), this.props.delay);
   }
 
   introVidProgress(e) {
@@ -93,7 +94,7 @@ export default class LoadingScene extends SceneComponent {
           </video>
         </div>
 
-        <AudioPlayer ref="introAudio" src="audio/intro.mp3" play={this.state.phase2} fadeDuration={5000} onCanPlay={this.fireCanPlay.bind(this)} volume={this.state.introVolume} muted={this.props.muted} /> }
+        <AudioPlayer ref="introAudio" src="audio/intro.mp3" play={this.state.phase2} fadeDuration={5000} onCanPlay={this.fireCanPlay.bind(this)} volume={this.state.introVolume} muted={this.props.muted} />
 
         <div className="underlay" style={{opacity: this.state.phase2 ? 0 : 1, display: this.state.phase3 ? 'none' : 'block'}}></div>
 
@@ -117,8 +118,14 @@ export default class LoadingScene extends SceneComponent {
           <NextButton onClick={this.props.onNext} />
         </TextRoll>
 
-        <InfoSection>
-          <p>Info</p>
+        <InfoSection visible={this.state.showInfo}>
+          <h1>The Disappearing Lake</h1>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nec velit placerat
+            risus malesuada euismod vitae at felis. Vestibulum ut scelerisque elit. Maecenas non
+            laoreet leo.  Maecenas elementum tortor odio, a elementum sem hendrerit sit amet.
+          </p>
+          <footer>Source: <a href="#">http://www.theanthropocence.org</a></footer>
         </InfoSection>
 
         <div className="loading">

@@ -7,6 +7,7 @@ export default class SceneComponent extends Component {
     this.state = {
       shown: false,
       visible: false,
+      showInfo: false,
       playing: false,
       phase1: false,
       skipped: false,
@@ -62,6 +63,10 @@ export default class SceneComponent extends Component {
     this.stop();
     this.setState({shown: false});
     setTimeout(() => this.setState({visible:false}), 1000);
+  }
+
+  showInfo() {
+    this.setState({showInfo: true});
   }
 
   skip() {

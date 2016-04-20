@@ -4,4 +4,68 @@
 .InfoSection {
   font-family: 'proxima-nova', sans-serif;
   font-weight: 300;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1em;
+  height: 6em;
+  visibility: hidden;
+  opacity: 0;
+
+  transform: translate3d(60vw, 40vh, -1vw);
+  transition: opacity $transitionHeart;
+
+  .IconButton {
+    color: $offWhite;
+    font-size: 200%;
+  }
+
+  .content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 30vw;
+    font-size: 125%;
+    font-family: 'proxima-nova', sans-serif;
+    padding: 2.5em;
+    background-color: $offWhite;
+    color: #444;
+    transition: opacity $transitionHeart, transform $transitionHeart;
+    opacity: 0;
+    transform: translate3d(30vw, 0, 0);
+
+    h1 {
+      font-weight: 300;
+      margin: 0 0 0.75em 0;
+    }
+
+    p {
+      margin: 0 0 1.25em 0;
+      text-align: justify;
+    }
+
+    footer {
+      margin: 0.5em 0;
+      font-size: 90%;
+      color: #999;
+
+      a {
+        color: #999;
+      }
+    }
+
+    &.shown {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  &.visible {
+    visibility: visible;
+  }
+
+  &.shown {
+    opacity: 1;
+  }
 }
