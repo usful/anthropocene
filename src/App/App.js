@@ -34,7 +34,8 @@ const DEFAULT_STATE = {
   beat: HEART_BEAT_START,
   lastChapter: 0,
   firstTime: true,
-  menuOpen: false
+  menuOpen: false,
+  rightPanelOpen: false
 };
 
 class App extends Component {
@@ -174,13 +175,21 @@ class App extends Component {
     this.refs[SCENES[this.state.lastChapter]].play();
   }
 
+  toggleRightPanel() {
+    this.setState({rightPanelOpen: !this.state.rightPanelOpen});
+  }
+
   get perspectiveOrigin() {
     return `${this.state.perspectiveX}% ${this.state.perspectiveY}%`;
   }
 
+  get className() {
+    return `App ${this.state.shareMode ? 'share-mode' : 'story-mode'} ${this.state.menuOpen ? 'menu-open' : 'menu-closed'} ${this.state.rightPanelOpen ? 'right-panel' : ''}`;
+  }
+
   render() {
     return (
-      <div className={`App ${this.state.shareMode ? 'share-mode' : 'story-mode'} ${this.state.menuOpen ? 'menu-open' : 'menu-closed'}`} >
+      <div className={this.className} >
         <section className="support">
           <div className="wrapper">
             <h2>Raise awareness for the Anthropocene.</h2>
@@ -196,6 +205,7 @@ class App extends Component {
                         perspectiveY={this.state.perspectiveY}
                         onNext={() => this.menuChanged({key:1})}
                         onCanPlay={this.increaseLoadingState.bind(this)}
+                        onToggleRightPanel={this.toggleRightPanel.bind(this)}
                         onDone={this.loadingSceneDone.bind(this)}
                         muted={this.state.muted}
                         width={this.state.width}
@@ -209,6 +219,7 @@ class App extends Component {
                        width={this.state.width}
                        height={this.state.height}
                        opacity={this.state.siteOpacity}
+                       onToggleRightPanel={this.toggleRightPanel.bind(this)}
                        onNext={() => this.menuChanged({key:2})}
                        onCanPlay={this.increaseLoadingState.bind(this)}/>
 
@@ -218,6 +229,7 @@ class App extends Component {
                       width={this.state.width}
                       height={this.state.height}
                       opacity={this.state.siteOpacity}
+                      onToggleRightPanel={this.toggleRightPanel.bind(this)}
                       onNext={() => this.menuChanged({key:3})}
                       onCanPlay={this.increaseLoadingState.bind(this)}/>
 
@@ -227,6 +239,7 @@ class App extends Component {
                        width={this.state.width}
                        height={this.state.height}
                        opacity={this.state.siteOpacity}
+                       onToggleRightPanel={this.toggleRightPanel.bind(this)}
                        onNext={() => this.menuChanged({key:4})}
                        onCanPlay={this.increaseLoadingState.bind(this)}/>
 
@@ -236,14 +249,15 @@ class App extends Component {
                       width={this.state.width}
                       height={this.state.height}
                       opacity={this.state.siteOpacity}
+                      onToggleRightPanel={this.toggleRightPanel.bind(this)}
                       onCanPlay={this.increaseLoadingState.bind(this)}/>
 
           <ChapterMenu open={this.state.loaded} chapter={this.state.lastChapter} onMenuChange={this.menuChanged.bind(this)} opacity={this.state.siteOpacity}/>
 
           <menu className="top">
-            <a href="#">The Film</a>
-            <a href="#">VR Experience</a>
-            <a href="#">Art Gallery</a>
+            <a href="http://theanthropocene.org/about/">The Anthropocene Film</a>
+            <a href="http://theanthropocene.org/about/">Gigapixel Experience</a>
+            <a href="http://theanthropocene.org/about/">VR Experience</a>
           </menu>
 
           <menu className="controls">

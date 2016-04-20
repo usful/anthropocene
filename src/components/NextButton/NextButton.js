@@ -18,7 +18,7 @@ export default class NextButton extends Component {
   }
 
   render() {
-    return <button className={`NextButton ${this.props.className}`} onClick={this.clicked.bind(this)} title="Next" style={this.props.style}>
+    return <button ref="button" className={`NextButton ${this.props.className}`} onClick={this.clicked.bind(this)} title="Next" style={this.props.style}>
       <div className="wrapper">
         <svg className="bottom" width="100%" height="100%" viewBox="0 0 180 67">
           <rect x="1" y="1" width="178" height="65"/>

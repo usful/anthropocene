@@ -65,6 +65,7 @@
       transform-origin: 0 50%;
       font-size: 150%;
       opacity: $opacityBase;
+      z-index: 600;
 
       transition: opacity $transitionQuick, color $transitionQuick, transform $transitionQuick;
 
@@ -90,6 +91,7 @@
     left: 0;
     text-align: center;
     transform: translate3d(0, 3vh, -2vw);
+    z-index: 500;
 
     a {
       display: inline-block;
@@ -108,6 +110,7 @@
     position: absolute;
     font-size: 150%;
     transform: translate3d(3vw, 3vh, -3vw);
+    z-index: 600;
   }
 
   &.share-mode {
@@ -133,5 +136,12 @@
   }
 
   &.menu-open {
+  }
+
+
+  &.right-panel {
+    section.main {
+      transform: translate3d(-30vw, 0, 0);
+    }
   }
 }
