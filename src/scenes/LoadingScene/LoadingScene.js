@@ -10,6 +10,7 @@ import LogoContainer from '../../components/LogoContainer/LogoContainer';
 import TextRoll from '../../components/TextRoll/TextRoll';
 import NextButton from '../../components/NextButton/NextButton';
 import InfoSection from '../../components/InfoSection/InfoSection';
+import InfoButton from '../../components/InfoButton/InfoButton';
 
 import AudioPlayer from '../../components/AudioPlayer/AudioPlayer';
 
@@ -66,7 +67,7 @@ export default class LoadingScene extends SceneComponent {
 
   startPhase5() {
     this.setState({phase5: true, introVolume: 0});
-    setTimeout(() => this.showInfo(), this.props.delay);
+    //setTimeout(() => this.showInfo(), this.props.delay);
   }
 
   introVidProgress(e) {
@@ -115,11 +116,13 @@ export default class LoadingScene extends SceneComponent {
           <span>planetary</span>
           <span>history.</span>
           <br/>
+          <InfoButton onClick={this.toggleInfo.bind(this)}/>
           <NextButton onClick={this.props.onNext} />
         </TextRoll>
 
-        <InfoSection visible={this.state.showInfo}>
-          <h1>The Disappearing Lake</h1>
+
+        <InfoSection visible={this.state.showInfo} onClose={this.toggleInfo.bind(this)}>
+          <h1>Lake, Chile</h1>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nec velit placerat
             risus malesuada euismod vitae at felis. Vestibulum ut scelerisque elit. Maecenas non

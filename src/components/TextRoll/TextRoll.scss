@@ -29,12 +29,16 @@
     transition: opacity $transition;
   }
 
-  .NextButton {
+  .InfoButton, .NextButton {
+    vertical-align: top;
     font-size: 2rem;
     margin-top: 1.5em;
     opacity: 0;
   }
 
+  .InfoButton {
+    margin-right: 0.5em;
+  }
   strong {
     font-size: 300%;
     font-style: italic;

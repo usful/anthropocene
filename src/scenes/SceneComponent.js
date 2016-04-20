@@ -7,11 +7,11 @@ export default class SceneComponent extends Component {
     this.state = {
       shown: false,
       visible: false,
-      showInfo: false,
       playing: false,
       phase1: false,
       skipped: false,
-      canPlayFired: false
+      canPlayFired: false,
+      showInfo: false
     };
   }
 
@@ -26,7 +26,8 @@ export default class SceneComponent extends Component {
     opacity: 1,
     onDone: function() {},
     onNext: function() {},
-    onCanPlay: function() {}
+    onCanPlay: function() {},
+    onToggleRightPanel: function() {}
   };
 
   fireCanPlay() {
@@ -34,6 +35,11 @@ export default class SceneComponent extends Component {
       this.props.onCanPlay.call(this);
       this.setState({canPlayFired: true});
     }
+  }
+
+  toggleInfo() {
+    this.setState({showInfo: true});
+    this.props.onToggleRightPanel();
   }
 
   play() {
@@ -63,10 +69,6 @@ export default class SceneComponent extends Component {
     this.stop();
     this.setState({shown: false});
     setTimeout(() => this.setState({visible:false}), 1000);
-  }
-
-  showInfo() {
-    this.setState({showInfo: true});
   }
 
   skip() {

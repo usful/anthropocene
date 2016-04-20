@@ -1,0 +1,76 @@
+@import "../../styles/variables.scss";
+
+/** @define NextButton */
+.InfoButton {
+  font-family: 'proxima-nova', sans-serif;
+  font-weight: 300;
+  font-size: 200%;
+  text-transform: uppercase;
+  -webkit-font-smoothing: antialiased;
+  color: $offWhite;
+
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 0;
+  width: 1.5em;
+  height: 2.25em;
+  cursor: pointer;
+  transition: transform $transitionHeart, opacity $transition;
+
+  .wrapper {
+    position: relative;
+    width: 1.5em;
+    height: 2.25em;
+  }
+
+  svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    rect {
+      fill: transparent;
+      stroke: rgba(255,255,255,0.25);
+      stroke-width: 1px;
+      stroke-dasharray: 600;
+
+      transition: all 650ms ease-in-out;
+    }
+
+    &.top {
+      rect {
+        fill: transparent;
+        stroke: transparent;
+        stroke-dashoffset: 600;
+      }
+    }
+  }
+
+
+  i.fa {
+    padding: 0.5em 0.25em;
+    display: inline-block;
+    vertical-align: middle;
+    opacity: 1;
+    transition: opacity $transitionHeart;
+  }
+
+  &:hover {
+    svg.top {
+      circle, rect {
+        stroke: #fff;
+        stroke-dashoffset: 0;
+      }
+    }
+  }
+
+  &:active {
+    outline: none;
+    transform: scale3d(0.7, 0.7, 1);
+  }
+
+  &:focus {
+    outline: none;
+    transform: scale3d(0.7, 0.7, 1);
+  }
+}

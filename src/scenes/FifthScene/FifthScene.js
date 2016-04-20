@@ -5,6 +5,8 @@ import React, {Component} from 'react';
 
 import SceneComponent from '../SceneComponent';
 import TextRoll from '../../components/TextRoll/TextRoll';
+import InfoButton from '../../components/InfoButton/InfoButton';
+import InfoSection from '../../components/InfoSection/InfoSection';
 
 export default class FifthScene extends SceneComponent {
   constructor(props) {
@@ -42,7 +44,20 @@ export default class FifthScene extends SceneComponent {
           <span>human</span>
           <span>planetary</span>
           <span>domination.</span>
+          <br/>
+          <InfoButton onClick={this.toggleInfo.bind(this)}/>
         </TextRoll>
+
+
+        <InfoSection visible={this.state.showInfo} onClose={this.toggleInfo.bind(this)}>
+          <h1>Coal trains, Pennsylvania USA</h1>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nec velit placerat
+            risus malesuada euismod vitae at felis. Vestibulum ut scelerisque elit. Maecenas non
+            laoreet leo.  Maecenas elementum tortor odio, a elementum sem hendrerit sit amet.
+          </p>
+          <footer>Source: <a href="#">http://www.theanthropocence.org</a></footer>
+        </InfoSection>
       </div>
     )
   }

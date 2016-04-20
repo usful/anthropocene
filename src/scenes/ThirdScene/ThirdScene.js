@@ -6,6 +6,8 @@ import React, {Component} from 'react';
 import SceneComponent from '../SceneComponent';
 import TextRoll from '../../components/TextRoll/TextRoll';
 import NextButton from '../../components/NextButton/NextButton';
+import InfoButton from '../../components/InfoButton/InfoButton';
+import InfoSection from '../../components/InfoSection/InfoSection';
 
 export default class ThirdScene extends SceneComponent {
   constructor(props) {
@@ -51,8 +53,19 @@ export default class ThirdScene extends SceneComponent {
           <span>human</span>
           <span>signature.</span>
           <br/>
+          <InfoButton onClick={this.toggleInfo.bind(this)}/>
           <NextButton onClick={this.props.onNext} />
         </TextRoll>
+
+        <InfoSection visible={this.state.showInfo} onClose={this.toggleInfo.bind(this)}>
+          <h1>Hydro Dam, China</h1>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nec velit placerat
+            risus malesuada euismod vitae at felis. Vestibulum ut scelerisque elit. Maecenas non
+            laoreet leo.  Maecenas elementum tortor odio, a elementum sem hendrerit sit amet.
+          </p>
+          <footer>Source: <a href="#">http://www.theanthropocence.org</a></footer>
+        </InfoSection>
       </div>
     )
   }
