@@ -2,10 +2,10 @@ import 'styles/base.scss';
 import './FourthScene.scss';
 
 import React, {Component} from 'react';
-import {Motion, spring} from 'react-motion';
 
 import SceneComponent from '../SceneComponent';
 import TextRoll from '../../components/TextRoll/TextRoll';
+import NextButton from '../../components/NextButton/NextButton';
 
 export default class FourthScene extends SceneComponent {
   constructor(props) {
@@ -28,7 +28,7 @@ export default class FourthScene extends SceneComponent {
           </video>
         </div>
 
-        <TextRoll ref="textRoll" style={{fontSize: '80%'}} visible={this.state.visible} onDone={this.props.onDone.bind(this)} >
+        <TextRoll ref="textRoll" style={{textShadow: this.textShadow, fontSize: '75%'}} align="right" visible={this.state.visible} onDone={this.props.onDone.bind(this)} >
           <span>The</span>
           <strong>Anthropocene</strong>
           <strong>Working</strong>
@@ -43,7 +43,7 @@ export default class FourthScene extends SceneComponent {
           <span>proposed</span>
           <span>the</span>
           <span>title</span>
-          <strong>Anthropocene</strong>
+          <span>Anthropocene</span>
           <span>as</span>
           <span>the</span>
           <span>name</span>
@@ -57,7 +57,9 @@ export default class FourthScene extends SceneComponent {
           <span>of</span>
           <span>profound</span>
           <strong>human</strong>
-          <strong>impact</strong>
+          <span>impact.</span>
+          <br/>
+          <NextButton onClick={this.props.onNext} />
         </TextRoll>
       </div>
     )

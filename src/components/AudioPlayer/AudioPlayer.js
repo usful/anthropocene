@@ -1,6 +1,12 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-export default class AudioPlayer extends Component {
+let requestAnimationFrame = window.requestAnimationFrame || ((cb) => setTimeout(cb, 1000/30));
+
+function easeOutCubic (currentTime, startValue, changeInValue, duration) {
+  return changeInValue*((currentTime=currentTime/duration-1)*currentTime*currentTime + 1) + startValue;
+}
+
+export default class AudioPlayer extends React.Component {
   constructor(props) {
     super(props);
 
@@ -10,14 +16,40 @@ export default class AudioPlayer extends Component {
   static defaultProps = {
     muted: false,
     play: false,
-    volume: 1,
+    volume: 0,
     src: '',
+    loop: false,
+    /** time between plays if this is looped */
     delay: 0,
+    /** duration to fade volume in ms */
+    fadeDuration: 2000,
     onCanPlay: function() {},
     onEnd: function() {}
   };
 
-  componentWillReceiveProps(nextProps) {
+  get volume() {
+    return this.refs.audio.volume * 100;
+  }
+
+  set volume(val) {
+    this.refs.audio.volume = val / 100;
+  }
+
+  _moveVolume() {
+    if (Math.round(this.volume) !== this.props.volume) {
+      this.volume = Math.min(100, Math.max(0, easeOutCubic(Date.now() - this.startTime, this.startVolume, this.props.volume - this.startVolume, this.props.fadeDuration)));
+      requestAnimationFrame(this._moveVolume.bind(this));
+    }
+
+  }
+
+  moveVolume() {
+    this.startTime = Date.now();
+    this.startVolume = this.volume;
+    this._moveVolume();
+  }
+
+  componentWillReceiveProps(nextProps, nextState) {
 
     if (nextProps.play && !this.playing) {
       this.refs.audio.play();
@@ -29,7 +61,11 @@ export default class AudioPlayer extends Component {
       this.playing = false;
     }
 
-    this.refs.audio.volume = nextProps.muted ? 0 : nextProps.volume / 100;
+    if (nextProps.muted) {
+      this.volume = 0;
+    } else if (nextProps.volume !== undefined && Math.round(this.volume) !== nextProps.volume) {
+      this.moveVolume();
+    }
   }
 
   ended(e) {

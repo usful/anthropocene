@@ -2,21 +2,19 @@ import 'styles/base.scss';
 import './LoadingScene.scss';
 
 import React, {Component} from 'react';
-import {Motion, spring} from 'react-motion';
-
-import slowSpring from '../../utils/springs/slow';
-import fastSpring from '../../utils/springs/fast';
 
 import SceneComponent from '../SceneComponent';
 
 import LogoInverted from '../../components/LogoInverted/LogoInverted';
 import LogoContainer from '../../components/LogoContainer/LogoContainer';
 import TextRoll from '../../components/TextRoll/TextRoll';
+import NextButton from '../../components/NextButton/NextButton';
+import InfoSection from '../../components/InfoSection/InfoSection';
 
 import AudioPlayer from '../../components/AudioPlayer/AudioPlayer';
 
 const TOTAL_SCENES = 5; // total amount of scenes, for loading purposes.
-const INTRO_TIMING = 2; // seconds
+const INTRO_TIMING = 4; // seconds
 
 export default class LoadingScene extends SceneComponent {
   constructor(props) {
@@ -36,7 +34,7 @@ export default class LoadingScene extends SceneComponent {
   }
 
   fireCanPlay(e) {
-    if (!this.state.canPlayFired && this.refs.video.readyState >= 2 && this.introAudio.readyState >= 2) {
+    if (!this.state.canPlayFired && this.refs.video.readyState >= 2 && this.refs.introAudio.readyState >= 2) {
       this.props.onCanPlay.call(this, e);
       this.setState({canPlayFired: true});
       this.startPhase1();
@@ -44,7 +42,7 @@ export default class LoadingScene extends SceneComponent {
   }
 
   startPhase1() {
-    this.setState({phase1: true, introVolume: 100});
+    this.setState({phase1: true, introVolume: 0});
 
     setTimeout(this.startPhase2.bind(this), this.props.delay);
   }
@@ -53,7 +51,7 @@ export default class LoadingScene extends SceneComponent {
     this.refs.video.play();
 
     if (!this.state.phase2) {
-      this.setState({phase2: true});
+      this.setState({phase2: true, introVolume: 100});
       setTimeout(this.startPhase3.bind(this), this.props.delay);
     }
   }
@@ -95,9 +93,7 @@ export default class LoadingScene extends SceneComponent {
           </video>
         </div>
 
-        <Motion defaultStyle={{volume: 0}} style={{volume: spring(this.state.introVolume, slowSpring)}}>
-          {value => <AudioPlayer ref={(el) => this.introAudio = el} src="audio/intro.mp3" play={this.state.phase1} onCanPlay={this.fireCanPlay.bind(this)} volume={value.volume} muted={this.props.muted} /> }
-        </Motion>
+        <AudioPlayer ref="introAudio" src="audio/intro.mp3" play={this.state.phase2} fadeDuration={5000} onCanPlay={this.fireCanPlay.bind(this)} volume={this.state.introVolume} muted={this.props.muted} /> }
 
         <div className="underlay" style={{opacity: this.state.phase2 ? 0 : 1, display: this.state.phase3 ? 'none' : 'block'}}></div>
 
@@ -107,7 +103,7 @@ export default class LoadingScene extends SceneComponent {
           </LogoContainer>
         </div>
 
-        <TextRoll style={{fontSize: '110%', textShadow: this.textShadow}} ref="textRoll" visible={this.state.visible} onDone={() => {this.startPhase5(); this.props.onDone.call(this);}} >
+        <TextRoll ref="textRoll" style={{textShadow: this.textShadow, fontSize: '125%'}} align={"left"} visible={this.state.visible} onDone={() => {this.startPhase5(); this.props.onDone.call(this);}} >
           <span>We</span>
           <span>have</span>
           <span>reached</span>
@@ -117,7 +113,13 @@ export default class LoadingScene extends SceneComponent {
           <span>in</span>
           <span>planetary</span>
           <span>history.</span>
+          <br/>
+          <NextButton onClick={this.props.onNext} />
         </TextRoll>
+
+        <InfoSection>
+          <p>Info</p>
+        </InfoSection>
 
         <div className="loading">
           <div className="loading-bar" style={this.loadingBarStyle}></div>

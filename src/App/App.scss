@@ -12,7 +12,7 @@
     padding: 0;
     width: 100%;
     height: 100%;
-    transition: transform $transition, opacity $transition;
+    transition: transform $transitionHeart, opacity $transitionHeart;
   }
 
   > section.support {
@@ -69,17 +69,7 @@
       transition: opacity $transitionQuick, color $transitionQuick, transform $transitionQuick;
 
       &.controls {
-        transform: translate3d(90vw, 7vh, -5vw);
-
-        &:hover {
-          opacity: $opacityHover;
-        }
-      }
-
-      &.social {
-        width: 100%;
-        transform: translate3d(0, 95vh, -5vw);
-        text-align: center;
+        transform: translate3d(90vw, 5vh, -5vw);
 
         &:hover {
           opacity: $opacityHover;
@@ -92,12 +82,32 @@
     }
   }
 
+  menu.top {
+    position: absolute;
+    width: 100%;
+    font-size: 100%;
+    top: 0;
+    left: 0;
+    text-align: center;
+    transform: translate3d(0, 3vh, -2vw);
+
+    a {
+      display: inline-block;
+      padding: 0 1.5em;
+      color: $offWhite;
+      text-decoration: none;
+      border-right: 1px solid $softWhite;
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+  }
+
   .IconButton.menu {
     position: absolute;
     font-size: 150%;
-    top: 0;
-    left: 0;
-    transform: translate3d(5vw, 5vh, -3vw);
+    transform: translate3d(3vw, 3vh, -3vw);
   }
 
   &.share-mode {
@@ -109,22 +119,19 @@
 
     section.main {
       menu.social {
-        transform: translate3d(0, 75vh, -5vw) scale3d(1, 1, 1);
+        transform: translate3d(0, 75vh, -4vw) scale3d(1, 1, 1);
       }
 
       .Scene {
         display: none;
       }
 
-      .SideMenu {
+      .ChapterMenu {
         display: none;
       }
     }
   }
 
   &.menu-open {
-    section.main .Scene {
-      transform: translate3d(33vw, 0, 0);
-    }
   }
 }

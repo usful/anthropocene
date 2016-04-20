@@ -1,0 +1,80 @@
+/** @define ChapterMenu */
+@import "../../styles/variables.scss";
+
+$boxShadow: -0.25em 0.5em 1em 0.5em rgba(0,0,0,0.05);
+
+.ChapterMenu {
+  font-family: 'proxima-nova', sans-serif;
+  font-weight: 300;
+  position: absolute;
+  z-index: 800;
+  bottom: 5vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+
+  opacity: 0;
+  transform: translate3d(0, 0, -6vw);
+  transition: opacity $transition, transform $transition;
+
+  &.true {
+    opacity: 1;
+  }
+
+  menu {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+
+    label {
+      padding: 1em 2em;
+      position: relative;
+      display: inline-block;
+      vertical-align: bottom;
+      color: $softWhite;
+      transition: color $transitionHeart;
+      border-bottom: 1px dotted $lightWhite;
+      border-top: 1px dotted $lightWhite;
+      text-align: center;
+      cursor: pointer;
+
+      &:first-child {
+        border-left: 1px solid $lightWhite;
+      }
+
+      &:last-child {
+        border-right: 1px solid $lightWhite;
+      }
+
+      .box {
+        display: inline-block;
+        vertical-align: middle;
+        border: 1px dotted $lightWhite;
+        background-color: transparent;
+        height: 0.5em;
+        width: 0.5em;
+        margin-right: 0.75em;
+        bottom: 0;
+        transition: background-color $transitionHeart;
+      }
+
+      span {
+        display: inline-block;
+        vertical-align: middle;
+        text-transform: uppercase;
+      }
+
+      &.selected {
+        color: $offWhite;
+        border-top: 1px solid $offWhite;
+        border-bottom: 1px solid $offWhite;
+
+        .box {
+          border: 1px solid $softWhite;
+          background-color: $softWhite;
+        }
+      }
+    }
+  }
+}

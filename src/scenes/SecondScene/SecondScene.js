@@ -2,10 +2,10 @@ import 'styles/base.scss';
 import './SecondScene.scss';
 
 import React, {Component} from 'react';
-import {Motion, spring} from 'react-motion';
 
 import SceneComponent from '../SceneComponent';
 import TextRoll from '../../components/TextRoll/TextRoll';
+import NextButton from '../../components/NextButton/NextButton';
 
 export default class SecondScene extends SceneComponent {
   constructor(props) {
@@ -28,8 +28,9 @@ export default class SecondScene extends SceneComponent {
           </video>
         </div>
 
-        <TextRoll ref="textRoll"  style={{fontSize: '90%'}}  visible={this.state.visible} onDone={this.props.onDone.bind(this)} >
-          <span>As a</span>
+        <TextRoll ref="textRoll" style={{textShadow: this.textShadow, fontSize: '90%'}}  align={"right"} visible={this.state.visible} onDone={this.props.onDone.bind(this)} >
+          <span>As</span>
+          <span>a</span>
           <span>species,</span>
           <span>humans</span>
           <span>now</span>
@@ -47,6 +48,8 @@ export default class SecondScene extends SceneComponent {
           <span>natural</span>
           <span>forces</span>
           <span>combined.</span>
+          <br/>
+          <NextButton onClick={this.props.onNext} />
         </TextRoll>
       </div>
     )

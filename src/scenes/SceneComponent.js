@@ -5,6 +5,7 @@ export default class SceneComponent extends Component {
     super(props);
 
     this.state = {
+      shown: false,
       visible: false,
       playing: false,
       phase1: false,
@@ -18,11 +19,12 @@ export default class SceneComponent extends Component {
     muted: false,
     width: window.outerWidth,
     height: window.outerHeight,
-    delay: 1250,
-    opacity: 1,
     perspectiveX: 50,
     perspectiveY: 50,
+    delay: 1250,
+    opacity: 1,
     onDone: function() {},
+    onNext: function() {},
     onCanPlay: function() {}
   };
 
@@ -53,11 +55,13 @@ export default class SceneComponent extends Component {
 
   show() {
     this.setState({visible:true});
+    setTimeout(() => this.setState({shown:true}), 1);
   }
 
   hide() {
     this.stop();
-    this.setState({visible: false});
+    this.setState({shown: false});
+    setTimeout(() => this.setState({visible:false}), 1000);
   }
 
   skip() {
@@ -69,19 +73,17 @@ export default class SceneComponent extends Component {
   }
 
   get textShadow() {
-    let compute = (val) => (val/100 * 0.5 - 0.25);
+    let offset = (val) => (val/100-0.15);
 
-    let shadow = `${compute(this.props.perspectiveX)}em ${compute(this.props.perspectiveY)}em 0.75em rgba(0,0,0,0.66)`;
-    console.log(shadow);
-    return shadow;
+    return `${offset(this.props.perspectiveX)}em ${offset(this.props.perspectiveY)}em 2em rgba(0,0,0,1)`;
   }
 
   get style() {
-    return {width: this.props.width + 'px', height: this.props.height + 'px'};
+    return {width: `${this.props.width}px`, height: `${this.props.height}px`};
   }
 
   get classes() {
-    return `Scene ${this.name} ${this.state.playing ? 'playing' : 'not-playing'} ${this.state.visible ? 'visible' : 'not-visible'}`;
+    return `Scene ${this.name} ${this.state.playing ? 'playing' : 'not-playing'} ${this.state.shown ? 'shown' : 'not-shown'} ${this.state.visible ? 'visible' : 'not-visible'}`;
   }
 
   get videoOpacity() {

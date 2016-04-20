@@ -17,10 +17,10 @@ export default class TextRoll extends Component {
   }
 
   static defaultProps = {
-    text: 'Hello World',
     play: false,
+    align: 'left',
     className: '',
-    wait: 150,
+    wait: 175,
     style: {},
     visible: true,
     onDone: function() {}
@@ -88,16 +88,18 @@ export default class TextRoll extends Component {
   }
 
   get className() {
-    return `TextRoll ${this.props.className}`;
+    return `TextRoll ${this.props.className} ${this.props.align}`;
   }
 
   render() {
     return (
       <table className={this.className} style={this.style}>
-        <tbody><tr><td>
-          {this.state.lines.map(line =>React.cloneElement(line.el, {key: line.id, style: {opacity: line.playing ? 1 : 0}}))}
-        </td></tr></tbody>
+        <tbody>
+          <tr>
+            <td>{this.state.lines.map(line => React.cloneElement(line.el, {key: line.id, style: {opacity: line.playing ? 1 : 0}}))}</td>
+          </tr>
+        </tbody>
       </table>
-    )
+    );
   }
 }

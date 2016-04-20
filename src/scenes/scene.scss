@@ -8,6 +8,8 @@
   padding: 0;
   width: 100%;
   height: 100%;
+  visibility: hidden;
+
   transition: transform $transitionHeart;
 
   .video-wrapper {
@@ -21,8 +23,8 @@
     height: 100%;
 
     transform-origin: 50% 50%;
-    transform: scale3d(1.66, 1.66, 1) translate3d(4vw, 4vh, -7vw);
-    transition: transform $transitionHeart, opacity $transitionLong;
+    transform: scale3d(1.66, 1.66, 1) translate3d(0, 0, -11vw);
+    transition: transform $transitionHeart, opacity $transition;
 
     video {
       height: 100%;
@@ -30,16 +32,13 @@
   }
 
   &.visible {
-    .video-wrapper {
-      opacity: 1;
-      transform: scale3d(1.25, 1.25, 1) translate3d(4vw, 4vh, -7vw);
-    }
+    visibility: visible;
   }
 
-  .TextRoll {
-    top: -5vh;
-    left: 25vw;
-    width: 33vw;
-    text-align: left;
+  &.shown {
+    .video-wrapper {
+      opacity: 1;
+      transform: scale3d(1.27, 1.27, 1) translate3d(0, 0, -9vw);
+    }
   }
 }

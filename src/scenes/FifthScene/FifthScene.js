@@ -2,7 +2,6 @@ import 'styles/base.scss';
 import './FifthScene.scss';
 
 import React, {Component} from 'react';
-import {Motion, spring} from 'react-motion';
 
 import SceneComponent from '../SceneComponent';
 import TextRoll from '../../components/TextRoll/TextRoll';
@@ -28,7 +27,7 @@ export default class FifthScene extends SceneComponent {
           </video>
         </div>
 
-        <TextRoll ref="textRoll" visible={this.state.visible} onDone={this.props.onDone.bind(this)}>
+        <TextRoll ref="textRoll" style={{textShadow: this.textShadow, fontSize: '100%'}} align="left" visible={this.state.visible} onDone={this.props.onDone.bind(this)}>
           <span>This</span>
           <span>Project</span>
           <span>aims</span>
@@ -41,7 +40,7 @@ export default class FifthScene extends SceneComponent {
           <span>evidence</span>
           <span>of</span>
           <span>human</span>
-          <strong>planetary</strong>
+          <span>planetary</span>
           <span>domination.</span>
         </TextRoll>
       </div>

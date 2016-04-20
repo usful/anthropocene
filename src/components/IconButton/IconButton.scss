@@ -10,12 +10,12 @@
   -webkit-font-smoothing: antialiased;
   cursor: pointer;
 
-  transition: all $transitionQuick;
-
   .wrapper {
     position: relative;
     width: 2em;
     height: 2em;
+
+    transition: all $transitionQuick;
   }
 
   svg {
@@ -60,8 +60,12 @@
     }
   }
 
-  &:active {
+  &:active, &:focus {
     outline: none;
+
+    .wrapper {
+      transform: scale3d(0.7, 0.7, 1);
+    }
   }
 
   &:focus {

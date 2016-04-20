@@ -5,8 +5,10 @@ import './App.scss';
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 
+require('./object-assign.js');
+
 import AudioPlayer from '../components/AudioPlayer/AudioPlayer';
-import SideMenu from '../components/SideMenu/SideMenu';
+import ChapterMenu from '../components/ChapterMenu/ChapterMenu';
 import MainMenu from '../components/MainMenu/MainMenu';
 import IconButton from '../components/IconButton/IconButton';
 
@@ -15,7 +17,6 @@ import SecondScene from '../scenes/SecondScene/SecondScene';
 import ThirdScene from '../scenes/ThirdScene/ThirdScene';
 import FourthScene from '../scenes/FourthScene/FourthScene';
 import FifthScene from '../scenes/FifthScene/FifthScene';
-import SixthScene from '../scenes/SixthScene/SixthScene';
 
 let isResizing; //timeout reference to track if the user is currently resizing the window.
 
@@ -31,7 +32,7 @@ const DEFAULT_STATE = {
   muted: false,
   shareMode: false,
   beat: HEART_BEAT_START,
-  lastMenu: 0,
+  lastChapter: 0,
   firstTime: true,
   menuOpen: false
 };
@@ -43,13 +44,16 @@ class App extends Component {
     this.state = {
       ... this.savedState,
       loadingState: 0,
-      width: window.outerWidth,
-      height: window.outerHeight,
       perspectiveX: 50,
-      perspectiveY: 50
+      perspectiveY: 50,
+      width: window.outerWidth,
+      height: window.outerHeight
     };
 
+    window.location.hash = '';
+
     window.addEventListener('resize', this.windowResized.bind(this));
+    window.addEventListener('hashchange', this.hashChanged.bind(this));
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -80,13 +84,34 @@ class App extends Component {
         muted: val.muted,
         shareMode: val.shareMode,
         beat: val.beat,
-        lastMenu: val.lastMenu,
+        lastChapter: val.lastChapter,
         firstTime: val.firstTime
       }));
     } catch (e) {
       //Oops.  No local storage?
       console.error(e);
     }
+  }
+
+  hashChanged(e) {
+    if (window.location.hash.startsWith('#chapter-')) {
+      let chapter = (+window.location.hash.replace('#chapter-', ''));
+
+      this.goChapter(chapter);
+    }
+  }
+
+  goChapter(chapter) {
+   this.setState({beat: HEART_BEAT_START, siteOpacity: 1});
+   this.refs.heartbeat.play();
+
+   this.refs[SCENES[this.state.lastChapter]].hide();
+   this.refs[SCENES[this.state.lastChapter]].stop();
+
+   this.refs[SCENES[chapter]].show();
+   this.refs[SCENES[chapter]].play();
+
+   this.setState({lastChapter: chapter});
   }
 
   windowResized() {
@@ -121,21 +146,8 @@ class App extends Component {
     this.setState({perspectiveX: x, perspectiveY: y});
   }
 
-  get perspectiveOrigin() {
-    return `${this.state.perspectiveX}% ${this.state.perspectiveY}%`;
-  }
-
   menuChanged(menu) {
-    this.setState({beat: HEART_BEAT_START, siteOpacity: 1});
-    this.refs.heartbeat.play();
-
-    this.refs[SCENES[this.state.lastMenu]].hide();
-    this.refs[SCENES[this.state.lastMenu]].stop();
-
-    this.refs[SCENES[menu.key]].show();
-    this.refs[SCENES[menu.key]].play();
-
-    this.setState({lastMenu: menu.key});
+    window.location.hash = `#chapter-${menu.key}`;
   }
 
   skipIntro() {
@@ -158,8 +170,12 @@ class App extends Component {
   resuscitate() {
     this.setState({beat: HEART_BEAT_START, siteOpacity: 1, shareMode: false});
     this.refs.heartbeat.play();
-    this.refs[SCENES[this.state.lastMenu]].show();
-    this.refs[SCENES[this.state.lastMenu]].play();
+    this.refs[SCENES[this.state.lastChapter]].show();
+    this.refs[SCENES[this.state.lastChapter]].play();
+  }
+
+  get perspectiveOrigin() {
+    return `${this.state.perspectiveX}% ${this.state.perspectiveY}%`;
   }
 
   render() {
@@ -178,47 +194,82 @@ class App extends Component {
           <LoadingScene ref="loadingScene"
                         perspectiveX={this.state.perspectiveX}
                         perspectiveY={this.state.perspectiveY}
+                        onNext={() => this.menuChanged({key:1})}
                         onCanPlay={this.increaseLoadingState.bind(this)}
                         onDone={this.loadingSceneDone.bind(this)}
                         muted={this.state.muted}
                         width={this.state.width}
                         height={this.state.height}
                         opacity={this.state.siteOpacity}
-                        loadingState={this.state.loadingState}
-          />
+                        loadingState={this.state.loadingState}/>
 
-          <SecondScene ref="secondScene"  width={this.state.width} height={this.state.height} opacity={this.state.siteOpacity} onCanPlay={this.increaseLoadingState.bind(this)}/>
-          <ThirdScene ref="thirdScene" width={this.state.width} height={this.state.height} opacity={this.state.siteOpacity} onCanPlay={this.increaseLoadingState.bind(this)}/>
-          <FourthScene ref="fourthScene" width={this.state.width} height={this.state.height} opacity={this.state.siteOpacity} onCanPlay={this.increaseLoadingState.bind(this)}/>
-          <FifthScene ref="fifthScene" width={this.state.width} height={this.state.height} opacity={this.state.siteOpacity} onCanPlay={this.increaseLoadingState.bind(this)}/>
-          <SixthScene ref="sixthScene" width={this.state.width} height={this.state.height} opacity={this.state.siteOpacity} onCanPlay={this.increaseLoadingState.bind(this)}/>
+          <SecondScene ref="secondScene"
+                       perspectiveX={this.state.perspectiveX}
+                       perspectiveY={this.state.perspectiveY}
+                       width={this.state.width}
+                       height={this.state.height}
+                       opacity={this.state.siteOpacity}
+                       onNext={() => this.menuChanged({key:2})}
+                       onCanPlay={this.increaseLoadingState.bind(this)}/>
 
-          <SideMenu open={this.state.loaded} onMenuChange={this.menuChanged.bind(this)} opacity={this.state.siteOpacity}/>
+          <ThirdScene ref="thirdScene"
+                      perspectiveX={this.state.perspectiveX}
+                      perspectiveY={this.state.perspectiveY}
+                      width={this.state.width}
+                      height={this.state.height}
+                      opacity={this.state.siteOpacity}
+                      onNext={() => this.menuChanged({key:3})}
+                      onCanPlay={this.increaseLoadingState.bind(this)}/>
 
-          <menu className={`controls`}>
-            <IconButton icon="fast-forward" title="Skip Intro" onClick={this.skipIntro.bind(this)}/>
-            <IconButton icon="volume-up"
-                        iconActive="volume-off"
+          <FourthScene ref="fourthScene"
+                       perspectiveX={this.state.perspectiveX}
+                       perspectiveY={this.state.perspectiveY}
+                       width={this.state.width}
+                       height={this.state.height}
+                       opacity={this.state.siteOpacity}
+                       onNext={() => this.menuChanged({key:4})}
+                       onCanPlay={this.increaseLoadingState.bind(this)}/>
+
+          <FifthScene ref="fifthScene"
+                      perspectiveX={this.state.perspectiveX}
+                      perspectiveY={this.state.perspectiveY}
+                      width={this.state.width}
+                      height={this.state.height}
+                      opacity={this.state.siteOpacity}
+                      onCanPlay={this.increaseLoadingState.bind(this)}/>
+
+          <ChapterMenu open={this.state.loaded} chapter={this.state.lastChapter} onMenuChange={this.menuChanged.bind(this)} opacity={this.state.siteOpacity}/>
+
+          <menu className="top">
+            <a href="#">The Film</a>
+            <a href="#">VR Experience</a>
+            <a href="#">Art Gallery</a>
+          </menu>
+
+          <menu className="controls">
+            <IconButton icon="share-mdi" title="Share" onClick={this.beSocial.bind(this)}/>
+            <IconButton icon="volume-up-btm"
+                        iconActive="volume-off-btm"
                         title={this.state.muted ? "Sound On" : "Sound Off"}
                         active={this.state.muted} onClick={this.toggleMute.bind(this)}/>
           </menu>
 
-          <menu className={`social`}>
-          </menu>
-
           <IconButton className="menu" icon="bars-btm" iconActive="times" active={this.state.menuOpen} onClick={() => this.setState({menuOpen: !this.state.menuOpen})}/>
-
         </section>
-
 
         <MainMenu open={this.state.menuOpen} onCloseMenu={() => this.setState({menuOpen:false})} onMenuChange={this.menuChanged.bind(this)}/>
 
+
         <AudioPlayer src="audio/background.mp3" play={this.state.loaded} loop={true} volume={this.state.shareMode ? 0 : 50} muted={this.state.muted}/>
-        <AudioPlayer src="audio/heartbeat.mp3" play={this.state.loaded} loop={true} onEnd={this.theHeartBeats.bind(this)} delay={this.state.beat} volume={25} muted={this.state.muted}/>
+        <AudioPlayer src="audio/heartbeat.mp3" play={this.state.loaded} loop={true} onEnd={this.theHeartBeats.bind(this)} delay={this.state.beat} volume={50} muted={this.state.muted}/>
         <AudioPlayer ref="heartbeat" src="audio/heartbeat.mp3" volume={100} muted={this.state.muted}/>
       </div>
     )
   }
 }
+
+setTimeout(function() {
+  ReactDOM.render(<App/>, document.getElementById('viewport'));
+},1);
 
 export default App;

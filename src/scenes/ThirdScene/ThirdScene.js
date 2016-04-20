@@ -2,10 +2,10 @@ import 'styles/base.scss';
 import './ThirdScene.scss';
 
 import React, {Component} from 'react';
-import {Motion, spring} from 'react-motion';
 
 import SceneComponent from '../SceneComponent';
 import TextRoll from '../../components/TextRoll/TextRoll';
+import NextButton from '../../components/NextButton/NextButton';
 
 export default class ThirdScene extends SceneComponent {
   constructor(props) {
@@ -28,14 +28,13 @@ export default class ThirdScene extends SceneComponent {
           </video>
         </div>
 
-        <TextRoll ref="textRoll" style={{fontSize: '75%'}} visible={this.state.visible} onDone={this.props.onDone.bind(this)} >
+        <TextRoll ref="textRoll" style={{textShadow: this.textShadow, fontSize: '75%'}} align="left" visible={this.state.visible} onDone={this.props.onDone.bind(this)} >
           <span>Climate</span>
           <span>change,</span>
           <span>extinctions,</span>
-          <span>invasive</span>
-          <span>species</span>
-          <span>technofossils</span>
-          <span>anthroturbation</span>
+          <span>invasive species,</span>
+          <span>technofossils,</span>
+          <span>anthroturbation,</span>
           <span>terraforming</span>
           <span>of</span>
           <span>land</span>
@@ -51,6 +50,8 @@ export default class ThirdScene extends SceneComponent {
           <span>indelible</span>
           <span>human</span>
           <span>signature.</span>
+          <br/>
+          <NextButton onClick={this.props.onNext} />
         </TextRoll>
       </div>
     )

@@ -3,35 +3,36 @@
 @import '../../styles/variables.scss';
 
 .TextRoll {
-  display: block;
   position: absolute;
+  top: -5vh;
+  width: 33vw;
+  height: 100vh;
+  z-index: 400;
+
   opacity: 1;
-  padding: 0;
-  margin: 0;
-  top: 0;
-  height: 100vw;
+  transform: translate3d(0,0,-1vw);
 
   tbody, tr, td {
     height: 100vh;
     width: 100%;
     vertical-align: middle;
-    padding: 0;
-    margin: 0;
   }
-
-  transition: opacity $transitionHeart;
 
   strong, span, h1, h2, h3, h4, h5, h6 {
     display: inline-block;
     vertical-align: middle;
     font-size: 300%;
     font-weight: 400;
-    color: rgba(255,255,255,0.9);
+    color: $offWhite;
     line-height: 1.4em;
-    padding-right: 0.25em;
-    transition: opacity $transition;
     opacity: 0;
-    text-shadow: inherit;
+    transition: opacity $transition;
+  }
+
+  .NextButton {
+    font-size: 2rem;
+    margin-top: 1.5em;
+    opacity: 0;
   }
 
   strong {
@@ -44,6 +45,24 @@
   }
 
   h2 {
-    font-size: 200%;
+    font-size: 250%;
+  }
+
+  &.left {
+    strong, span, h1, h2, h3, h4, h5, h6 {
+      padding-right: 0.25em;
+    }
+
+    left: 10vw;
+    text-align: left;
+  }
+
+  &.right {
+    strong, span, h1, h2, h3, h4, h5, h6 {
+      padding-left: 0.25em;
+    }
+
+    right: 10vw;
+    text-align: right;
   }
 }

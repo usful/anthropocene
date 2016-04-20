@@ -2,7 +2,6 @@ import 'styles/base.scss';
 import './MainMenu.scss';
 
 import React, {Component} from 'react';
-import {Motion, spring} from 'react-motion';
 
 import Logo from '../Logo/Logo';
 import WordMark from '../WordMark/WordMark';
@@ -68,6 +67,8 @@ export default class MainMenu extends Component {
         <footer>
           <p>&copy; 2016 - Ed Burtynsky, you can put all your legal copy in here to protect the rights of the video and images used within in.  Etc.</p>
         </footer>
+
+        <IconButton className="close" icon="times" activeIcon="menu" onClick={this.props.onCloseMenu} />
       </div>
     );
   }

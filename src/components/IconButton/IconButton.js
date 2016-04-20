@@ -17,10 +17,15 @@ export default class IconButton extends Component {
     super(props);
   }
 
+  clicked() {
+    setTimeout(() => this.refs.button.blur(), 75);
+    this.props.onClick();
+  }
+
   render() {
-    return <button className={`IconButton ${this.props.className} ${this.props.active}`} onClick={this.props.onClick} title={this.props.title}>
+    return <button ref="button" className={`IconButton ${this.props.className} ${this.props.active}`} onClick={this.clicked.bind(this)} title={this.props.title}>
       <div className="wrapper">
-        <svg className="circle" width="2.1em" height="2.1em">
+        <svg width="2.1em" height="2.1em">
           <rect x="1px" y="1px" width="2em" height="2em"/>
         </svg>
 

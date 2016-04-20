@@ -23,38 +23,12 @@
     transform: translate3d(0, 0, 1px);
   }
 
-  button.close {
-    position: absolute;
-    font-size: 150%;
-    top: 4vh;
-    left: 3vw;
-    color: #fff;
-    cursor: pointer;
-    transform: scale3d(1, 1, 1);
-    -webkit-font-smoothing: antialiased;
-    font-smoothing: antialiased;
-    transition: transform $transitionQuick;
-
-    &:hover {
-      transform: scale3d(1.2, 1.2, 1);
-    }
-
-    &:active {
-      transform: scale3d(0.9, 0.9, 1);
-      outline: none;
-    }
-
-    &:focus {
-      outline: none;
-    }
-  }
-
   .WordMark {
     display: block;
     margin: 5em auto 7em auto;
     width: 33vw;
-    fill: rgba(255,255,255,0.9);
-    stroke: rgba(255,255,255,0.9);
+    fill: $offWhite;
+    stroke: $offWhite;
   }
 
   div.left, div.right {
@@ -66,11 +40,11 @@
   }
 
   p {
-    color: rgba(255,255,255,0.9);
+    color: $offWhite;
   }
 
   h1 {
-    color: rgba(255,255,255,0.9);
+    color: $offWhite;
     margin: 0 0 1em 0;
     font-size: 110%;
     font-weight: normal;
@@ -80,6 +54,7 @@
     margin-top: 2em;
 
     .IconButton {
+      font-size: 150%;
       margin: 0 0.25em;
     }
   }
@@ -88,10 +63,17 @@
     margin: 8em 0;
 
     p {
-      color: rgba(255,255,255,0.5);
+      color: $softWhite;
       text-align: center;
       font-size: 80%;
     }
+  }
+
+  .IconButton.close {
+    position: absolute;
+    top: 4vw;
+    right: 4vw;
+    font-size: 150%;
   }
 
   menu {

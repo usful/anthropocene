@@ -2,7 +2,6 @@ import 'styles/base.scss';
 import './SixthScene.scss';
 
 import React, {Component} from 'react';
-import {Motion, spring} from 'react-motion';
 
 import SceneComponent from '../SceneComponent';
 import TextRoll from '../../components/TextRoll/TextRoll';
