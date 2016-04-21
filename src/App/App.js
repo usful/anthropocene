@@ -18,6 +18,8 @@ import ThirdScene from '../scenes/ThirdScene/ThirdScene';
 import FourthScene from '../scenes/FourthScene/FourthScene';
 import FifthScene from '../scenes/FifthScene/FifthScene';
 
+import ShareScreen from '../components/ShareScreen/ShareSceen';
+
 let isResizing; //timeout reference to track if the user is currently resizing the window.
 
 const HEART_BEAT_DECREASE = 250; //ms
@@ -31,6 +33,7 @@ const DEFAULT_STATE = {
   loaded: false,
   muted: false,
   shareMode: false,
+  sharing: false,
   beat: HEART_BEAT_START,
   lastChapter: 0,
   firstTime: true,
@@ -160,7 +163,7 @@ class App extends Component {
   }
 
   beSocial() {
-    this.setState({beat: HEART_BEAT_START, siteOpacity: 1});
+    this.setState({beat: HEART_BEAT_START, siteOpacity: 1, sharing: !this.state.sharing});
     this.refs.heartbeat.play();
   }
 
@@ -269,6 +272,8 @@ class App extends Component {
           </menu>
 
           <IconButton className="menu" icon="bars-btm" iconActive="times" active={this.state.menuOpen} onClick={() => this.setState({menuOpen: !this.state.menuOpen})}/>
+
+          <ShareScreen visible={this.state.sharing}/>
         </section>
 
         <MainMenu open={this.state.menuOpen} onCloseMenu={() => this.setState({menuOpen:false})} onMenuChange={this.menuChanged.bind(this)}/>
