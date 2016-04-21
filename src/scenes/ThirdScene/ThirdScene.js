@@ -5,7 +5,7 @@ import React, {Component} from 'react';
 
 import SceneComponent from '../SceneComponent';
 import TextRoll from '../../components/TextRoll/TextRoll';
-import NextButton from '../../components/NextButton/NextButton';
+import LargeButton from '../../components/LargeButton/LargeButton';
 import InfoButton from '../../components/InfoButton/InfoButton';
 import InfoSection from '../../components/InfoSection/InfoSection';
 
@@ -54,7 +54,7 @@ export default class ThirdScene extends SceneComponent {
           <span>signature.</span>
           <br/>
           <InfoButton onClick={this.toggleInfo.bind(this)}/>
-          <NextButton onClick={this.props.onNext} />
+          <LargeButton onClick={this.props.onNext} />
         </TextRoll>
 
         <InfoSection visible={this.state.showInfo} onClose={this.toggleInfo.bind(this)}>

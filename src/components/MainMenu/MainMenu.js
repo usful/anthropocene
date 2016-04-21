@@ -38,7 +38,7 @@ export default class MainMenu extends Component {
         <WordMark />
 
         <div className="left">
-          <h1>The Site</h1>
+          <h1>Main Site</h1>
           <menu>
             <a href="http://theanthropocene.org/anthropocene/">Anthropocene Defined</a>
             <hr/>
@@ -53,16 +53,29 @@ export default class MainMenu extends Component {
         </div>
 
         <div className="right">
+          <h1>The Projects</h1>
+          <menu>
+            <a href="http://theanthropocene.org/film/">Feature Film</a>
+            <hr/>
+            <a href="http://theanthropocene.org/gigapixel/">Gigapixel</a>
+            <hr/>
+            <a href="http://theanthropocene.org/photogrammetry/">Photogrammetry</a>
+            <hr/>
+            <a href="http://theanthropocene.org/360vr/">360&deg; VR</a>
+          </menu>
+        </div>
+
+        <section>
           <p>
             <strong>Anthropocene:</strong> we have reached an unprecedented moment in planetary history, where humans
             have more impact on the earth and it processes than all other natural forces combined.
           </p>
           <div className="share">
             <h1>Share</h1>
-            <IconButton icon="facebook-official" title="Facebook" onClick={this.onSocial} />
-            <IconButton icon="twitter" title="Twitter" onClick={this.onSocial} />
+            <IconButton icon="facebook-official" title="Facebook" onClick={this.props.onSocial} />
+            <IconButton icon="twitter" title="Twitter" onClick={this.props.onSocial} />
           </div>
-        </div>
+        </section>
 
         <footer>
           <p>&copy; 2016 - Ed Burtynsky, you can put all your legal copy in here to protect the rights of the video and images used within in.  Etc.</p>

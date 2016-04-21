@@ -25,22 +25,36 @@
 
   .WordMark {
     display: block;
-    margin: 5em auto 7em auto;
+    margin: 3em auto 5em auto;
     width: 33vw;
     fill: $offWhite;
     stroke: $offWhite;
+  }
+
+  section {
+    margin: 2em auto;
+    width: 33vw;
+
+    p {
+      color: $offWhite;
+    }
+
+    .share {
+      margin-top: 2em;
+
+      .IconButton {
+        font-size: 150%;
+        margin: 0 0.25em;
+      }
+    }
   }
 
   div.left, div.right {
     box-sizing: border-box;
     display: inline-block;
     vertical-align: middle;
-    width: 50%;
-    padding: 0 10%;
-  }
-
-  p {
-    color: $offWhite;
+    width: 33%;
+    padding: 0;
   }
 
   h1 {
@@ -50,17 +64,8 @@
     font-weight: normal;
   }
 
-  .share {
-    margin-top: 2em;
-
-    .IconButton {
-      font-size: 150%;
-      margin: 0 0.25em;
-    }
-  }
-
   footer {
-    margin: 8em 0;
+    margin: 2em 0;
 
     p {
       color: $softWhite;

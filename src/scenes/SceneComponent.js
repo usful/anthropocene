@@ -27,6 +27,7 @@ export default class SceneComponent extends Component {
     onDone: function() {},
     onNext: function() {},
     onCanPlay: function() {},
+    onCloseRightPanel: function() {},
     onToggleRightPanel: function() {}
   };
 
@@ -62,7 +63,7 @@ export default class SceneComponent extends Component {
 
   show() {
     this.setState({visible:true});
-    setTimeout(() => this.setState({shown:true}), 1);
+    setTimeout(() => this.setState({shown:true}), 10);
   }
 
   hide() {
@@ -94,7 +95,7 @@ export default class SceneComponent extends Component {
   }
 
   get videoOpacity() {
-    return this.state.visible ? this.props.opacity : 0;
+    return (this.state.shown && this.state.visible) ? this.props.opacity : 0;
   }
 
   get videoStyle() {

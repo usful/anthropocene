@@ -8,7 +8,7 @@ import SceneComponent from '../SceneComponent';
 import LogoInverted from '../../components/LogoInverted/LogoInverted';
 import LogoContainer from '../../components/LogoContainer/LogoContainer';
 import TextRoll from '../../components/TextRoll/TextRoll';
-import NextButton from '../../components/NextButton/NextButton';
+import LargeButton from '../../components/LargeButton/LargeButton';
 import InfoSection from '../../components/InfoSection/InfoSection';
 import InfoButton from '../../components/InfoButton/InfoButton';
 
@@ -26,7 +26,9 @@ export default class LoadingScene extends SceneComponent {
     this.state = {
       ... this.state,
       playing: true,
+      shown: true,
       visible: true,
+      hasPlayed: false,
       phase2: false,
       phase3: false,
       phase4: false,
@@ -43,6 +45,9 @@ export default class LoadingScene extends SceneComponent {
   }
 
   startPhase1() {
+    if (this.state.hasPlayed) return this.skip();
+
+    window.location.hash = '#chapter-0';
     this.setState({phase1: true, introVolume: 0});
 
     setTimeout(this.startPhase2.bind(this), this.props.delay);
@@ -66,7 +71,7 @@ export default class LoadingScene extends SceneComponent {
   }
 
   startPhase5() {
-    this.setState({phase5: true, introVolume: 0});
+    this.setState({phase5: true, introVolume: 0, hasPlayed: true});
     //setTimeout(() => this.showInfo(), this.props.delay);
   }
 
@@ -89,7 +94,7 @@ export default class LoadingScene extends SceneComponent {
   render() {
     return (
       <div className={this.classes} style={this.style}>
-        <div className="video-wrapper" style={this.videoStyle}>
+        <div className="video-wrapper" style={this.videoStyle} onClick={this.props.onCloseRightPanel}>
           <video ref="video" loop onCanPlay={this.fireCanPlay.bind(this)} onTimeUpdate={this.introVidProgress.bind(this)}>
             <source type="video/mp4" src="vids/empty-lake.mp4"/>
           </video>
@@ -117,7 +122,7 @@ export default class LoadingScene extends SceneComponent {
           <span>history.</span>
           <br/>
           <InfoButton onClick={this.toggleInfo.bind(this)}/>
-          <NextButton onClick={this.props.onNext} />
+          <LargeButton onClick={this.props.onNext} />
         </TextRoll>
 
 

@@ -12,45 +12,44 @@
     padding: 0;
     width: 100%;
     height: 100%;
+    z-index: 500;
     transition: transform $transitionHeart, opacity $transitionHeart;
   }
 
   > section.support {
-    background-color: #000;
+    visibility: hidden;
 
-    .wrapper {
-      padding-top: 30vh;
+    .share-wrapper {
+      padding: 20vh 30vw;
       opacity: 0;
-      color: #fff;
+      color: $offWhite;
       text-align: center;
 
       transition: opacity $transition;
 
-
-      h1 {
-        font-weight: 400;
-        font-size: 400%;
-      }
-
       h2 {
+        color: $offWhite;
         font-weight: 400;
-        font-size: 300%;
+        font-size: 150%;
+
+        margin: 2em 0 1em 0;
       }
 
-      label {
-        position: absolute;
-        z-index: 32678;
-        margin-top: 1em;
-        width: 100%;
+      .LargeButton {
         display: block;
-        font-size: 150%;
-        cursor: pointer;
-        color: rgba(255,255,255,0.33);
+        margin: 2em auto;
+      }
+
+      label.watch {
+        margin-top: 1em;
+        color: $softWhite;
+        font-size: 125%;
       }
     }
   }
 
   > section.main {
+    background-color: #000;
     perspective: 70vw;
     perspective-origin: 50% 50%;
 
@@ -114,17 +113,15 @@
   }
 
   &.share-mode {
-    .support {
-      .wrapper {
+    > section.support {
+      visibility: visible;
+
+      .share-wrapper {
         opacity: 1;
       }
     }
 
-    section.main {
-      menu.social {
-        transform: translate3d(0, 75vh, -4vw) scale3d(1, 1, 1);
-      }
-
+    > section.main {
       .Scene {
         display: none;
       }

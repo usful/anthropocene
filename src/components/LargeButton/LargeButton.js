@@ -1,9 +1,11 @@
-import './NextButton.scss';
+import './LargeButton.scss';
 
 import React, {Component} from 'react';
 
-export default class NextButton extends Component {
+export default class LargeButton extends Component {
   static defaultProps = {
+    text: 'Next',
+    icon: 'angle-right',
     onClick: (e) => {},
     style: {}
   };
@@ -18,7 +20,7 @@ export default class NextButton extends Component {
   }
 
   render() {
-    return <button ref="button" className={`NextButton ${this.props.className}`} onClick={this.clicked.bind(this)} title="Next" style={this.props.style}>
+    return <button ref="button" className={`LargeButton ${this.props.className}`} onClick={this.clicked.bind(this)} title={this.props.text} style={this.props.style}>
       <div className="wrapper">
         <svg className="bottom" width="100%" height="100%" viewBox="0 0 180 67">
           <rect x="1" y="1" width="178" height="65"/>
@@ -28,8 +30,8 @@ export default class NextButton extends Component {
           <rect x="1" y="1" width="178" height="65"/>
         </svg>
 
-        <label>Next</label>
-        <i className={`fa fa-angle-right`} />
+        <label>{this.props.text}</label>
+        <i className={`fa fa-${this.props.icon}`} />
       </div>
     </button>
   }

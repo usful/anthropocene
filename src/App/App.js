@@ -11,6 +11,7 @@ import AudioPlayer from '../components/AudioPlayer/AudioPlayer';
 import ChapterMenu from '../components/ChapterMenu/ChapterMenu';
 import MainMenu from '../components/MainMenu/MainMenu';
 import IconButton from '../components/IconButton/IconButton';
+import LargeButton from '../components/LargeButton/LargeButton';
 
 import LoadingScene from '../scenes/LoadingScene/LoadingScene';
 import SecondScene from '../scenes/SecondScene/SecondScene';
@@ -23,9 +24,9 @@ import ShareScreen from '../components/ShareScreen/ShareSceen';
 let isResizing; //timeout reference to track if the user is currently resizing the window.
 
 const HEART_BEAT_DECREASE = 250; //ms
-const OPACITY_DECREASE = 0.15; //of 100%
-const OPACITY_CUTOFF = 0.30; //the point at which to trigger the sharing page.
-const SCENES = ['loadingScene', 'secondScene', 'thirdScene', 'fourthScene', 'fifthScene', 'sixthScene'];
+const OPACITY_DECREASE = 0.08; //of 100%
+const OPACITY_CUTOFF = 0.25; //the point at which to trigger the sharing page.
+const SCENES = ['loadingScene', 'secondScene', 'thirdScene', 'fourthScene', 'fifthScene'];
 const HEART_BEAT_START = 1000; //ms
 
 const DEFAULT_STATE = {
@@ -38,7 +39,8 @@ const DEFAULT_STATE = {
   lastChapter: 0,
   firstTime: true,
   menuOpen: false,
-  rightPanelOpen: false
+  rightPanelOpen: false,
+  resuscitating: false
 };
 
 class App extends Component {
@@ -101,21 +103,23 @@ class App extends Component {
     if (window.location.hash.startsWith('#chapter-')) {
       let chapter = (+window.location.hash.replace('#chapter-', ''));
 
+      if (this.state.lastChapter === chapter) return;
+
       this.goChapter(chapter);
     }
   }
 
   goChapter(chapter) {
-   this.setState({beat: HEART_BEAT_START, siteOpacity: 1});
-   this.refs.heartbeat.play();
+    this.resuscitate();
+    this.setState({rightPanelOpen: false});
 
-   this.refs[SCENES[this.state.lastChapter]].hide();
-   this.refs[SCENES[this.state.lastChapter]].stop();
+    this.refs[SCENES[this.state.lastChapter]].hide();
+    this.refs[SCENES[this.state.lastChapter]].stop();
 
-   this.refs[SCENES[chapter]].show();
-   this.refs[SCENES[chapter]].play();
+    this.refs[SCENES[chapter]].show();
+    this.refs[SCENES[chapter]].play();
 
-   this.setState({lastChapter: chapter});
+    this.setState({lastChapter: chapter});
   }
 
   windowResized() {
@@ -130,17 +134,26 @@ class App extends Component {
     setTimeout(() => this.setState({loaded: true}), this.state.beat);
   }
 
+  enterShareMode() {
+    this.setState({beat: HEART_BEAT_START*10, siteOpacity: 0});
+    this.refs[SCENES[this.state.lastChapter]].hide();
+    setTimeout(() => this.setState({shareMode: true}), 2000);
+  }
+
   theHeartBeats() {
-    this.setState({beat: this.state.beat + HEART_BEAT_DECREASE, siteOpacity: Math.max(OPACITY_CUTOFF, this.state.siteOpacity - OPACITY_DECREASE)});
-    /**
-    if (this.state.siteOpacity < OPACITY_CUTOFF) {
-      this.setState({beat: HEART_BEAT_START*10, siteOpacity: 0});
-      this.refs[SCENES[this.state.lastMenu]].hide();
-      setTimeout(() => this.setState({shareMode: true}), 2000);
-    } else {
-      this.setState({beat: this.state.beat + HEART_BEAT_DECREASE, siteOpacity: this.state.siteOpacity - OPACITY_DECREASE});
+    if (this.state.resuscitating) {
+      this.setState({resuscitating: false});
+      return;
     }
-     */
+
+    if (this.state.siteOpacity < OPACITY_CUTOFF) {
+      return this.enterShareMode();
+    }
+
+    this.setState({
+      beat: this.state.beat + HEART_BEAT_DECREASE,
+      siteOpacity: this.state.siteOpacity - OPACITY_DECREASE
+    });
   }
 
   mouseMove(e) {
@@ -168,18 +181,38 @@ class App extends Component {
   }
 
   increaseLoadingState() {
-    this.setState({loadingState: this.state.loadingState+1});
+    this.setState({loadingState: this.state.loadingState + 1});
   }
 
   resuscitate() {
-    this.setState({beat: HEART_BEAT_START, siteOpacity: 1, shareMode: false});
+    this.setState({beat: HEART_BEAT_START, siteOpacity: 1, resuscitating: true});
     this.refs.heartbeat.play();
+  }
+
+  resuscitateAndShare() {
+    this.keepWatching();
+    setTimeout(() => this.beSocial(), 1000);
+  }
+
+  keepWatching() {
+    this.resuscitate();
+    this.setState({shareMode: false});
     this.refs[SCENES[this.state.lastChapter]].show();
     this.refs[SCENES[this.state.lastChapter]].play();
   }
 
   toggleRightPanel() {
+    this.resuscitate();
     this.setState({rightPanelOpen: !this.state.rightPanelOpen});
+  }
+
+  onMenuSocial() {
+    this.setState({menuOpen: false});
+    this.beSocial();
+  }
+
+  closeRightPanel() {
+    this.setState({rightPanelOpen: false});
   }
 
   get perspectiveOrigin() {
@@ -192,24 +225,19 @@ class App extends Component {
 
   render() {
     return (
-      <div className={this.className} >
-        <section className="support">
-          <div className="wrapper">
-            <h2>Raise awareness for the Anthropocene.</h2>
-            <h1>Share this story.</h1>
+      <div className={this.className}>
 
-            <label onClick={this.resuscitate.bind(this)}>I want to keep watching.</label>
-          </div>
-        </section>
-
-        <section className="main" style={{perspectiveOrigin: this.perspectiveOrigin}} onMouseMove={this.mouseMove.bind(this)}>
+        <section className="main" style={{perspectiveOrigin: this.perspectiveOrigin}}
+                 onMouseMove={this.mouseMove.bind(this)}>
           <LoadingScene ref="loadingScene"
                         perspectiveX={this.state.perspectiveX}
                         perspectiveY={this.state.perspectiveY}
                         onNext={() => this.menuChanged({key:1})}
                         onCanPlay={this.increaseLoadingState.bind(this)}
+                        onCloseRightPanel={this.closeRightPanel.bind(this)}
                         onToggleRightPanel={this.toggleRightPanel.bind(this)}
                         onDone={this.loadingSceneDone.bind(this)}
+                        onResuscitate={this.resuscitate.bind(this)}
                         muted={this.state.muted}
                         width={this.state.width}
                         height={this.state.height}
@@ -222,6 +250,8 @@ class App extends Component {
                        width={this.state.width}
                        height={this.state.height}
                        opacity={this.state.siteOpacity}
+                       onResuscitate={this.resuscitate.bind(this)}
+                       onCloseRightPanel={this.closeRightPanel.bind(this)}
                        onToggleRightPanel={this.toggleRightPanel.bind(this)}
                        onNext={() => this.menuChanged({key:2})}
                        onCanPlay={this.increaseLoadingState.bind(this)}/>
@@ -232,6 +262,8 @@ class App extends Component {
                       width={this.state.width}
                       height={this.state.height}
                       opacity={this.state.siteOpacity}
+                      onResuscitate={this.resuscitate.bind(this)}
+                      onCloseRightPanel={this.closeRightPanel.bind(this)}
                       onToggleRightPanel={this.toggleRightPanel.bind(this)}
                       onNext={() => this.menuChanged({key:3})}
                       onCanPlay={this.increaseLoadingState.bind(this)}/>
@@ -242,6 +274,8 @@ class App extends Component {
                        width={this.state.width}
                        height={this.state.height}
                        opacity={this.state.siteOpacity}
+                       onResuscitate={this.resuscitate.bind(this)}
+                       onCloseRightPanel={this.closeRightPanel.bind(this)}
                        onToggleRightPanel={this.toggleRightPanel.bind(this)}
                        onNext={() => this.menuChanged({key:4})}
                        onCanPlay={this.increaseLoadingState.bind(this)}/>
@@ -252,15 +286,19 @@ class App extends Component {
                       width={this.state.width}
                       height={this.state.height}
                       opacity={this.state.siteOpacity}
+                      onResuscitate={this.resuscitate.bind(this)}
+                      onCloseRightPanel={this.closeRightPanel.bind(this)}
                       onToggleRightPanel={this.toggleRightPanel.bind(this)}
                       onCanPlay={this.increaseLoadingState.bind(this)}/>
 
-          <ChapterMenu open={this.state.loaded} chapter={this.state.lastChapter} onMenuChange={this.menuChanged.bind(this)} opacity={this.state.siteOpacity}/>
+          <ChapterMenu open={this.state.loaded} chapter={this.state.lastChapter}
+                       onMenuChange={this.menuChanged.bind(this)} opacity={this.state.siteOpacity}/>
 
           <menu className="top">
-            <a href="http://theanthropocene.org/about/">The Anthropocene Film</a>
-            <a href="http://theanthropocene.org/about/">Gigapixel Experience</a>
-            <a href="http://theanthropocene.org/about/">VR Experience</a>
+            <a href="http://theanthropocene.org/film/">Feature Film</a>
+            <a href="http://theanthropocene.org/gigapixel/">Gigapixel</a>
+            <a href="http://theanthropocene.org/photogrammetry/">Photogrammetry</a>
+            <a href="http://theanthropocene.org/360vr/">360&deg; VR</a>
           </menu>
 
           <menu className="controls">
@@ -271,16 +309,36 @@ class App extends Component {
                         active={this.state.muted} onClick={this.toggleMute.bind(this)}/>
           </menu>
 
-          <IconButton className="menu" icon="bars-btm" iconActive="times" active={this.state.menuOpen} onClick={() => this.setState({menuOpen: !this.state.menuOpen})}/>
+          <IconButton className="menu" icon="bars-btm" iconActive="times" active={this.state.menuOpen}
+                      onClick={() => this.setState({menuOpen: !this.state.menuOpen})}/>
 
           <ShareScreen visible={this.state.sharing}/>
         </section>
 
-        <MainMenu open={this.state.menuOpen} onCloseMenu={() => this.setState({menuOpen:false})} onMenuChange={this.menuChanged.bind(this)}/>
+        <section className="support">
+          <div className="share-wrapper">
+            <h2>
+              This experience will slowly die if nothing is done. The more you interact with the experience, the more it stays alive.
+              Help us raise awareness for the Anthropocene by sharing this experience.
+            </h2>
+
+            <LargeButton text="Share" icon="share-mdi" onClick={this.resuscitateAndShare.bind(this)} />
+
+            <label className="watch" onClick={this.keepWatching.bind(this)}>I want to keep watching.</label>
+          </div>
+        </section>
+
+        <MainMenu open={this.state.menuOpen}
+                  onSocial={() => this.onMenuSocial()}
+                  onCloseMenu={() => this.setState({menuOpen:false})}
+                  onMenuChange={this.menuChanged.bind(this)}/>
 
 
-        <AudioPlayer src="audio/background.mp3" play={this.state.loaded} loop={true} volume={this.state.shareMode ? 0 : 50} muted={this.state.muted}/>
-        <AudioPlayer src="audio/heartbeat.mp3" play={this.state.loaded} loop={true} onEnd={this.theHeartBeats.bind(this)} delay={this.state.beat} volume={50} muted={this.state.muted}/>
+        <AudioPlayer src="audio/background.mp3" play={this.state.loaded} loop={true}
+                     volume={this.state.shareMode ? 0 : 50} muted={this.state.muted}/>
+        <AudioPlayer src="audio/heartbeat.mp3" play={this.state.loaded} loop={true}
+                     onEnd={this.theHeartBeats.bind(this)} delay={this.state.beat} volume={50}
+                     muted={this.state.muted}/>
         <AudioPlayer ref="heartbeat" src="audio/heartbeat.mp3" volume={100} muted={this.state.muted}/>
       </div>
     )

@@ -28,7 +28,7 @@ export default class InfoButton extends Component {
           <rect x="1" y="1" width="43" height="65"/>
         </svg>
 
-        <i className={`fa fa-info-with-circle`} />
+        <i>i</i>
       </div>
     </button>
   }

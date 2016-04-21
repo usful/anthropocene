@@ -1,11 +1,9 @@
 @import "../../styles/variables.scss";
 
-/** @define NextButton */
+/** @define LargeButton */
 .InfoButton {
-  font-family: 'proxima-nova', sans-serif;
   font-weight: 300;
   font-size: 200%;
-  text-transform: uppercase;
   -webkit-font-smoothing: antialiased;
   color: $offWhite;
 
@@ -47,11 +45,12 @@
   }
 
 
-  i.fa {
-    padding: 0.5em 0.25em;
+  i {
+    padding: 0.1em 0.25em;
     display: inline-block;
     vertical-align: middle;
     opacity: 1;
+    font-size: 125%;
     transition: opacity $transitionHeart;
   }
 
