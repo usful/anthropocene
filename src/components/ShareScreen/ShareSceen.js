@@ -46,7 +46,7 @@ export default class ShareScreen extends Component {
   shareArt(art) {
     console.log(art);
   }
-  
+
   render() {
     return (
       <div className={this.className}>
