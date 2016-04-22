@@ -151,8 +151,8 @@ class App extends Component {
     }
 
     this.setState({
-      beat: this.state.beat + HEART_BEAT_DECREASE,
-      siteOpacity: this.state.siteOpacity - OPACITY_DECREASE
+      beat: this.state.beat + (this.state.sharing ? 0 : HEART_BEAT_DECREASE),
+      siteOpacity: this.state.siteOpacity - (this.state.sharing ? 0 : OPACITY_DECREASE)
     });
   }
 
@@ -220,7 +220,7 @@ class App extends Component {
   }
 
   get className() {
-    return `App ${this.state.shareMode ? 'share-mode' : 'story-mode'} ${this.state.menuOpen ? 'menu-open' : 'menu-closed'} ${this.state.rightPanelOpen ? 'right-panel' : ''}`;
+    return `App ${this.state.shareMode ? 'share-mode' : 'story-mode'} ${this.state.menuOpen ? 'menu-open' : 'menu-closed'} ${this.state.rightPanelOpen ? 'right-panel' : 'no-right-panel'} ${this.state.sharing ? 'sharing' : 'not-sharing'}`;
   }
 
   render() {
@@ -312,7 +312,6 @@ class App extends Component {
           <IconButton className="menu" icon="bars-btm" iconActive="times" active={this.state.menuOpen}
                       onClick={() => this.setState({menuOpen: !this.state.menuOpen})}/>
 
-          <ShareScreen visible={this.state.sharing}/>
         </section>
 
         <section className="support">
@@ -327,6 +326,8 @@ class App extends Component {
             <label className="watch" onClick={this.keepWatching.bind(this)}>I want to keep watching.</label>
           </div>
         </section>
+
+        <ShareScreen visible={this.state.sharing} onClose={this.beSocial.bind(this)}/>
 
         <MainMenu open={this.state.menuOpen}
                   onSocial={() => this.onMenuSocial()}

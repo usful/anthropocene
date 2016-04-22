@@ -40,6 +40,7 @@ module.exports = {
   },
   plugins: [
     new ExtractTextPlugin('app.css'),
+    /**
     new webpack.DefinePlugin({
       'process.env':{
         'NODE_ENV': JSON.stringify('production')
@@ -49,6 +50,7 @@ module.exports = {
       sourceMap: true,
       mangle: true
     })
+   **/
   ],
   watch: true
 };

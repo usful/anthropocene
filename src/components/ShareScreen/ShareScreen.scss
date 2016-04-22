@@ -1,6 +1,6 @@
 @import "../../styles/variables.scss";
 
-/** @define InfoSection */
+/** @define ShareScreen */
 .ShareScreen {
   font-weight: 300;
   font-size: 125%;
@@ -14,13 +14,25 @@
   padding: 2em;
   border: 1px solid #333;
   box-sizing: border-box;
+  overflow-y: auto;
 
   z-index: 1000;
   background-color: #f5f5f5;
-  opacity: 0;
 
   transform: translate3d(130vw, 0, 0);
   transition: transform $transitionHeart, opacity $transition;
+
+  .IconButton {
+    position: absolute;
+    top: 2em;
+    right: 2em;
+    color: #333;
+    font-size: 125%;
+
+    svg rect {
+      stroke: #333;
+    }
+  }
 
   h1 {
     font-weight: 300;
@@ -29,15 +41,33 @@
     margin: 2em 0 1em 0;
   }
 
-  img {
-    width: 10em;
-    margin: 1em;
-    border: 1px solid #444;
-    transform: translate3d(0, 0, -10vw);
+  section.arts {
+    text-align: center;
+    padding: 2em;
+
+    div.art {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0.5em;
+      transition: transform $transitionHeart, opacity $transition;
+
+      > div > div > div > div:last-child {
+        opacity: 0;
+      }
+
+      &:hover {
+        > div > div > div > div:last-child {
+          opacity: 1;
+        }
+      }
+
+      &:active {
+        transform: scale3d(0.66, 0.66, 1);
+      }
+    }
   }
 
   &.visible {
-    opacity: 1;
     transform: translate3d(0, 0, 0);
   }
 }

@@ -141,4 +141,10 @@
       transform: translate3d(-30vw, 0, 0);
     }
   }
+
+  &.sharing {
+    > section.support, > section.main {
+      transform: translate3d(-100vw, 0, 0);
+    }
+  }
 }

@@ -43,13 +43,23 @@ export default class ShareScreen extends Component {
     return `ShareScreen ${this.props.visible ? 'visible' : 'not-visible'}`;
   }
 
+  shareArt(art) {
+    console.log(art);
+  }
+  
   render() {
     return (
       <div className={this.className}>
-        <h1>Share</h1>
-        {arts.map(art =>
-          <img src={`/img/art/${art}`} />
-        )}
+        <IconButton icon="times" onClick={this.props.onClose.bind(this)}/>
+        <h1>Choose an image to share.</h1>
+
+        <section className="arts">
+          {arts.map(art =>
+            <div key={art} className="art" onClick={(e) => this.shareArt(art)}>
+              <AtvImg layers={[`/img/art/${art}`, ['/img/art/layer2.png']]} style={{width: '21.75em', height: '16.2em'}} />
+            </div>
+          )}
+        </section>
       </div>
     );
   }
