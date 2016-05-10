@@ -19,7 +19,7 @@ import ThirdScene from '../scenes/ThirdScene/ThirdScene';
 import FourthScene from '../scenes/FourthScene/FourthScene';
 import FifthScene from '../scenes/FifthScene/FifthScene';
 
-import ShareScreen from '../components/ShareScreen/ShareSceen';
+import ShareScreen from '../components/ShareScreen/ShareScreen';
 
 let isResizing; //timeout reference to track if the user is currently resizing the window.
 
@@ -233,7 +233,7 @@ class App extends Component {
                         perspectiveX={this.state.perspectiveX}
                         perspectiveY={this.state.perspectiveY}
                         onNext={() => this.menuChanged({key:1})}
-                        onCanPlay={this.increaseLoadingState.bind(this)}
+                        onCanPlayThrough={this.increaseLoadingState.bind(this)}
                         onCloseRightPanel={this.closeRightPanel.bind(this)}
                         onToggleRightPanel={this.toggleRightPanel.bind(this)}
                         onDone={this.loadingSceneDone.bind(this)}
@@ -254,7 +254,7 @@ class App extends Component {
                        onCloseRightPanel={this.closeRightPanel.bind(this)}
                        onToggleRightPanel={this.toggleRightPanel.bind(this)}
                        onNext={() => this.menuChanged({key:2})}
-                       onCanPlay={this.increaseLoadingState.bind(this)}/>
+                       onCanPlayThrough={this.increaseLoadingState.bind(this)}/>
 
           <ThirdScene ref="thirdScene"
                       perspectiveX={this.state.perspectiveX}
@@ -266,7 +266,7 @@ class App extends Component {
                       onCloseRightPanel={this.closeRightPanel.bind(this)}
                       onToggleRightPanel={this.toggleRightPanel.bind(this)}
                       onNext={() => this.menuChanged({key:3})}
-                      onCanPlay={this.increaseLoadingState.bind(this)}/>
+                      onCanPlayThrough={this.increaseLoadingState.bind(this)}/>
 
           <FourthScene ref="fourthScene"
                        perspectiveX={this.state.perspectiveX}
@@ -278,7 +278,7 @@ class App extends Component {
                        onCloseRightPanel={this.closeRightPanel.bind(this)}
                        onToggleRightPanel={this.toggleRightPanel.bind(this)}
                        onNext={() => this.menuChanged({key:4})}
-                       onCanPlay={this.increaseLoadingState.bind(this)}/>
+                       onCanPlayThrough={this.increaseLoadingState.bind(this)}/>
 
           <FifthScene ref="fifthScene"
                       perspectiveX={this.state.perspectiveX}
@@ -289,7 +289,7 @@ class App extends Component {
                       onResuscitate={this.resuscitate.bind(this)}
                       onCloseRightPanel={this.closeRightPanel.bind(this)}
                       onToggleRightPanel={this.toggleRightPanel.bind(this)}
-                      onCanPlay={this.increaseLoadingState.bind(this)}/>
+                      onCanPlayThrough={this.increaseLoadingState.bind(this)}/>
 
           <ChapterMenu open={this.state.loaded} chapter={this.state.lastChapter}
                        onMenuChange={this.menuChanged.bind(this)} opacity={this.state.siteOpacity}/>

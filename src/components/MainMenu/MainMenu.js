@@ -3,7 +3,6 @@ import './MainMenu.scss';
 
 import React, {Component} from 'react';
 
-import Logo from '../Logo/Logo';
 import WordMark from '../WordMark/WordMark';
 import IconButton from '../IconButton/IconButton';
 
@@ -25,6 +24,17 @@ export default class MainMenu extends Component {
     onCloseMenu: (e) => false,
     onSocial: (e) => false
   };
+
+  shareFB() {
+    FB.ui({
+      method: 'share',
+      quote: 'Anthropocene, we have reached an unprecedented moment in planetary history, where humans have more impact on the earth and it processes than all other natural forces combined.',
+      hashtag: 'anthropocene',
+      href: 'http://theanthropocene.org/'
+    }, function(response){
+      console.log(response);
+    });
+  }
 
   menuClicked(menu) {
     this.setState({selected: menu.key});
@@ -62,6 +72,11 @@ export default class MainMenu extends Component {
             <a href="http://theanthropocene.org/photogrammetry/">Photogrammetry</a>
             <hr/>
             <a href="http://theanthropocene.org/360vr/">360&deg; VR</a>
+            <hr/>
+            <a href="https://twitter.com/intent/tweet?text=Anthropocene, we have reached an unprecedented moment in planetary history, where humans
+            have more impact on the earth and it processes than all other natural forces combined.&url=http://theanthropocene.org">Test Tweet</a>
+            <hr/>
+            <a href="#" onClick={this.shareFB}>Test Facebook</a>
           </menu>
         </div>
 

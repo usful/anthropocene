@@ -23,7 +23,7 @@ export default class AudioPlayer extends React.Component {
     delay: 0,
     /** duration to fade volume in ms */
     fadeDuration: 2000,
-    onCanPlay: function() {},
+    onCanPlayThrough: function() {},
     onEnd: function() {}
   };
 
@@ -87,7 +87,7 @@ export default class AudioPlayer extends React.Component {
   render() {
     return (
       <audio ref="audio"
-             onCanPlay={this.props.onCanPlay.bind(this)}
+             onCanPlayThrough={this.props.onCanPlayThrough.bind(this)}
              onEnded={this.ended.bind(this)}
              autoPlay={this.props.autoPlay}
              loop={this.props.loop && this.props.delay === 0}>

@@ -26,14 +26,14 @@ export default class SceneComponent extends Component {
     opacity: 1,
     onDone: function() {},
     onNext: function() {},
-    onCanPlay: function() {},
+    onCanPlayThrough: function() {},
     onCloseRightPanel: function() {},
     onToggleRightPanel: function() {}
   };
 
   fireCanPlay() {
     if (!this.state.canPlayFired) {
-      this.props.onCanPlay.call(this);
+      this.props.onCanPlayThrough.call(this);
       this.setState({canPlayFired: true});
     }
   }

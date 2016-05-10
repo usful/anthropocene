@@ -38,7 +38,7 @@ export default class LoadingScene extends SceneComponent {
 
   fireCanPlay(e) {
     if (!this.state.canPlayFired && this.refs.video.readyState >= 2 && this.refs.introAudio.readyState >= 2) {
-      this.props.onCanPlay.call(this, e);
+      this.props.onCanPlayThrough.call(this, e);
       this.setState({canPlayFired: true});
       this.startPhase1();
     }
@@ -95,12 +95,12 @@ export default class LoadingScene extends SceneComponent {
     return (
       <div className={this.classes} style={this.style}>
         <div className="video-wrapper" style={this.videoStyle} onClick={this.props.onCloseRightPanel}>
-          <video ref="video" loop onCanPlay={this.fireCanPlay.bind(this)} onTimeUpdate={this.introVidProgress.bind(this)}>
+          <video ref="video" loop onCanPlayThrough={this.fireCanPlay.bind(this)} onTimeUpdate={this.introVidProgress.bind(this)}>
             <source type="video/mp4" src="vids/empty-lake.mp4"/>
           </video>
         </div>
 
-        <AudioPlayer ref="introAudio" src="audio/intro.mp3" play={this.state.phase2} fadeDuration={5000} onCanPlay={this.fireCanPlay.bind(this)} volume={this.state.introVolume} muted={this.props.muted} />
+        <AudioPlayer ref="introAudio" src="audio/intro.mp3" play={this.state.phase2} fadeDuration={5000} onCanPlayThrough={this.fireCanPlay.bind(this)} volume={this.state.introVolume} muted={this.props.muted} />
 
         <div className="underlay" style={{opacity: this.state.phase2 ? 0 : 1, display: this.state.phase3 ? 'none' : 'block'}}></div>
 

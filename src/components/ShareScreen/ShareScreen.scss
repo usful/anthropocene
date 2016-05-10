@@ -11,10 +11,7 @@
   right: 0;
   height: 100vh;
   width: 100vw;
-  padding: 2em;
-  border: 1px solid #333;
   box-sizing: border-box;
-  overflow-y: auto;
 
   z-index: 1000;
   background-color: #f5f5f5;
@@ -34,21 +31,24 @@
     }
   }
 
-  h1 {
-    font-weight: 300;
-    text-align: center;
-    font-size: 300%;
-    margin: 2em 0 1em 0;
-  }
-
   section.arts {
     text-align: center;
     padding: 2em;
+    overflow-y: auto;
+    box-sizing: border-box;
+    height: 100vh;
+
+    h1 {
+      font-weight: 300;
+      text-align: center;
+      font-size: 300%;
+      margin: 1em 0 0.5em 0;
+    }
 
     div.art {
       display: inline-block;
       vertical-align: middle;
-      margin: 0.5em;
+      margin: 1em;
       transition: transform $transitionHeart, opacity $transition;
 
       > div > div > div > div:last-child {
@@ -67,7 +67,68 @@
     }
   }
 
+  section.share {
+    visibility: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255,255,255,0);
+
+    opacity: 0;
+    transform: scale3d(0.66, 0.66, 1);
+
+    transition: background $transitionHeart, visibility $transitionHeart, transform $transitionHeart, opacity $transitionHeart;
+
+    .share-wrapper {
+      padding: 5em 10em;
+      text-align: center;
+
+      .image {
+        display: inline-block;
+        vertical-align: middle;
+        width: 30em;
+
+        img {
+          box-shadow: 0 4.5em 10em rgba(14, 21, 47, 0.4), 0 1.6em 4em rgba(14, 21, 47, 0.4);
+          border-radius: 0.5em;
+          width: 100%;
+        }
+      }
+
+      .buttons {
+        display: inline-block;
+        vertical-align: middle;
+        width: 20em;
+
+        .LargeButton {
+          color: #333;
+          background-color: rgba(255,255,255,0.25);
+
+          svg rect {
+            stroke: #333;
+          }
+        }
+      }
+    }
+  }
+
   &.visible {
     transform: translate3d(0, 0, 0);
+  }
+
+  &.sharing {
+    section.share {
+      visibility: visible;
+      opacity: 1;
+      transform: scale3d(1,1,1);
+    }
+  }
+
+  &.sharing-open {
+    section.share {
+      background-color: rgba(255,255,255,0.25);
+    }
   }
 }

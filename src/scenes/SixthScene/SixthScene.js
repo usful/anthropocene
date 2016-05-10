@@ -22,7 +22,7 @@ export default class SixthScene extends SceneComponent {
     return (
       <div className={this.classes} style={this.style}>
         <div className="video-wrapper" style={this.videoStyle}>
-          <video ref="video" loop onCanPlay={this.fireCanPlay.bind(this)}>
+          <video ref="video" loop onCanPlayThrough={this.fireCanPlay.bind(this)}>
             <source type="video/mp4" src="vids/clip11.mp4"/>
           </video>
         </div>
