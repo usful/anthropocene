@@ -40,14 +40,14 @@ export default class LoadingScene extends SceneComponent {
     if (!this.state.canPlayFired && this.refs.video.readyState >= 2 && this.refs.introAudio.readyState >= 2) {
       this.props.onCanPlayThrough.call(this, e);
       this.setState({canPlayFired: true});
-      this.startPhase1();
+      //this.startPhase1();
     }
   }
 
   startPhase1() {
     if (this.state.hasPlayed) return this.skip();
 
-    window.location.hash = '#chapter-0';
+    //window.location.hash = '#chapter-0';
     this.setState({phase1: true, introVolume: 0});
 
     setTimeout(this.startPhase2.bind(this), this.props.delay);

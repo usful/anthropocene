@@ -6,6 +6,7 @@ import React, {Component} from 'react';
 import SceneComponent from '../SceneComponent';
 import TextRoll from '../../components/TextRoll/TextRoll';
 import InfoButton from '../../components/InfoButton/InfoButton';
+import LargeButton from '../../components/LargeButton/LargeButton';
 import InfoSection from '../../components/InfoSection/InfoSection';
 
 export default class FifthScene extends SceneComponent {
@@ -45,7 +46,8 @@ export default class FifthScene extends SceneComponent {
           <span>planetary</span>
           <span>domination.</span>
           <br/>
-          <InfoButton onClick={this.toggleInfo.bind(this)}/>
+          <InfoButton onClick={e => this.toggleInfo()}/>
+          <LargeButton onClick={e => this.props.onBeSocial()} text="Share" icon="share-mdi" />
         </TextRoll>
 
 

@@ -49,8 +49,7 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
       mangle: true
-    })
-   **/
+    })*/
   ],
   watch: true
 };

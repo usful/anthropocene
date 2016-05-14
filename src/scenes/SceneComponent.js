@@ -28,7 +28,8 @@ export default class SceneComponent extends Component {
     onNext: function() {},
     onCanPlayThrough: function() {},
     onCloseRightPanel: function() {},
-    onToggleRightPanel: function() {}
+    onToggleRightPanel: function() {},
+    onBeSocial: function() {}
   };
 
   fireCanPlay() {

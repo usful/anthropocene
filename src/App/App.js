@@ -29,6 +29,9 @@ const OPACITY_CUTOFF = 0.25; //the point at which to trigger the sharing page.
 const SCENES = ['loadingScene', 'secondScene', 'thirdScene', 'fourthScene', 'fifthScene'];
 const HEART_BEAT_START = 1000; //ms
 
+const TOTAL_SCENES = 5; // total amount of scenes, for loading purposes.
+let lastHash = '';
+
 const DEFAULT_STATE = {
   siteOpacity: 1,
   loaded: false,
@@ -36,7 +39,7 @@ const DEFAULT_STATE = {
   shareMode: false,
   sharing: false,
   beat: HEART_BEAT_START,
-  lastChapter: 0,
+  lastChapter: -1,
   firstTime: true,
   menuOpen: false,
   rightPanelOpen: false,
@@ -56,8 +59,6 @@ class App extends Component {
       height: window.outerHeight
     };
 
-    window.location.hash = '';
-
     window.addEventListener('resize', this.windowResized.bind(this));
     window.addEventListener('hashchange', this.hashChanged.bind(this));
   }
@@ -71,6 +72,7 @@ class App extends Component {
     let state = {};
 
     try {
+      //TODO: add back in when we are ready to persist states.
       //state = JSON.parse(localStorage.getItem('savedState'));
     } catch (e) {
       console.error(e);
@@ -99,25 +101,59 @@ class App extends Component {
     }
   }
 
+  navBack() {
+    window.history.go(-1);
+  }
+
   hashChanged(e) {
-    if (window.location.hash.startsWith('#chapter-')) {
-      let chapter = (+window.location.hash.replace('#chapter-', ''));
+    let nextHash = window.location.hash;
 
-      if (this.state.lastChapter === chapter) return;
+    //Some simple navigation that allows deep-linking.
+    console.log('last', lastHash, 'next', nextHash);
 
-      this.goChapter(chapter);
+    //Close whatever we were looking at last.
+    if (lastHash === '#share') {
+      this._beSocial();
+    } else if (lastHash === '#menu') {
+      this._toggleMenu();
+    } else if (lastHash === '#do-something') {
+      //TODO: what do we do here?
     }
+
+    if (nextHash.startsWith('#chapter-')) {
+      let chapter = (+nextHash.replace('#chapter-', ''));
+
+      if (this.state.lastChapter !== chapter) {
+        this.goChapter(chapter);
+      }
+
+    } else if (nextHash.startsWith('#share')) {
+      this._beSocial();
+    } else if (nextHash.startsWith('#menu')) {
+      this._toggleMenu();
+    } else if (nextHash.startsWith('#do-something')) {
+      this.enterShareMode();
+    }
+
+    lastHash = nextHash;
   }
 
   goChapter(chapter) {
+    let lastChapter = this.refs[SCENES[this.state.lastChapter]];
+    let nextChapter =  this.refs[SCENES[chapter]];
+
     this.resuscitate();
     this.setState({rightPanelOpen: false});
 
-    this.refs[SCENES[this.state.lastChapter]].hide();
-    this.refs[SCENES[this.state.lastChapter]].stop();
+    if (lastChapter) {
+      lastChapter.hide();
+      lastChapter.stop();
+    }
 
-    this.refs[SCENES[chapter]].show();
-    this.refs[SCENES[chapter]].play();
+    if (nextChapter) {
+      nextChapter.show();
+      nextChapter.play();
+    }
 
     this.setState({lastChapter: chapter});
   }
@@ -176,12 +212,25 @@ class App extends Component {
   }
 
   beSocial() {
+    window.location.hash = '#share';
+  }
+
+  _beSocial() {
     this.setState({beat: HEART_BEAT_START, siteOpacity: 1, sharing: !this.state.sharing});
     this.refs.heartbeat.play();
   }
 
   increaseLoadingState() {
     this.setState({loadingState: this.state.loadingState + 1});
+
+    if (this.state.loadingState >= TOTAL_SCENES - 1) {
+      this.hashChanged();
+
+      //If we're not landing on the chapter-0, then mark the site as loaded.
+      if (window.location.hash !== '#chapter-0') {
+        this.loadingSceneDone();
+      }
+    }
   }
 
   resuscitate() {
@@ -201,13 +250,20 @@ class App extends Component {
     this.refs[SCENES[this.state.lastChapter]].play();
   }
 
+  openMenu() {
+    window.location.hash = '#menu';
+  }
+
+  _toggleMenu() {
+    this.setState({menuOpen: !this.state.menuOpen});
+  }
+
   toggleRightPanel() {
     this.resuscitate();
     this.setState({rightPanelOpen: !this.state.rightPanelOpen});
   }
 
   onMenuSocial() {
-    this.setState({menuOpen: false});
     this.beSocial();
   }
 
@@ -224,25 +280,31 @@ class App extends Component {
   }
 
   render() {
+    let events = {
+      onCanPlayThrough: (e) => this.increaseLoadingState(),
+      onResuscitate: (e) => this.resuscitate(),
+      onCloseRightPanel: (e) => this.closeRightPanel(),
+      onToggleRightPanel: (e) => this.toggleRightPanel(),
+      onBeSocial: (e) => this.beSocial()
+    };
+
     return (
       <div className={this.className}>
 
-        <section className="main" style={{perspectiveOrigin: this.perspectiveOrigin}}
-                 onMouseMove={this.mouseMove.bind(this)}>
+        <section className="main"
+                 style={{perspectiveOrigin: this.perspectiveOrigin}}
+                 onMouseMove={e => this.mouseMove(e)}>
           <LoadingScene ref="loadingScene"
                         perspectiveX={this.state.perspectiveX}
                         perspectiveY={this.state.perspectiveY}
-                        onNext={() => this.menuChanged({key:1})}
-                        onCanPlayThrough={this.increaseLoadingState.bind(this)}
-                        onCloseRightPanel={this.closeRightPanel.bind(this)}
-                        onToggleRightPanel={this.toggleRightPanel.bind(this)}
-                        onDone={this.loadingSceneDone.bind(this)}
-                        onResuscitate={this.resuscitate.bind(this)}
                         muted={this.state.muted}
                         width={this.state.width}
                         height={this.state.height}
                         opacity={this.state.siteOpacity}
-                        loadingState={this.state.loadingState}/>
+                        loadingState={this.state.loadingState}
+                        onNext={e => this.menuChanged({key:1})}
+                        onDone={e => this.loadingSceneDone()}
+                        {... events} />
 
           <SecondScene ref="secondScene"
                        perspectiveX={this.state.perspectiveX}
@@ -250,11 +312,8 @@ class App extends Component {
                        width={this.state.width}
                        height={this.state.height}
                        opacity={this.state.siteOpacity}
-                       onResuscitate={this.resuscitate.bind(this)}
-                       onCloseRightPanel={this.closeRightPanel.bind(this)}
-                       onToggleRightPanel={this.toggleRightPanel.bind(this)}
-                       onNext={() => this.menuChanged({key:2})}
-                       onCanPlayThrough={this.increaseLoadingState.bind(this)}/>
+                       onNext={e => this.menuChanged({key:2})}
+                       {... events} />
 
           <ThirdScene ref="thirdScene"
                       perspectiveX={this.state.perspectiveX}
@@ -262,11 +321,8 @@ class App extends Component {
                       width={this.state.width}
                       height={this.state.height}
                       opacity={this.state.siteOpacity}
-                      onResuscitate={this.resuscitate.bind(this)}
-                      onCloseRightPanel={this.closeRightPanel.bind(this)}
-                      onToggleRightPanel={this.toggleRightPanel.bind(this)}
-                      onNext={() => this.menuChanged({key:3})}
-                      onCanPlayThrough={this.increaseLoadingState.bind(this)}/>
+                      onNext={e => this.menuChanged({key:3})}
+                      {... events} />
 
           <FourthScene ref="fourthScene"
                        perspectiveX={this.state.perspectiveX}
@@ -274,11 +330,8 @@ class App extends Component {
                        width={this.state.width}
                        height={this.state.height}
                        opacity={this.state.siteOpacity}
-                       onResuscitate={this.resuscitate.bind(this)}
-                       onCloseRightPanel={this.closeRightPanel.bind(this)}
-                       onToggleRightPanel={this.toggleRightPanel.bind(this)}
-                       onNext={() => this.menuChanged({key:4})}
-                       onCanPlayThrough={this.increaseLoadingState.bind(this)}/>
+                       onNext={e => this.menuChanged({key:4})}
+                       {... events} />
 
           <FifthScene ref="fifthScene"
                       perspectiveX={this.state.perspectiveX}
@@ -286,13 +339,12 @@ class App extends Component {
                       width={this.state.width}
                       height={this.state.height}
                       opacity={this.state.siteOpacity}
-                      onResuscitate={this.resuscitate.bind(this)}
-                      onCloseRightPanel={this.closeRightPanel.bind(this)}
-                      onToggleRightPanel={this.toggleRightPanel.bind(this)}
-                      onCanPlayThrough={this.increaseLoadingState.bind(this)}/>
+                      {... events} />
 
-          <ChapterMenu open={this.state.loaded} chapter={this.state.lastChapter}
-                       onMenuChange={this.menuChanged.bind(this)} opacity={this.state.siteOpacity}/>
+          <ChapterMenu open={this.state.loaded}
+                       chapter={this.state.lastChapter}
+                       onMenuChange={menu => this.menuChanged(menu)}
+                       opacity={this.state.siteOpacity}/>
 
           <menu className="top">
             <a href="http://theanthropocene.org/film/">Feature Film</a>
@@ -302,15 +354,15 @@ class App extends Component {
           </menu>
 
           <menu className="controls">
-            <IconButton icon="share-mdi" title="Share" onClick={this.beSocial.bind(this)}/>
+            <IconButton icon="share-mdi" title="Share" onClick={e => this.beSocial()}/>
             <IconButton icon="volume-up-btm"
                         iconActive="volume-off-btm"
                         title={this.state.muted ? "Sound On" : "Sound Off"}
-                        active={this.state.muted} onClick={this.toggleMute.bind(this)}/>
+                        active={this.state.muted} onClick={e => this.toggleMute()}/>
           </menu>
 
           <IconButton className="menu" icon="bars-btm" iconActive="times" active={this.state.menuOpen}
-                      onClick={() => this.setState({menuOpen: !this.state.menuOpen})}/>
+                      onClick={() => this.openMenu()}/>
 
         </section>
 
@@ -321,18 +373,18 @@ class App extends Component {
               Help us raise awareness for the Anthropocene by sharing this experience.
             </h2>
 
-            <LargeButton text="Share" icon="share-mdi" onClick={this.resuscitateAndShare.bind(this)} />
+            <LargeButton text="Share" icon="share-mdi" onClick={e => this.resuscitateAndShare()} />
 
-            <label className="watch" onClick={this.keepWatching.bind(this)}>I want to keep watching.</label>
+            <label className="watch" onClick={e => this.keepWatching()}>I want to keep watching.</label>
           </div>
         </section>
 
-        <ShareScreen visible={this.state.sharing} onClose={this.beSocial.bind(this)}/>
+        <ShareScreen visible={this.state.sharing} onClose={e => this.navBack()}/>
 
         <MainMenu open={this.state.menuOpen}
-                  onSocial={() => this.onMenuSocial()}
-                  onCloseMenu={() => this.setState({menuOpen:false})}
-                  onMenuChange={this.menuChanged.bind(this)}/>
+                  onSocial={e => this.onMenuSocial()}
+                  onCloseMenu={e => this.navBack()}
+                  onMenuChange={e => this.menuChanged()}/>
 
 
         <AudioPlayer src="audio/background.mp3" play={this.state.loaded} loop={true}
