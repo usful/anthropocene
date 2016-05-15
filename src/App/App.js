@@ -29,8 +29,8 @@ const OPACITY_CUTOFF = 0.25; //the point at which to trigger the sharing page.
 const SCENES = ['loadingScene', 'secondScene', 'thirdScene', 'fourthScene', 'fifthScene'];
 const HEART_BEAT_START = 1000; //ms
 
-const TOTAL_SCENES = 5; // total amount of scenes, for loading purposes.
-let lastHash = '';
+const TOTAL_SCENES = SCENES.length; // total amount of scenes, for loading purposes.
+let navStack = [];
 
 const DEFAULT_STATE = {
   siteOpacity: 1,
@@ -101,16 +101,24 @@ class App extends Component {
     }
   }
 
+  navStart() {
+    window.location.hash = '#chapter-0';
+  }
+
   navBack() {
-    window.history.go(-1);
+    //If there is nothing to go back to, then go to chapter 0.
+    if (navStack.length > 1) {
+      window.history.go(-1);
+      return;
+    }
+
+    this.navStart();
   }
 
   hashChanged(e) {
     let nextHash = window.location.hash;
-
+    let lastHash = navStack[navStack.length-1];
     //Some simple navigation that allows deep-linking.
-    console.log('last', lastHash, 'next', nextHash);
-
     //Close whatever we were looking at last.
     if (lastHash === '#share') {
       this._beSocial();
@@ -127,15 +135,21 @@ class App extends Component {
         this.goChapter(chapter);
       }
 
-    } else if (nextHash.startsWith('#share')) {
-      this._beSocial();
-    } else if (nextHash.startsWith('#menu')) {
-      this._toggleMenu();
-    } else if (nextHash.startsWith('#do-something')) {
-      this.enterShareMode();
+    } else {
+
+      if (nextHash.startsWith('#share')) {
+        this._beSocial();
+      } else if (nextHash.startsWith('#menu')) {
+        this._toggleMenu();
+      } else if (nextHash.startsWith('#do-something')) {
+        this.enterShareMode();
+      }
+
+      //If the page is on first load, and hasn't loaded a chapter yet, play chapter-0.
+      if (!lastHash) this.goChapter({key:0});
     }
 
-    lastHash = nextHash;
+    navStack.push(nextHash);
   }
 
   goChapter(chapter) {
@@ -224,10 +238,17 @@ class App extends Component {
     this.setState({loadingState: this.state.loadingState + 1});
 
     if (this.state.loadingState >= TOTAL_SCENES - 1) {
-      this.hashChanged();
+      //Check to see if there is any hash tag at all
+      if (window.location.hash == '') {
+        this.navStart();
+      } else {
+        this.hashChanged();
+      }
+
 
       //If we're not landing on the chapter-0, then mark the site as loaded.
       if (window.location.hash !== '#chapter-0') {
+        this.refs.loadingScene.hide();
         this.loadingSceneDone();
       }
     }
@@ -295,8 +316,6 @@ class App extends Component {
                  style={{perspectiveOrigin: this.perspectiveOrigin}}
                  onMouseMove={e => this.mouseMove(e)}>
           <LoadingScene ref="loadingScene"
-                        perspectiveX={this.state.perspectiveX}
-                        perspectiveY={this.state.perspectiveY}
                         muted={this.state.muted}
                         width={this.state.width}
                         height={this.state.height}
@@ -307,8 +326,6 @@ class App extends Component {
                         {... events} />
 
           <SecondScene ref="secondScene"
-                       perspectiveX={this.state.perspectiveX}
-                       perspectiveY={this.state.perspectiveY}
                        width={this.state.width}
                        height={this.state.height}
                        opacity={this.state.siteOpacity}
@@ -316,8 +333,6 @@ class App extends Component {
                        {... events} />
 
           <ThirdScene ref="thirdScene"
-                      perspectiveX={this.state.perspectiveX}
-                      perspectiveY={this.state.perspectiveY}
                       width={this.state.width}
                       height={this.state.height}
                       opacity={this.state.siteOpacity}
@@ -325,8 +340,6 @@ class App extends Component {
                       {... events} />
 
           <FourthScene ref="fourthScene"
-                       perspectiveX={this.state.perspectiveX}
-                       perspectiveY={this.state.perspectiveY}
                        width={this.state.width}
                        height={this.state.height}
                        opacity={this.state.siteOpacity}
@@ -334,8 +347,6 @@ class App extends Component {
                        {... events} />
 
           <FifthScene ref="fifthScene"
-                      perspectiveX={this.state.perspectiveX}
-                      perspectiveY={this.state.perspectiveY}
                       width={this.state.width}
                       height={this.state.height}
                       opacity={this.state.siteOpacity}
@@ -358,10 +369,14 @@ class App extends Component {
             <IconButton icon="volume-up-btm"
                         iconActive="volume-off-btm"
                         title={this.state.muted ? "Sound On" : "Sound Off"}
-                        active={this.state.muted} onClick={e => this.toggleMute()}/>
+                        active={this.state.muted}
+                        onClick={e => this.toggleMute()}/>
           </menu>
 
-          <IconButton className="menu" icon="bars-btm" iconActive="times" active={this.state.menuOpen}
+          <IconButton className="menu"
+                      icon="bars-btm"
+                      iconActive="times"
+                      active={this.state.menuOpen}
                       onClick={() => this.openMenu()}/>
 
         </section>

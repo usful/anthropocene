@@ -25,7 +25,7 @@ export default class LoadingScene extends SceneComponent {
 
     this.state = {
       ... this.state,
-      playing: true,
+      playing: false,
       shown: true,
       visible: true,
       hasPlayed: false,
@@ -40,23 +40,20 @@ export default class LoadingScene extends SceneComponent {
     if (!this.state.canPlayFired && this.refs.video.readyState >= 2 && this.refs.introAudio.readyState >= 2) {
       this.props.onCanPlayThrough.call(this, e);
       this.setState({canPlayFired: true});
-      //this.startPhase1();
     }
   }
 
   startPhase1() {
     if (this.state.hasPlayed) return this.skip();
 
-    //window.location.hash = '#chapter-0';
     this.setState({phase1: true, introVolume: 0});
 
     setTimeout(this.startPhase2.bind(this), this.props.delay);
   }
 
   startPhase2() {
-    this.refs.video.play();
-
     if (!this.state.phase2) {
+      this.refs.video.play();
       this.setState({phase2: true, introVolume: 100});
       setTimeout(this.startPhase3.bind(this), this.props.delay);
     }
@@ -72,7 +69,6 @@ export default class LoadingScene extends SceneComponent {
 
   startPhase5() {
     this.setState({phase5: true, introVolume: 0, hasPlayed: true});
-    //setTimeout(() => this.showInfo(), this.props.delay);
   }
 
   introVidProgress(e) {
@@ -101,16 +97,15 @@ export default class LoadingScene extends SceneComponent {
         </div>
 
         <AudioPlayer ref="introAudio" src="audio/intro.mp3" play={this.state.phase2} fadeDuration={5000} onCanPlayThrough={this.fireCanPlay.bind(this)} volume={this.state.introVolume} muted={this.props.muted} />
+        <div className="underlay" style={{opacity: this.state.phase2 ? 0 : 1, visibility: (!this.state.visible || this.state.phase3) ? 'hidden' : 'visible'}}></div>
 
-        <div className="underlay" style={{opacity: this.state.phase2 ? 0 : 1, display: this.state.phase3 ? 'none' : 'block'}}></div>
-
-        <div className="overlay inverted intro-text" style={{opacity: this.state.phase3 ? 0 : 1, display: this.state.phase4 ? 'none' : 'block'}}>
+        <div className="overlay inverted intro-text" style={{opacity: this.state.phase3 ? 0 : 1, visibility: (!this.state.visible || this.state.phase4) ? 'hidden' : 'visible'}}>
           <LogoContainer inverted={true} color='#fff' top='30vh' bottom='60vh' width="18em">
             <LogoInverted/>
           </LogoContainer>
         </div>
 
-        <TextRoll ref="textRoll" style={{textShadow: this.textShadow, fontSize: '125%'}} align={"left"} visible={this.state.visible} onDone={() => {this.startPhase5(); this.props.onDone.call(this);}} >
+        <TextRoll ref="textRoll" style={{fontSize: '125%'}} align="left" visible={this.state.visible} onDone={() => {this.startPhase5(); this.props.onDone.call(this);}} >
           <span>We</span>
           <span>have</span>
           <span>reached</span>
@@ -121,12 +116,12 @@ export default class LoadingScene extends SceneComponent {
           <span>planetary</span>
           <span>history.</span>
           <br/>
-          <InfoButton onClick={this.toggleInfo.bind(this)}/>
+          <InfoButton onClick={e => this.toggleInfo()}/>
           <LargeButton onClick={this.props.onNext} />
         </TextRoll>
 
 
-        <InfoSection visible={this.state.showInfo} onClose={this.toggleInfo.bind(this)}>
+        <InfoSection visible={this.state.showInfo} onClose={e => this.toggleInfo()}>
           <h1>Lake, Chile</h1>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nec velit placerat

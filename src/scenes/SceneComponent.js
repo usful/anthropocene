@@ -45,6 +45,7 @@ export default class SceneComponent extends Component {
   }
 
   play() {
+    console.log(this.name + ', playing');
     this.setState({playing:true});
 
     if (this.refs.video) this.refs.video.play();
@@ -53,6 +54,7 @@ export default class SceneComponent extends Component {
   }
 
   stop() {
+    console.log(this.name + ', stopping');
     this.setState({playing: false});
     if (this.refs.textRoll) this.refs.textRoll.reset();
   }
@@ -63,11 +65,13 @@ export default class SceneComponent extends Component {
   }
 
   show() {
+    console.log(this.name + ', showing');
     this.setState({visible:true});
     setTimeout(() => this.setState({shown:true}), 10);
   }
 
   hide() {
+    console.log(this.name + ', hiding');
     this.stop();
     this.setState({shown: false});
     setTimeout(() => this.setState({visible:false}), 1000);

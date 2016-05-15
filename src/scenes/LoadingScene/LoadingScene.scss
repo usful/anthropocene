@@ -13,11 +13,11 @@
     height: 100%;
     overflow: hidden;
     opacity: 1;
-    transition: opacity $transition;
+    transition: visibility $transition, opacity $transition;
+    visibility: visible;
   }
 
   .underlay {
-    opacity: 1;
     background-color: #323130;
   }
 

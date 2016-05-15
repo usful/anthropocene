@@ -30,7 +30,7 @@ export default class FourthScene extends SceneComponent {
           </video>
         </div>
 
-        <TextRoll ref="textRoll" style={{textShadow: this.textShadow, fontSize: '75%'}} align="right" visible={this.state.visible} onDone={this.props.onDone.bind(this)} >
+        <TextRoll ref="textRoll" style={{fontSize: '75%'}} align="right" visible={this.state.visible} onDone={this.props.onDone.bind(this)} >
           <span>The</span>
           <strong>Anthropocene</strong>
           <strong>Working</strong>

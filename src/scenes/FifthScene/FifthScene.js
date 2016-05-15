@@ -30,7 +30,7 @@ export default class FifthScene extends SceneComponent {
           </video>
         </div>
 
-        <TextRoll ref="textRoll" style={{textShadow: this.textShadow, fontSize: '100%'}} align="left" visible={this.state.visible} onDone={this.props.onDone.bind(this)}>
+        <TextRoll ref="textRoll" style={{fontSize: '100%'}} align="left" visible={this.state.visible} onDone={this.props.onDone.bind(this)}>
           <span>This</span>
           <span>Project</span>
           <span>aims</span>

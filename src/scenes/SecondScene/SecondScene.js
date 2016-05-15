@@ -30,7 +30,7 @@ export default class SecondScene extends SceneComponent {
           </video>
         </div>
 
-        <TextRoll ref="textRoll" style={{textShadow: this.textShadow, fontSize: '90%'}}  align={"right"} visible={this.state.visible} onDone={this.props.onDone.bind(this)} >
+        <TextRoll ref="textRoll" style={{fontSize: '90%'}}  align={"right"} visible={this.state.visible} onDone={this.props.onDone.bind(this)} >
           <span>As</span>
           <span>a</span>
           <span>species,</span>
