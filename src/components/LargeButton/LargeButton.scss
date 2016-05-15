@@ -12,15 +12,11 @@
   display: inline-block;
   box-sizing: border-box;
   padding: 0;
-  width: 6em;
-  height: 2.25em;
   cursor: pointer;
   transition: transform $transitionHeart, opacity $transition;
 
   .wrapper {
     position: relative;
-    width: 6em;
-    height: 2.25em;
   }
 
   svg {
@@ -32,7 +28,7 @@
       fill: transparent;
       stroke: rgba(255,255,255,0.25);
       stroke-width: 1px;
-      stroke-dasharray: 600;
+      stroke-dasharray: 800;
 
       transition: all 650ms ease-in-out;
     }
@@ -41,7 +37,7 @@
       rect {
         fill: transparent;
         stroke: transparent;
-        stroke-dashoffset: 600;
+        stroke-dashoffset: 800;
       }
     }
   }

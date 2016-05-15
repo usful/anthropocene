@@ -2,6 +2,9 @@ import './ShareScreen.scss';
 
 import React, {Component} from 'react';
 
+import clickLink from '../../utils/clickLink';
+import track from '../../utils/track';
+
 import IconButton from '../IconButton/IconButton';
 import LargeButton from '../LargeButton/LargeButton';
 import AtvImg from 'react-atv-img';
@@ -43,6 +46,8 @@ export default class ShareScreen extends Component {
   }
 
   startSharing(art) {
+    track('sharing', 'open', art);
+
     setTimeout(() => {
       this.setState({sharing:true, art: art});
 
@@ -62,11 +67,32 @@ export default class ShareScreen extends Component {
     }, ANIM_TIME);
   }
 
+  download() {
+    track('sharing', 'download', this.state.art);
+    clickLink(`/img/art/anthropocene-${this.state.art}b.jpg`, 'anthropocene.jpg');
+  }
+
+  postFacebook() {
+    track('sharing', 'facebook', this.state.art);
+    FB.ui({
+      method: 'share',
+      quote: 'Anthropocene, we have reached an unprecedented moment in planetary history, where humans have more impact on the earth and it processes than all other natural forces combined.',
+      hashtag: 'anthropocene',
+      href: 'http://theanthropocene.org/'
+    }, function(response){
+    });
+  }
+
+  postTwitter() {
+    track('sharing', 'twitter', this.state.art);
+    clickLink("https://twitter.com/intent/tweet?text=Anthropocene, we have reached an unprecedented moment in planetary history, where humans have more impact on the earth and it processes than all other natural forces combined.&url=http://theanthropocene.org");
+  }
+
   render() {
     return (
       <div className={this.className}>
         <section className="arts">
-          <h1>Choose.</h1>
+          <h1>Share the Anthropocence.</h1>
 
           {arts.map(art =>
             <div key={art} className="art" onClick={(e) => this.startSharing(art)}>
@@ -82,9 +108,9 @@ export default class ShareScreen extends Component {
             </div>
 
             <div className="buttons">
-              <LargeButton icon="twitter" text="Tweet" />
-              <LargeButton icon="facebook-official" text="Post" />
-              <LargeButton icon="share" text="Download"/>
+              <LargeButton icon="twitter" text="Tweet" width={18} onClick={e => this.postTwitter()}/>
+              <LargeButton icon="facebook-official" text="Post" width={18} oClick={e => this.postFacebook()}/>
+              <LargeButton icon="share" text="Download" width={18} onClick={e => this.download()}/>
             </div>
           </div>
         </section>

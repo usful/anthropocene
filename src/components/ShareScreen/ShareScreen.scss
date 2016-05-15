@@ -101,13 +101,16 @@
         display: inline-block;
         vertical-align: middle;
         width: 20em;
+        margin-left: 4em;
 
         .LargeButton {
-          color: #333;
-          background-color: rgba(255,255,255,0.25);
+          display: block;
+          margin: 0.5em 0;
+          color: #334;
+          font-size: 2rem;
 
           svg rect {
-            stroke: #333;
+            stroke: #223;
           }
         }
       }
@@ -128,7 +131,7 @@
 
   &.sharing-open {
     section.share {
-      background-color: rgba(255,255,255,0.25);
+      background-color: rgba(255,255,255,0.9);
     }
   }
 }

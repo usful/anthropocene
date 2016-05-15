@@ -17,6 +17,7 @@
   transform: translate3d(-100vw, 0, 1px);
   transition: transform $transitionHeart;
   z-index: 400;
+  overflow-y: auto;
 
   &.open {
     opacity: 1;
@@ -75,10 +76,37 @@
   }
 
   .IconButton.close {
-    position: absolute;
+    position: fixed;
     top: 4vw;
     right: 4vw;
     font-size: 150%;
+  }
+
+  .mail-chimp {
+    input.email {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      padding: 0.25em 0.5em;
+      border-radius: 0.2em;
+      font-size: 100%;
+      color: #fff;
+      display: inline-block;
+      vertical-align: middle;
+      width: 15em;
+    }
+
+    input.button {
+      margin-left: 1em;
+      display: inline-block;
+      vertical-align: middle;
+      padding: 0.25em 0.5em;
+      font-size: 100%;
+      border-radius: 0.2em;
+      background: rgba(255, 255, 255, 0.8);
+      color: #000;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      cursor: pointer;
+    }
   }
 
   menu {

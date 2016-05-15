@@ -5,7 +5,8 @@ import './App.scss';
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 
-require('./object-assign.js');
+import track from '../utils/track';
+import bowser from 'bowser';
 
 import AudioPlayer from '../components/AudioPlayer/AudioPlayer';
 import ChapterMenu from '../components/ChapterMenu/ChapterMenu';
@@ -106,6 +107,8 @@ class App extends Component {
   }
 
   navBack() {
+    track('nav', 'back');
+
     //If there is nothing to go back to, then go to chapter 0.
     if (navStack.length > 1) {
       window.history.go(-1);
@@ -118,6 +121,9 @@ class App extends Component {
   hashChanged(e) {
     let nextHash = window.location.hash;
     let lastHash = navStack[navStack.length-1];
+
+    track('nav', nextHash.replace('#', ''));
+
     //Some simple navigation that allows deep-linking.
     //Close whatever we were looking at last.
     if (lastHash === '#share') {
@@ -185,12 +191,16 @@ class App extends Component {
   }
 
   enterShareMode() {
+    track('died');
+
     this.setState({beat: HEART_BEAT_START*10, siteOpacity: 0});
     this.refs[SCENES[this.state.lastChapter]].hide();
     setTimeout(() => this.setState({shareMode: true}), 2000);
   }
 
   theHeartBeats() {
+    track('beat', this.state.beat);
+
     if (this.state.resuscitating) {
       this.setState({resuscitating: false});
       return;
@@ -207,6 +217,9 @@ class App extends Component {
   }
 
   mouseMove(e) {
+    //Doesn't run so well on IE any version
+    if (bowser.msie || bowser.firefox) return;
+
     let x = Math.floor(e.clientX / this.state.width * 100) * 0.8;
     let y = Math.floor(e.clientY / this.state.height * 100) * 0.8;
 
@@ -222,6 +235,7 @@ class App extends Component {
   }
 
   toggleMute() {
+    track('mute');
     this.setState({muted: !this.state.muted});
   }
 
@@ -255,6 +269,7 @@ class App extends Component {
   }
 
   resuscitate() {
+    track('resuscitate');
     this.setState({beat: HEART_BEAT_START, siteOpacity: 1, resuscitating: true});
     this.refs.heartbeat.play();
   }
@@ -280,6 +295,7 @@ class App extends Component {
   }
 
   toggleRightPanel() {
+    track('info', this.state.lastChapter);
     this.resuscitate();
     this.setState({rightPanelOpen: !this.state.rightPanelOpen});
   }
@@ -358,10 +374,28 @@ class App extends Component {
                        opacity={this.state.siteOpacity}/>
 
           <menu className="top">
-            <a href="http://theanthropocene.org/film/">Feature Film</a>
-            <a href="http://theanthropocene.org/gigapixel/">Gigapixel</a>
-            <a href="http://theanthropocene.org/photogrammetry/">Photogrammetry</a>
-            <a href="http://theanthropocene.org/360vr/">360&deg; VR</a>
+            <li><a href="http://theanthropocene.org/anthropocene/">Anthropocene Defined</a></li>
+            <li>
+              <a href="http://theanthropocene.org/the-project/">Experience Anthropocene</a>
+              <menu>
+                <hr/>
+                <a href="http://theanthropocene.org/gigapixel/">Gigapixel</a>
+                <hr/>
+                <a href="http://theanthropocene.org/360vr/">360&deg; VR</a>
+                <hr/>
+                <a href="http://theanthropocene.org/photogrammetry/">Photogrammetry</a>
+              </menu>
+            </li>
+            <li>
+              <a href="http://theanthropocene.org/about/">The</a>
+              <menu>
+                <hr/>
+                <a href="http://theanthropocene.org/about/">Film Team</a>
+                <hr/>
+                <a href="http://theanthropocene.org/partners/">Partners</a>
+              </menu>
+            </li>
+            <li><a className="last" href="http://theanthropocene.org/blog/">The Hub</a></li>
           </menu>
 
           <menu className="controls">
@@ -388,7 +422,7 @@ class App extends Component {
               Help us raise awareness for the Anthropocene by sharing this experience.
             </h2>
 
-            <LargeButton text="Share" icon="share-mdi" onClick={e => this.resuscitateAndShare()} />
+            <LargeButton text="Share" icon="share-mdi" onClick={e => this.resuscitateAndShare()} width={15} />
 
             <label className="watch" onClick={e => this.keepWatching()}>I want to keep watching.</label>
           </div>
