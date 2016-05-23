@@ -58,13 +58,16 @@ export default class ThirdScene extends SceneComponent {
         </TextRoll>
 
         <InfoSection visible={this.state.showInfo} onClose={this.toggleInfo.bind(this)}>
-          <h1>Hydro Dam, China</h1>
+          <h1>Xiaolangdi Dam, Henan Province, China</h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nec velit placerat
-            risus malesuada euismod vitae at felis. Vestibulum ut scelerisque elit. Maecenas non
-            laoreet leo.  Maecenas elementum tortor odio, a elementum sem hendrerit sit amet.
+            The Xiaolangdi Dam on the Yellow River in China produces 5.1 billion kWh of electricity per year.
+            Every year, 30 million tons of silt are released, and the event has become a tourist attraction.
           </p>
-          <footer>Source: <a href="#">http://www.theanthropocence.org</a></footer>
+          <p>
+            The Xiolangdi dam presents an example of anthropogenic sediment displacement.
+          </p>
+          <footer>Source: Courtesy of Watermark, 2013</footer>
+          <footer>Reference: <a href="http://www.power-technology.com/projects/xiaolangdi/">Power Technology.com</a></footer>
         </InfoSection>
       </div>
     )

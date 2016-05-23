@@ -47,18 +47,23 @@ export default class FifthScene extends SceneComponent {
           <span>domination.</span>
           <br/>
           <InfoButton onClick={e => this.toggleInfo()}/>
-          <LargeButton onClick={e => this.props.onBeSocial()} text="Share" icon="share-mdi" />
+          <LargeButton onClick={e => this.props.onBeSocial()} text="Share" icon="share-mdi" width="13" />
         </TextRoll>
 
 
         <InfoSection visible={this.state.showInfo} onClose={this.toggleInfo.bind(this)}>
-          <h1>Coal trains, Pennsylvania USA</h1>
+          <h1>Coal Train, Wisconsin, USA</h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nec velit placerat
-            risus malesuada euismod vitae at felis. Vestibulum ut scelerisque elit. Maecenas non
-            laoreet leo.  Maecenas elementum tortor odio, a elementum sem hendrerit sit amet.
+            While the state of Wisconsin does not produce coal, the resource dominates the state’s electricity
+            generation (reaching 55.9% in 2015). In 2014, total U.S. coal production surpassed 1 billion
+            short tons (1 short ton = 2,000 lbs).
           </p>
-          <footer>Source: <a href="#">http://www.theanthropocence.org</a></footer>
+          <p>
+            Atmospheric carbon levels in the Anthropocene are higher than at any other point in the last 400,000 years.
+          </p>
+          <footer>Source: Courtesy of Anthropocene Films</footer>
+          <footer>Reference: <a href="http://www.eia.gov/coal/annual/">EIA</a></footer>
+          <footer>Reference: <a href="http://climate.nasa.gov/climate_resources/24/ ">NASA</a></footer>
         </InfoSection>
       </div>
     )

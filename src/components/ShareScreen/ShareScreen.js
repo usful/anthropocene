@@ -9,6 +9,7 @@ import IconButton from '../IconButton/IconButton';
 import LargeButton from '../LargeButton/LargeButton';
 import AtvImg from 'react-atv-img';
 
+const SHARE_TEXT = 'This is the #Anthropocene. Spread the word.';
 let arts = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21];
 const ANIM_TIME = 250;
 
@@ -76,7 +77,7 @@ export default class ShareScreen extends Component {
     track('sharing', 'facebook', this.state.art);
     FB.ui({
       method: 'share',
-      quote: 'Anthropocene, we have reached an unprecedented moment in planetary history, where humans have more impact on the earth and it processes than all other natural forces combined.',
+      quote: SHARE_TEXT,
       hashtag: 'anthropocene',
       href: 'http://theanthropocene.org/'
     }, function(response){
@@ -85,7 +86,7 @@ export default class ShareScreen extends Component {
 
   postTwitter() {
     track('sharing', 'twitter', this.state.art);
-    clickLink("https://twitter.com/intent/tweet?text=Anthropocene, we have reached an unprecedented moment in planetary history, where humans have more impact on the earth and it processes than all other natural forces combined.&url=http://theanthropocene.org");
+    clickLink(`https://twitter.com/intent/tweet?text=${encodeURIComponent(SHARE_TEXT)}&url=http://theanthropocene.org`);
   }
 
   render() {
@@ -109,7 +110,7 @@ export default class ShareScreen extends Component {
 
             <div className="buttons">
               <LargeButton icon="twitter" text="Tweet" width={18} onClick={e => this.postTwitter()}/>
-              <LargeButton icon="facebook-official" text="Post" width={18} oClick={e => this.postFacebook()}/>
+              <LargeButton icon="facebook-official" text="Post" width={18} onClick={e => this.postFacebook()}/>
               <LargeButton icon="share" text="Download" width={18} onClick={e => this.download()}/>
             </div>
           </div>

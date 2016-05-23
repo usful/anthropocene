@@ -387,10 +387,8 @@ class App extends Component {
               </menu>
             </li>
             <li>
-              <a href="http://theanthropocene.org/about/">The</a>
+              <a href="http://theanthropocene.org/about/">Team</a>
               <menu>
-                <hr/>
-                <a href="http://theanthropocene.org/about/">Film Team</a>
                 <hr/>
                 <a href="http://theanthropocene.org/partners/">Partners</a>
               </menu>

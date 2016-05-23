@@ -56,13 +56,16 @@ export default class SecondScene extends SceneComponent {
         </TextRoll>
 
         <InfoSection visible={this.state.showInfo} onClose={this.toggleInfo.bind(this)}>
-          <h1>Excavator, Ohio, USA</h1>
+          <h1>Hambach Lignite Mine, Germany</h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nec velit placerat
-            risus malesuada euismod vitae at felis. Vestibulum ut scelerisque elit. Maecenas non
-            laoreet leo.  Maecenas elementum tortor odio, a elementum sem hendrerit sit amet.
+            The Hambach Mine is the largest human-made hole in Europe; 1,500 ft. deep. Germany produces about 30
+            million tons of lignite (the name for soft, brown coal) per year.
           </p>
-          <footer>Source: <a href="#">http://www.theanthropocence.org</a></footer>
+          <p>
+            The Hambach Mine presents an example of terraforming on a massive scale.
+          </p>
+          <footer>Source: Courtesy of Anthropocene Films</footer>
+          <footer>Reference: <a href="http://www.fastcoexist.com/3031997/take-a-trip-to-this-horrifying-mine-one-of-the-largest-man-made-holes-in-the-world">Fast Company, Co.Exist</a></footer>
         </InfoSection>
       </div>
     )

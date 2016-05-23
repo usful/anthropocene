@@ -66,13 +66,13 @@ export default class FourthScene extends SceneComponent {
         </TextRoll>
 
         <InfoSection visible={this.state.showInfo} onClose={this.toggleInfo.bind(this)}>
-          <h1>Extractor, China</h1>
+          <h1>Hambach Lignite Mine, Germany</h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nec velit placerat
-            risus malesuada euismod vitae at felis. Vestibulum ut scelerisque elit. Maecenas non
-            laoreet leo.  Maecenas elementum tortor odio, a elementum sem hendrerit sit amet.
+            Hambach Mine is also home to the world’s biggest terrestrial machines: “the Baggers”.
+            The biggest of these bucket wheel excavators weighs 3.3 million lbs and can move 8.5 million cubic ft. of earth per day.
           </p>
-          <footer>Source: <a href="#">http://www.theanthropocence.org</a></footer>
+          <footer>Source: Courtesy of Anthropocene Films</footer>
+          <footer>Reference: <a href="https://en.wikipedia.org/wiki/Bagger_293 ">Wikipedia</a></footer>
         </InfoSection>
       </div>
     )

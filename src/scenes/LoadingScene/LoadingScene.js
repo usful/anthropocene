@@ -15,7 +15,7 @@ import InfoButton from '../../components/InfoButton/InfoButton';
 import AudioPlayer from '../../components/AudioPlayer/AudioPlayer';
 
 const TOTAL_SCENES = 5; // total amount of scenes, for loading purposes.
-const INTRO_TIMING = 3; // seconds
+const INTRO_TIMING = 5; // seconds
 
 export default class LoadingScene extends SceneComponent {
   constructor(props) {
@@ -122,13 +122,19 @@ export default class LoadingScene extends SceneComponent {
 
 
         <InfoSection visible={this.state.showInfo} onClose={e => this.toggleInfo()}>
-          <h1>Lake, Chile</h1>
+          <h1>Colorado River Delta, Mexico</h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nec velit placerat
-            risus malesuada euismod vitae at felis. Vestibulum ut scelerisque elit. Maecenas non
-            laoreet leo.  Maecenas elementum tortor odio, a elementum sem hendrerit sit amet.
+            The Colorado River is 2330 kilometres long and was basically responsible for shaping the Grand Canyon.
+            It has 15 major dams, which redirect water to Las Vegas, the Imperial Valley, Arizona and Southern
+            California; 40 million people depend on it. Because so much is taken, the river has only reached the
+            ocean a few times since the 1960’s and the delta, pictured here, has mostly been dry.
           </p>
-          <footer>Source: <a href="#">http://www.theanthropocence.org</a></footer>
+          <p>
+            The Colorado River Delta presents an example of human redirection of water, and its repercussions.
+          </p>
+
+          <footer>Source: Courtesy of <a href="http://www.watchwatermarkmovie.com/">Watermark</a>, 2013.</footer>
+          <footer>Reference: <a href="http://www.smithsonianmag.com/science-nature/the-colorado-river-runs-dry-61427169/">Smithsonian Magazine</a>.</footer>
         </InfoSection>
 
         <div className="loading">
