@@ -56,12 +56,16 @@ class App extends Component {
       loadingState: 0,
       perspectiveX: 50,
       perspectiveY: 50,
-      width: window.outerWidth,
-      height: window.outerHeight
+      width: bowser.mobile ? screen.width : window.outerWidth,
+      height: bowser.mobile ? screen.height : window.outerHeight
     };
+
 
     window.addEventListener('resize', this.windowResized.bind(this));
     window.addEventListener('hashchange', this.hashChanged.bind(this));
+    window.addEventListener('deviceorientation', this.mobileRotate.bind(this))
+
+    this.lastRotate = Date.now();
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -183,7 +187,10 @@ class App extends Component {
       clearTimeout(isResizing);
     }
 
-    isResizing = setTimeout(() => this.setState({width: window.outerWidth, height: window.outerHeight}), 250);
+    isResizing = setTimeout(() => this.setState({
+      width: bowser.mobile ? screen.width : window.outerWidth,
+      height: bowser.mobile ? screen.height : window.outerHeight
+    }), 250);
   }
 
   loadingSceneDone() {
@@ -216,9 +223,21 @@ class App extends Component {
     });
   }
 
+  mobileRotate(e) {
+    //Throttle to 30fps input
+    if (this.lastRotate > Date.now() + 33) return;
+
+    let x = Math.min(100, Math.max(0, Math.floor(80 + e.gamma)));
+    let y = Math.min(100, Math.max(0, Math.floor(40 + e.beta)));
+
+    this.lastRotate = Date.now();
+
+    this.setState({perspectiveX: x, perspectiveY: y});
+  }
+
   mouseMove(e) {
     //Doesn't run so well on IE any version
-    if (bowser.msie || bowser.firefox) return;
+    if (bowser.msie || bowser.firefox || bowser.mobile) return;
 
     let x = Math.floor(e.clientX / this.state.width * 100) * 0.8;
     let y = Math.floor(e.clientY / this.state.height * 100) * 0.8;
@@ -330,6 +349,7 @@ class App extends Component {
 
         <section className="main"
                  style={{perspectiveOrigin: this.perspectiveOrigin}}
+                 onTouchMove={e => {e.preventDefault(); return false;}}
                  onMouseMove={e => this.mouseMove(e)}>
           <LoadingScene ref="loadingScene"
                         muted={this.state.muted}
@@ -434,12 +454,22 @@ class App extends Component {
                   onMenuChange={e => this.menuChanged()}/>
 
 
-        <AudioPlayer src="audio/background.mp3" play={this.state.loaded} loop={true}
-                     volume={this.state.shareMode ? 0 : 50} muted={this.state.muted}/>
-        <AudioPlayer src="audio/heartbeat.mp3" play={this.state.loaded} loop={true}
-                     onEnd={this.theHeartBeats.bind(this)} delay={this.state.beat} volume={50}
+        <AudioPlayer src="audio/background.mp3"
+                     ref="backgroundAudio"
+                     play={this.state.loaded}
+                     loop={true}
+                     volume={this.state.shareMode ? 0 : bowser.mobile ? 100 : 50}
                      muted={this.state.muted}/>
-        <AudioPlayer ref="heartbeat" src="audio/heartbeat.mp3" volume={100} muted={this.state.muted}/>
+        <AudioPlayer src="audio/heartbeat.mp3"
+                     ref="heartbeatAudio"
+                     play={this.state.loaded}
+                     loop={true}
+                     onEnd={this.theHeartBeats.bind(this)}
+                     delay={this.state.beat}
+                     volume={50}
+                     muted={this.state.muted}/>
+
+        <AudioPlayer ref="heartbeat" src="audio/heartbeat.mp3" volume={bowser.mobile ? 75 : 100} muted={this.state.muted}/>
       </div>
     )
   }

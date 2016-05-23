@@ -26,6 +26,12 @@
     transform: scale3d(1.66, 1.66, 1) translate3d(0, 0, -11vw);
     transition: transform $transitionHeart, opacity $transition;
 
+    img {
+      display: none;
+      position: absolute;
+      height: 100%;
+    }
+
     video {
       height: 100%;
     }

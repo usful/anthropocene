@@ -35,6 +35,7 @@
     text-align: center;
     padding: 2em;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     box-sizing: border-box;
     height: 100vh;
 
@@ -132,6 +133,50 @@
   &.sharing-open {
     section.share {
       background-color: rgba(255,255,255,0.9);
+    }
+  }
+}
+@media only screen and (max-device-width: 720px) {
+  .ShareScreen {
+    .IconButton {
+      position: absolute;
+      top: 3vh;
+      right: 4vw;
+      color: #333;
+      font-size: 150%;
+
+      svg rect {
+        stroke: #333;
+      }
+    }
+
+    section.arts {
+      div.art {
+        &:active {
+          transform: scale3d(1.1, 1.1, 1);
+        }
+      }
+    }
+
+    section.share {
+      .share-wrapper {
+        padding: 8em 2em;
+
+        .image {
+          margin: auto;
+          width: 80%;
+        }
+
+        .buttons {
+          display: block;
+          width: 100%;
+          margin: 2em auto 0 auto;
+
+          .LargeButton {
+            margin: 0.5em auto;
+          }
+        }
+      }
     }
   }
 }

@@ -28,7 +28,7 @@
     <meta name="twitter:player:stream" content="http://theanthropocene.org/vids/empty-lake.mp4">
     <meta name="twitter:player:stream:content_type" content="video/mp4">
     <link rel="canonical" href="http://theanthropocene.org" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="57x57" href="http://theanthropocene.org/img/icon/anthropocene-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="http://theanthropocene.org/img/icon/anthropocene-60x60.png">
@@ -101,6 +101,11 @@
       ga('create', 'UA-57226902-2', 'auto');
       ga('send', 'pageview');
 
+      document.addEventListener('touchmovex', function(e) {
+        console.log(e.currentTarget);
+        e.preventDefault();
+        return false;
+      }, false);
     </script>
   </body>
 </html>

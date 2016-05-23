@@ -2,6 +2,7 @@ import 'styles/base.scss';
 import './LoadingScene.scss';
 
 import React, {Component} from 'react';
+import bowser from 'bowser';
 
 import SceneComponent from '../SceneComponent';
 
@@ -37,7 +38,8 @@ export default class LoadingScene extends SceneComponent {
   }
 
   fireCanPlay(e) {
-    if (!this.state.canPlayFired && this.refs.video.readyState >= 2 && this.refs.introAudio.readyState >= 2) {
+
+    if ((bowser.mobile || bowser.tablet) || (!this.state.canPlayFired && this.refs.video.readyState >= 2 && this.refs.introAudio.readyState >= 2)) {
       this.props.onCanPlayThrough.call(this, e);
       this.setState({canPlayFired: true});
     }
@@ -61,6 +63,11 @@ export default class LoadingScene extends SceneComponent {
 
   startPhase3() {
     this.setState({phase3: true});
+
+    if (bowser.mobile || bowser.tablet) {
+      this.refs.textRoll.play();
+      this.startPhase4();
+    }
   }
 
   startPhase4() {
@@ -91,6 +98,7 @@ export default class LoadingScene extends SceneComponent {
     return (
       <div className={this.classes} style={this.style}>
         <div className="video-wrapper" style={this.videoStyle} onClick={this.props.onCloseRightPanel}>
+          <img src="vids/empty-lake.jpg" onLoad={this.posterLoaded.bind(this)}/>
           <video ref="video" loop onCanPlayThrough={this.fireCanPlay.bind(this)} onTimeUpdate={this.introVidProgress.bind(this)}>
             <source type="video/mp4" src="vids/empty-lake.mp4"/>
           </video>

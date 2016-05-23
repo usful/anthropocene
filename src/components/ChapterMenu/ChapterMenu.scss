@@ -78,3 +78,19 @@ $boxShadow: -0.25em 0.5em 1em 0.5em rgba(0,0,0,0.05);
     }
   }
 }
+
+
+@media only screen and (max-device-width: 720px) {
+  .ChapterMenu {
+    bottom: 15vh;
+
+    menu {
+
+      label {
+        span {
+          display: none;
+        }
+      }
+    }
+  }
+}

@@ -58,3 +58,10 @@
     opacity: 1;
   }
 }
+
+@media only screen and (max-device-width: 720px) {
+  .InfoSection {
+    width: 66vw;
+    transform: translate3d(66vw, 0, 0);
+  }
+}

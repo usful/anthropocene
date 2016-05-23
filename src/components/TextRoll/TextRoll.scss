@@ -39,6 +39,7 @@
   .InfoButton {
     margin-right: 0.5em;
   }
+
   strong {
     font-size: 300%;
     font-style: italic;
@@ -68,5 +69,11 @@
 
     right: 10vw;
     text-align: right;
+  }
+}
+
+@media only screen and (max-device-width: 720px) {
+  .TextRoll {
+    width: 60vw;
   }
 }

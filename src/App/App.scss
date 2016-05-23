@@ -186,3 +186,50 @@
     }
   }
 }
+
+@media only screen and (max-device-width: 720px) {
+  .App {
+    * {
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .LoadingScene, .SecondScene, .ThirdScene, .FourthScene, .FifthScene {
+      .video-wrapper {
+        img {
+          display: block;
+        }
+      }
+    }
+
+    menu.top {
+      display: none;
+    }
+
+    &.right-panel {
+      section.main {
+        transform: translate3d(-66vw, 0, 0);
+      }
+    }
+
+    .IconButton.menu {
+      font-size: 200%;
+      transform: translate3d(4vw, 1vh, -3vw);
+    }
+
+    > section.main {
+      menu.controls, menu.social {
+        font-size: 200%;
+
+        &.controls {
+          transform: translate3d(75vw, 1vh, -5vw);
+        }
+      }
+    }
+
+    > section.support {
+      left: 10vw;
+      width: 80vw;
+    }
+  }
+}

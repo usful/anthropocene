@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import bowser from 'bowser';
 
 export default class SceneComponent extends Component {
   constructor(props) {
@@ -32,6 +33,12 @@ export default class SceneComponent extends Component {
     onBeSocial: function() {}
   };
 
+  posterLoaded() {
+    if (bowser.mobile) {
+      this.fireCanPlay();
+    }
+  }
+
   fireCanPlay() {
     if (!this.state.canPlayFired) {
       this.props.onCanPlayThrough.call(this);
@@ -42,6 +49,10 @@ export default class SceneComponent extends Component {
   toggleInfo() {
     this.setState({showInfo: true});
     this.props.onToggleRightPanel();
+  }
+
+  mobilePlay() {
+    setTimeout(() => {if (this.refs.video) this.refs.video.play()}, 1);
   }
 
   play() {
