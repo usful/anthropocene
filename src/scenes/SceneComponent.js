@@ -5,6 +5,8 @@ export default class SceneComponent extends Component {
   constructor(props) {
     super(props);
 
+    this.baseUrl = 'https://s3.amazonaws.com/anthropocene';
+
     this.state = {
       shown: false,
       visible: false,

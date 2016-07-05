@@ -98,9 +98,9 @@ export default class LoadingScene extends SceneComponent {
     return (
       <div className={this.classes} style={this.style}>
         <div className="video-wrapper" style={this.videoStyle} onClick={this.props.onCloseRightPanel}>
-          <img src="vids/empty-lake.jpg" onLoad={this.posterLoaded.bind(this)}/>
+          <img src={`${this.baseUrl}/vids/empty-lake.jpg`} onLoad={this.posterLoaded.bind(this)}/>
           <video ref="video" loop onCanPlayThrough={this.fireCanPlay.bind(this)} onTimeUpdate={this.introVidProgress.bind(this)}>
-            <source type="video/mp4" src="vids/empty-lake.mp4"/>
+            <source type="video/mp4" src={`${this.baseUrl}/vids/empty-lake.mp4`}/>
           </video>
         </div>
 

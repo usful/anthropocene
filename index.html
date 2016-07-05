@@ -1,20 +1,28 @@
 <!doctype html>
 <html lang="en">
   <head>
+
+    <!--#set var="data" value="1" -->
+
+    <!--#if expr="$QUERY_STRING = /share=([a-zA-Z0-9]+)/" -->
+    <!--#set var="data" value="$1" -->
+    <!--#endif -->
+
     <meta property="og:title" content="Anthropocene">
     <meta property="og:site_name" content="Anthropocene">
     <meta property="og:url" content="http://theanthropocene.org">
     <meta property="og:description" content="“Anthropocene: we have reached an unprecedented moment in planetary history, where humans have more impact on the earth and it processes than all other natural forces combined.">
-    <meta property="og:image" content="http://theanthropocene.org/img/icons/anthropocene_shareable_800x400.jpg" />
+    <meta property="og:image" content="https://s3.amazonaws.com/anthropocene/img/anthropocene_<!--#echo var="data" -->b.jpg" />
     <meta property="og:type" content="article">
     <meta property="og:image:width" content="800" />
     <meta property="og:image:height" content="400" />
+
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@anthropocene">
     <meta name="twitter:creator" content="@anthropocene">
     <meta name="twitter:title" content="Anthropocene">
     <meta name="twitter:description" content="“Anthropocene: we have reached an unprecedented moment in planetary history, where humans have more impact on the earth and it processes than all other natural forces combined.">
-    <meta name="twitter:image" content="http://theanthropocene.org/img/icons/anthropocene_shareable_800x400.jpg">
+    <meta name="twitter:image" content="https://s3.amazonaws.com/anthropocene/img/anthropocene_<!--#echo var="data" -->b.jpg" />
     <meta name="robots" content="index, follow">
     <meta name="description" content="“Anthropocene: we have reached an unprecedented moment in planetary history, where humans have more impact on the earth and it processes than all other natural forces combined." />
 
@@ -30,7 +38,7 @@
     <meta name="twitter:player:stream:content_type" content="video/mp4">
     <link rel="canonical" href="http://theanthropocene.org" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
-    <!-- Favicon -->
+        <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="57x57" href="http://theanthropocene.org/img/icons/anthropocene-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="http://theanthropocene.org/img/icons/anthropocene-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="http://theanthropocene.org/img/icons/anthropocene-72x72.png">

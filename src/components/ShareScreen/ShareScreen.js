@@ -22,6 +22,8 @@ export default class ShareScreen extends Component {
   constructor(props) {
     super(props);
 
+    this.baseUrl = 'https://s3.amazonaws.com/anthropocene';
+
     this.state = {
       sharing: false,
       sharingOpen: false,
@@ -70,7 +72,7 @@ export default class ShareScreen extends Component {
 
   download() {
     track('sharing', 'download', this.state.art);
-    clickLink(`/img/art/anthropocene-${this.state.art}b.jpg`, 'anthropocene.jpg');
+    clickLink(`${this.baseUrl}/img/art/anthropocene-${this.state.art}b.jpg`, 'anthropocene.jpg');
   }
 
   postFacebook() {
@@ -97,7 +99,7 @@ export default class ShareScreen extends Component {
 
           {arts.map(art =>
             <div key={art} className="art" onClick={(e) => this.startSharing(art)}>
-              <AtvImg layers={[`/img/art/anthropocene-${art}.jpg`, '/img/art/layer-2.png']} style={{width: '20em', height: '20em'}} />
+              <AtvImg layers={[`${this.baseUrl}/img/art/anthropocene-${art}.jpg`, '/img/art/layer-2.png']} style={{width: '20em', height: '20em'}} />
             </div>
           )}
         </section>
@@ -105,7 +107,7 @@ export default class ShareScreen extends Component {
         <section className="share">
           <div className="share-wrapper">
             <div className="image">
-              <img src={`/img/art/anthropocene-${this.state.art}b.jpg`}/>
+              <img src={`${this.baseUrl}/img/art/anthropocene-${this.state.art}b.jpg`}/>
             </div>
 
             <div className="buttons">

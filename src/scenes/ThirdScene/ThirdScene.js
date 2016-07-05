@@ -25,9 +25,9 @@ export default class ThirdScene extends SceneComponent {
     return (
       <div className={this.classes} style={this.style}>
         <div className="video-wrapper" style={this.videoStyle}>
-          <img src="vids/water.jpg" onLoad={this.posterLoaded.bind(this)}/>
+          <img src={`${this.baseUrl}/vids/water.jpg`} onLoad={this.posterLoaded.bind(this)}/>
           <video ref="video" loop onCanPlayThrough={this.fireCanPlay.bind(this)}>
-            <source type="video/mp4" src="vids/water.mp4"/>
+            <source type="video/mp4" src={`${this.baseUrl}/vids/water.mp4`}/>
           </video>
         </div>
 
