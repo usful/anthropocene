@@ -72,7 +72,7 @@ export default class ShareScreen extends Component {
 
   download() {
     track('sharing', 'download', this.state.art);
-    clickLink(`${this.baseUrl}/img/art/anthropocene-${this.state.art}b.jpg`, 'anthropocene.jpg');
+    clickLink(`${this.baseUrl}/img/anthropocene-${this.state.art}b.jpg`, 'anthropocene.jpg');
   }
 
   postFacebook() {
@@ -81,14 +81,14 @@ export default class ShareScreen extends Component {
       method: 'share',
       quote: SHARE_TEXT,
       hashtag: 'anthropocene',
-      href: 'http://theanthropocene.org/'
+      href: `https://theanthropocene.org/?share=${this.state.art}`
     }, function(response){
     });
   }
 
   postTwitter() {
     track('sharing', 'twitter', this.state.art);
-    clickLink(`https://twitter.com/intent/tweet?text=${encodeURIComponent(SHARE_TEXT)}&url=http://theanthropocene.org`);
+    clickLink(`https://twitter.com/intent/tweet?text=${encodeURIComponent(SHARE_TEXT)}&url=https://theanthropocene.org?share=${this.state.art}`);
   }
 
   render() {
@@ -99,7 +99,7 @@ export default class ShareScreen extends Component {
 
           {arts.map(art =>
             <div key={art} className="art" onClick={(e) => this.startSharing(art)}>
-              <AtvImg layers={[`${this.baseUrl}/img/art/anthropocene-${art}.jpg`, '/img/art/layer-2.png']} style={{width: '20em', height: '20em'}} />
+              <AtvImg layers={[`${this.baseUrl}/img/anthropocene-${art}.jpg`, '/img/art/layer-2.png']} style={{width: '20em', height: '20em'}} />
             </div>
           )}
         </section>
@@ -107,7 +107,7 @@ export default class ShareScreen extends Component {
         <section className="share">
           <div className="share-wrapper">
             <div className="image">
-              <img src={`${this.baseUrl}/img/art/anthropocene-${this.state.art}b.jpg`}/>
+              <img src={`${this.baseUrl}/img/anthropocene-${this.state.art}b.jpg`}/>
             </div>
 
             <div className="buttons">

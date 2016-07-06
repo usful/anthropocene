@@ -4,13 +4,16 @@
 
     <!--#set var="data" value="1" -->
 
-    <!--#if expr="$QUERY_STRING = /share=([a-zA-Z0-9]+)/" -->
+    <!--#if expr="$QUERY_STRING = /^share=([0-9]+)/" -->
     <!--#set var="data" value="$1" -->
+
+    <!--#if expr="!$data" -->
+    <!--#set var="data" value="1" -->
     <!--#endif -->
 
     <meta property="og:title" content="Anthropocene">
     <meta property="og:site_name" content="Anthropocene">
-    <meta property="og:url" content="http://theanthropocene.org">
+    <meta property="og:url" content="https://theanthropocene.org">
     <meta property="og:description" content="“Anthropocene: we have reached an unprecedented moment in planetary history, where humans have more impact on the earth and it processes than all other natural forces combined.">
     <meta property="og:image" content="https://s3.amazonaws.com/anthropocene/img/anthropocene_<!--#echo var="data" -->b.jpg" />
     <meta property="og:type" content="article">
@@ -26,35 +29,35 @@
     <meta name="robots" content="index, follow">
     <meta name="description" content="“Anthropocene: we have reached an unprecedented moment in planetary history, where humans have more impact on the earth and it processes than all other natural forces combined." />
 
-    <meta property="og:video" content="http://theanthropocene.org/vids/empty-lake.mp4" />
+    <meta property="og:video" content="https://theanthropocene.org/vids/empty-lake.mp4" />
     <meta property="og:video:type" content="video/mp4" />
     <meta property="og:video:width" content="1280" />
     <meta property="og:video:height" content="720" />
     <meta name="twitter:card" content="player">
-    <meta name="twitter:player" content="http://theanthropocene.org">
+    <meta name="twitter:player" content="https://theanthropocene.org">
     <meta name="twitter:player:width" content="1280">
     <meta name="twitter:player:height" content="720">
-    <meta name="twitter:player:stream" content="http://theanthropocene.org/vids/empty-lake.mp4">
+    <meta name="twitter:player:stream" content="https://theanthropocene.org/vids/empty-lake.mp4">
     <meta name="twitter:player:stream:content_type" content="video/mp4">
-    <link rel="canonical" href="http://theanthropocene.org" />
+    <link rel="canonical" href="https://theanthropocene.org" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
         <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="57x57" href="http://theanthropocene.org/img/icons/anthropocene-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="http://theanthropocene.org/img/icons/anthropocene-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="http://theanthropocene.org/img/icons/anthropocene-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="http://theanthropocene.org/img/icons/anthropocene-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="http://theanthropocene.org/img/icons/anthropocene-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="http://theanthropocene.org/img/icons/anthropocene-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="http://theanthropocene.org/img/icons/anthropocene-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="http://theanthropocene.org/img/icons/anthropocene-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="http://theanthropocene.org/img/icons/anthropocene-180x180.png">
-    <link rel="icon" type="image/png" href="http://theanthropocene.org/img/icons/anthropocene-32x32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="http://theanthropocene.org/img/icons/anthropocene-192x192.png" sizes="192x192">
-    <link rel="icon" type="image/png" href="http://theanthropocene.org/img/icons/anthropocene-96x96.png" sizes="96x96">
-    <link rel="icon" type="image/png" href="http://theanthropocene.org/img/icons/anthropocene-16x16.png" sizes="16x16">
-    <link rel="manifest" href="http://theanthropocene.org/img/icons/manifest.json">
+    <link rel="apple-touch-icon" sizes="57x57" href="https://theanthropocene.org/img/icons/anthropocene-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="https://theanthropocene.org/img/icons/anthropocene-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="https://theanthropocene.org/img/icons/anthropocene-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="https://theanthropocene.org/img/icons/anthropocene-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="https://theanthropocene.org/img/icons/anthropocene-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="https://theanthropocene.org/img/icons/anthropocene-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="https://theanthropocene.org/img/icons/anthropocene-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="https://theanthropocene.org/img/icons/anthropocene-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://theanthropocene.org/img/icons/anthropocene-180x180.png">
+    <link rel="icon" type="image/png" href="https://theanthropocene.org/img/icons/anthropocene-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://theanthropocene.org/img/icons/anthropocene-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="https://theanthropocene.org/img/icons/anthropocene-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="https://theanthropocene.org/img/icons/anthropocene-16x16.png" sizes="16x16">
+    <link rel="manifest" href="https://theanthropocene.org/img/icons/manifest.json">
     <meta name="msapplication-TileColor" content="#000000">
-    <meta name="msapplication-TileImage" content="http://theanthropocene.org/img/icons/anthropocene-144x144.png">
+    <meta name="msapplication-TileImage" content="https://theanthropocene.org/img/icons/anthropocene-144x144.png">
     <meta name="theme-color" content="#ffffff">
     <meta charset="utf-8">
     <meta content="width=device-width,initial-scale=1" name="viewport">

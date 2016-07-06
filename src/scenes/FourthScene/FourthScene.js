@@ -59,7 +59,7 @@ export default class FourthScene extends SceneComponent {
           <span>recognition</span>
           <span>of</span>
           <span>profound</span>
-          <strong>human</strong>
+          <span>human</span>
           <span>impact.</span>
           <br/>
           <InfoButton onClick={this.toggleInfo.bind(this)}/>

@@ -39,26 +39,26 @@ export default class MainMenu extends Component {
         <div className="left">
           <h1>Main Site</h1>
           <menu>
-            <a href="http://theanthropocene.org/anthropocene/">Anthropocene Defined</a>
+            <a href="https://theanthropocene.org/anthropocene/">Anthropocene Defined</a>
             <hr/>
-            <a href="http://theanthropocene.org/the-project/">The Project</a>
+            <a href="https://theanthropocene.org/experience-anthropocene/">Experience Anthropocene</a>
             <hr/>
-            <a href="http://theanthropocene.org/about/">The Team</a>
+            <a href="https://theanthropocene.org/about/">Project</a>
             <hr/>
-            <a href="http://theanthropocene.org/blog/">The Hub</a>
+            <a href="https://theanthropocene.org/blog/">The Hub</a>
           </menu>
         </div>
 
         <div className="right">
           <h1>The Projects</h1>
           <menu>
-            <a href="http://theanthropocene.org/film/">Feature Film</a>
+            <a href="https://theanthropocene.org/film/">Feature Film</a>
             <hr/>
-            <a href="http://theanthropocene.org/gigapixel/">Gigapixel</a>
+            <a href="https://theanthropocene.org/gigapixel/">Gigapixel</a>
             <hr/>
-            <a href="http://theanthropocene.org/photogrammetry/">Photogrammetry</a>
+            <a href="https://theanthropocene.org/photogrammetry/">Photogrammetry</a>
             <hr/>
-            <a href="http://theanthropocene.org/360vr/">360&deg; VR</a>
+            <a href="https://theanthropocene.org/360vr/">360&deg; VR</a>
           </menu>
         </div>
 

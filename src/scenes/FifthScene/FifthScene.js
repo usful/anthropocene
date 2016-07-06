@@ -53,11 +53,11 @@ export default class FifthScene extends SceneComponent {
 
 
         <InfoSection visible={this.state.showInfo} onClose={this.toggleInfo.bind(this)}>
-          <h1>Coal Train, Wisconsin, USA</h1>
+          <h1>Coal Train, Wyoming, USA</h1>
           <p>
-            While the state of Wisconsin does not produce coal, the resource dominates the state’s electricity
-            generation (reaching 55.9% in 2015). In 2014, total U.S. coal production surpassed 1 billion
-            short tons (1 short ton = 2,000 lbs).
+            The state of Wyoming boasts 19 coal mines, 18 of which are active and 8 of which are ranked as the top
+            producing mines in the United States. In 2014, the North Antelope Rochelle Mine produced 117,963,515 short
+            tons of coal (1 short ton = 2,000 lbs).
           </p>
           <p>
             Atmospheric carbon levels in the Anthropocene are higher than at any other point in the last 400,000 years.

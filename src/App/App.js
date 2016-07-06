@@ -394,26 +394,28 @@ class App extends Component {
                        opacity={this.state.siteOpacity}/>
 
           <menu className="top">
-            <li><a href="http://theanthropocene.org/anthropocene/">Anthropocene Defined</a></li>
+            <li><a href="https://theanthropocene.org/anthropocene/">Anthropocene Defined</a></li>
             <li>
-              <a href="http://theanthropocene.org/the-project/">Experience Anthropocene</a>
+              <a href="https://theanthropocene.org/experience-anthropocene/">Experience Anthropocene</a>
               <menu>
                 <hr/>
-                <a href="http://theanthropocene.org/gigapixel/">Gigapixel</a>
+                <a href="https://theanthropocene.org/gigapixel/">Gigapixel</a>
                 <hr/>
-                <a href="http://theanthropocene.org/360vr/">360&deg; VR</a>
+                <a href="https://theanthropocene.org/360vr/">360&deg; VR</a>
                 <hr/>
-                <a href="http://theanthropocene.org/photogrammetry/">Photogrammetry</a>
+                <a href="https://theanthropocene.org/photogrammetry/">Photogrammetry</a>
               </menu>
             </li>
             <li>
-              <a href="http://theanthropocene.org/about/">Team</a>
+              <a href="https://theanthropocene.org/about/">Project</a>
               <menu>
                 <hr/>
-                <a href="http://theanthropocene.org/partners/">Partners</a>
+                <a href="https://theanthropocene.org/about/team/">Team</a>
+                <hr/>
+                <a href="https://theanthropocene.org/about/partners/">Partners</a>
               </menu>
             </li>
-            <li><a className="last" href="http://theanthropocene.org/blog/">The Hub</a></li>
+            <li><a className="last" href="https://theanthropocene.org/blog/">The Hub</a></li>
           </menu>
 
           <menu className="controls">
