@@ -9,7 +9,10 @@ import IconButton from '../IconButton/IconButton';
 import LargeButton from '../LargeButton/LargeButton';
 import AtvImg from 'react-atv-img';
 
-const SHARE_TEXT = 'This is the #Anthropocene. Spread the word.';
+const TWITTER_SHARE_TEXT = 'Welcome to the @Anthropocene.';
+const FACEBOOK_SHARE_TEXT = 'Humans are the most powerful force on the planet, and now change the Earth’s system more than all other natural processes combined. Welcome to the #Anthropocene.';
+const FACEBOOK_CAPTION_TEXT = 'Welcome to the @Anthropocene.';
+
 let arts = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21];
 const ANIM_TIME = 250;
 

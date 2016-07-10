@@ -25,55 +25,53 @@ export default class FourthScene extends SceneComponent {
     return (
       <div className={this.classes} style={this.style}>
         <div className="video-wrapper" style={this.videoStyle}>
-          <img src={`${this.baseUrl}/vids/clip3.jpg`} onLoad={this.posterLoaded.bind(this)}/>
+          <img src={`${this.baseUrl}/vids/clip13.jpg`} onLoad={this.posterLoaded.bind(this)}/>
           <video ref="video" loop onCanPlayThrough={this.fireCanPlay.bind(this)}>
-            <source type="video/mp4" src={`${this.baseUrl}/vids/clip3.mp4`}/>
+            <source type="video/mp4" src={`${this.baseUrl}/vids/clip13.mp4`}/>
           </video>
         </div>
 
         <TextRoll ref="textRoll" style={{fontSize: '75%'}} align="right" visible={this.state.visible} onDone={this.props.onDone.bind(this)} >
-          <span>The</span>
-          <strong>Anthropocene</strong>
-          <strong>Working</strong>
-          <strong>Group,</strong>
-          <span>a</span>
-          <span>group</span>
-          <span>of</span>
-          <span>scientists</span>
+          <span>This</span>
+          <span>multidisciplinary</span>
+          <span>project</span>
+          <span>combines</span>
+          <span>art,</span>
+          <span>film</span>
           <span>and</span>
-          <span>geologists,</span>
-          <span>has</span>
-          <span>proposed</span>
-          <span>the</span>
-          <span>title</span>
-          <span>Anthropocene</span>
-          <span>as</span>
-          <span>the</span>
-          <span>name</span>
-          <span>of</span>
-          <span>our</span>
-          <span>current</span>
-          <span>geological</span>
-          <span>epoch,</span>
-          <span>in</span>
-          <span>recognition</span>
-          <span>of</span>
-          <span>profound</span>
+          <span>scientific</span>
+          <span>research</span>
+          <span>to</span>
+          <span>investigate</span>
           <span>human</span>
-          <span>impact.</span>
+          <span>influence</span>
+          <span>on</span>
+          <span>the</span>
+          <span>state,</span>
+          <span>dynamics</span>
+          <span>and</span>
+          <span>future</span>
+          <span>of</span>
+          <span>the</span>
+          <span>Earth.</span>
           <br/>
           <InfoButton onClick={this.toggleInfo.bind(this)}/>
           <LargeButton onClick={this.props.onNext} />
         </TextRoll>
 
         <InfoSection visible={this.state.showInfo} onClose={this.toggleInfo.bind(this)}>
-          <h1>Hambach Lignite Mine, Germany</h1>
+          <h1>Coal Train, Wyoming, USA</h1>
           <p>
-            Hambach Mine is also home to the world’s biggest terrestrial machines: “the Baggers”.
-            The biggest of these bucket wheel excavators weighs 3.3 million lbs and can move 8.5 million cubic ft. of earth per day.
+            The state of Wyoming boasts 19 coal mines, 18 of which are active and 8 of which are ranked as the top
+            producing mines in the United States. In 2014, the North Antelope Rochelle Mine produced 117,963,515 short
+            tons of coal (1 short ton = 2,000 lbs).
+          </p>
+          <p>
+            Atmospheric carbon levels in the Anthropocene are higher than at any other point in the last 400,000 years.
           </p>
           <footer>Source: Courtesy of Anthropocene Films</footer>
-          <footer>Reference: <a href="https://en.wikipedia.org/wiki/Bagger_293 ">Wikipedia</a></footer>
+          <footer>Reference: <a href="http://www.eia.gov/coal/annual/">EIA</a></footer>
+          <footer>Reference: <a href="http://climate.nasa.gov/climate_resources/24/ ">NASA</a></footer>
         </InfoSection>
       </div>
     )

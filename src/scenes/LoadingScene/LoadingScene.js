@@ -118,7 +118,7 @@ export default class LoadingScene extends SceneComponent {
           <span>have</span>
           <span>reached</span>
           <span>an</span>
-          <strong>unprecedented</strong>
+          <span>unprecedented</span>
           <span>moment</span>
           <span>in</span>
           <span>planetary</span>

@@ -13,10 +13,9 @@ export default class ChapterMenu extends Component {
       hovering: false,
       menu: [
         {key: 0, name: 'Introduction'},
-        {key: 1, name: 'Our Existence'},
+        {key: 1, name: 'The Human Signature'},
         {key: 2, name: 'The Human Signature'},
-        {key: 3, name: 'Anthropocene'},
-        {key: 4, name: 'The Project'}
+        {key: 3, name: 'The Project'}
       ]
     }
   }

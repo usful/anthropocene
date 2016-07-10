@@ -25,17 +25,14 @@ export default class SecondScene extends SceneComponent {
     return (
       <div className={this.classes} style={this.style}>
         <div className="video-wrapper" style={this.videoStyle}>
-          <img src={`${this.baseUrl}/vids/clip7.jpg`} onLoad={this.posterLoaded.bind(this)}/>
-          <video ref="video" loop onCanPlayThrough={this.fireCanPlay.bind(this)} >
-            <source type="video/mp4" src={`${this.baseUrl}/vids/clip7.mp4`}/>
+          <img src={`${this.baseUrl}/vids/water.jpg`} onLoad={this.posterLoaded.bind(this)}/>
+          <video ref="video" loop onCanPlayThrough={this.fireCanPlay.bind(this)}>
+            <source type="video/mp4" src={`${this.baseUrl}/vids/water.mp4`}/>
           </video>
         </div>
 
         <TextRoll ref="textRoll" style={{fontSize: '90%'}}  align={"right"} visible={this.state.visible} onDone={this.props.onDone.bind(this)} >
-          <span>As</span>
-          <span>a</span>
-          <span>species,</span>
-          <span>humans</span>
+          <span>Humans</span>
           <span>now</span>
           <span>arguably</span>
           <span>change</span>
@@ -57,17 +54,18 @@ export default class SecondScene extends SceneComponent {
         </TextRoll>
 
         <InfoSection visible={this.state.showInfo} onClose={this.toggleInfo.bind(this)}>
-          <h1>Hambach Lignite Mine, Germany</h1>
+          <h1>Xiaolangdi Dam, Henan Province, China</h1>
           <p>
-            The Hambach Mine is the largest human-made hole in Europe; 1,500 ft. deep. Germany produces about 30
-            million tons of lignite (the name for soft, brown coal) per year.
+            The Xiaolangdi Dam on the Yellow River in China produces 5.1 billion kWh of electricity per year.
+            Every year, 30 million tons of silt are released, and the event has become a tourist attraction.
           </p>
           <p>
-            The Hambach Mine presents an example of terraforming on a massive scale.
+            The Xiolangdi dam presents an example of anthropogenic sediment displacement.
           </p>
-          <footer>Source: Courtesy of Anthropocene Films</footer>
-          <footer>Reference: <a href="http://www.fastcoexist.com/3031997/take-a-trip-to-this-horrifying-mine-one-of-the-largest-man-made-holes-in-the-world">Fast Company, Co.Exist</a></footer>
+          <footer>Source: Courtesy of Watermark, 2013</footer>
+          <footer>Reference: <a href="http://www.power-technology.com/projects/xiaolangdi/">Power Technology.com</a></footer>
         </InfoSection>
+
       </div>
     )
   }

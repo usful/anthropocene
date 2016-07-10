@@ -351,6 +351,7 @@ class App extends Component {
                  style={{perspectiveOrigin: this.perspectiveOrigin}}
                  onTouchMove={e => {e.preventDefault(); return false;}}
                  onMouseMove={e => this.mouseMove(e)}>
+
           <LoadingScene ref="loadingScene"
                         muted={this.state.muted}
                         width={this.state.width}
@@ -381,17 +382,6 @@ class App extends Component {
                        opacity={this.state.siteOpacity}
                        onNext={e => this.menuChanged({key:4})}
                        {... events} />
-
-          <FifthScene ref="fifthScene"
-                      width={this.state.width}
-                      height={this.state.height}
-                      opacity={this.state.siteOpacity}
-                      {... events} />
-
-          <ChapterMenu open={this.state.loaded}
-                       chapter={this.state.lastChapter}
-                       onMenuChange={menu => this.menuChanged(menu)}
-                       opacity={this.state.siteOpacity}/>
 
           <menu className="top">
             <li><a href="https://theanthropocene.org/anthropocene/">Anthropocene Defined</a></li>
@@ -438,8 +428,8 @@ class App extends Component {
         <section className="support">
           <div className="share-wrapper">
             <h2>
-              This experience will slowly die if nothing is done. The more you interact with the experience, the more it stays alive.
-              Help us raise awareness for the Anthropocene by sharing this experience.
+              This experience will slowly die if nothing is done. The more you interact, the longer it stays alive.
+              Continue to explore and help us to raise awareness by sharing.
             </h2>
 
             <LargeButton text="Share" icon="share-mdi" onClick={e => this.resuscitateAndShare()} width={15} />
