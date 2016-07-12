@@ -26,7 +26,7 @@ let isResizing; //timeout reference to track if the user is currently resizing t
 const HEART_BEAT_DECREASE = 250; //ms
 const OPACITY_DECREASE = 0.08; //of 100%
 const OPACITY_CUTOFF = 0.25; //the point at which to trigger the sharing page.
-const SCENES = ['loadingScene', 'secondScene', 'thirdScene', 'fourthScene', 'fifthScene'];
+const SCENES = ['loadingScene', 'secondScene', 'thirdScene', 'fourthScene'];
 const HEART_BEAT_START = 1000; //ms
 
 const TOTAL_SCENES = SCENES.length; // total amount of scenes, for loading purposes.

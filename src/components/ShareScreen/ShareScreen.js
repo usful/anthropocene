@@ -81,17 +81,18 @@ export default class ShareScreen extends Component {
   postFacebook() {
     track('sharing', 'facebook', this.state.art);
     FB.ui({
-      method: 'share',
-      quote: SHARE_TEXT,
-      hashtag: 'anthropocene',
-      href: `https://theanthropocene.org/?share=${this.state.art}`
+      method: 'feed',
+      picture: `${this.baseUrl}/img/anthropocene-${this.state.art}c.jpg`,
+      caption: FACEBOOK_CAPTION_TEXT,
+      description: FACEBOOK_SHARE_TEXT,
+      link: `https://theanthropocene.org/?share=${this.state.art}`
     }, function(response){
     });
   }
 
   postTwitter() {
     track('sharing', 'twitter', this.state.art);
-    clickLink(`https://twitter.com/intent/tweet?text=${encodeURIComponent(SHARE_TEXT)}&url=https://theanthropocene.org?share=${this.state.art}`);
+    clickLink(`https://twitter.com/intent/tweet?text=${encodeURIComponent(TWITTER_SHARE_TEXT)}&url=https://theanthropocene.org?share=${this.state.art}`);
   }
 
   render() {

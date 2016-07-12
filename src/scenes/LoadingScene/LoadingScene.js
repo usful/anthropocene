@@ -15,7 +15,7 @@ import InfoButton from '../../components/InfoButton/InfoButton';
 
 import AudioPlayer from '../../components/AudioPlayer/AudioPlayer';
 
-const TOTAL_SCENES = 5; // total amount of scenes, for loading purposes.
+const TOTAL_SCENES = 4; // total amount of scenes, for loading purposes.
 const INTRO_TIMING = 5; // seconds
 
 export default class LoadingScene extends SceneComponent {
