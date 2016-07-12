@@ -383,6 +383,12 @@ class App extends Component {
                        onNext={e => this.menuChanged({key:4})}
                        {... events} />
 
+
+          <ChapterMenu open={this.state.loaded}
+                       chapter={this.state.lastChapter}
+                       onMenuChange={menu => this.menuChanged(menu)}
+                       opacity={this.state.siteOpacity}/>
+
           <menu className="top">
             <li><a href="https://theanthropocene.org/anthropocene/">Anthropocene Defined</a></li>
             <li>
@@ -397,12 +403,12 @@ class App extends Component {
               </menu>
             </li>
             <li>
-              <a href="https://theanthropocene.org/about/">Project</a>
+              <a href="https://theanthropocene.org/project/">Project</a>
               <menu>
                 <hr/>
-                <a href="https://theanthropocene.org/about/team/">Team</a>
+                <a href="https://theanthropocene.org/project/team/">Team</a>
                 <hr/>
-                <a href="https://theanthropocene.org/about/partners/">Partners</a>
+                <a href="https://theanthropocene.org/project/partners/">Partners</a>
               </menu>
             </li>
             <li><a className="last" href="https://theanthropocene.org/blog/">The Hub</a></li>

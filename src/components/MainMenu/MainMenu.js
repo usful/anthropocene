@@ -43,7 +43,7 @@ export default class MainMenu extends Component {
             <hr/>
             <a href="https://theanthropocene.org/experience-anthropocene/">Experience Anthropocene</a>
             <hr/>
-            <a href="https://theanthropocene.org/about/">Project</a>
+            <a href="https://theanthropocene.org/project/">Project</a>
             <hr/>
             <a href="https://theanthropocene.org/blog/">The Hub</a>
           </menu>
