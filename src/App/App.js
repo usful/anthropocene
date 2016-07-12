@@ -18,7 +18,6 @@ import LoadingScene from '../scenes/LoadingScene/LoadingScene';
 import SecondScene from '../scenes/SecondScene/SecondScene';
 import ThirdScene from '../scenes/ThirdScene/ThirdScene';
 import FourthScene from '../scenes/FourthScene/FourthScene';
-import FifthScene from '../scenes/FifthScene/FifthScene';
 
 import ShareScreen from '../components/ShareScreen/ShareScreen';
 
