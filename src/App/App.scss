@@ -135,6 +135,10 @@
       }
 
       &:hover {
+        a {
+          color: $softWhite;
+        }
+
         menu {
           display: block;
         }

@@ -31,13 +31,15 @@ export default class FourthScene extends SceneComponent {
           </video>
         </div>
 
-        <TextRoll ref="textRoll" style={{fontSize: '75%'}} align="right" visible={this.state.visible} onDone={this.props.onDone.bind(this)} >
+        <TextRoll ref="textRoll" style={{fontSize: '80%'}} align="right" visible={this.state.visible} onDone={this.props.onDone.bind(this)} >
           <span>This</span>
           <span>multidisciplinary</span>
           <span>project</span>
           <span>combines</span>
           <span>art,</span>
-          <span>film</span>
+          <span>film,</span>
+          <span>virtual</span>
+          <span>reality</span>
           <span>and</span>
           <span>scientific</span>
           <span>research</span>
@@ -56,7 +58,7 @@ export default class FourthScene extends SceneComponent {
           <span>Earth.</span>
           <br/>
           <InfoButton onClick={this.toggleInfo.bind(this)}/>
-          <LargeButton onClick={this.props.onNext} />
+          <LargeButton text="Share" icon="share-mdi" onClick={e => this.props.onBeSocial()} width={15} />
         </TextRoll>
 
         <InfoSection visible={this.state.showInfo} onClose={this.toggleInfo.bind(this)}>

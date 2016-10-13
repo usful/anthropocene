@@ -379,6 +379,7 @@ class App extends Component {
                        width={this.state.width}
                        height={this.state.height}
                        opacity={this.state.siteOpacity}
+                       onBeSocial={e => this.beSocial()}
                        onNext={e => this.menuChanged({key:4})}
                        {... events} />
 

@@ -64,8 +64,7 @@ export default class MainMenu extends Component {
 
         <section>
           <p>
-            <strong>Anthropocene:</strong> we have reached an unprecedented moment in planetary history, where humans
-            have more impact on the earth and it processes than all other natural forces combined.
+            Humans are the most powerful force on the planet, and now impact the earth's system more than all other natural processes combined. Have we entered the <strong>Anthropocene</strong>?.
           </p>
           <div className="share">
             <h1>Subscribe to the mailing list.</h1>

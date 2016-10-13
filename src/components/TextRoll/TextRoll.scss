@@ -23,7 +23,8 @@
     vertical-align: middle;
     font-size: 300%;
     font-weight: 400;
-    color: $offWhite;
+    color: #fff;
+    text-shadow: 0 0 0.3em rgba(0,0,0,0.66);
     line-height: 1.4em;
     opacity: 0;
     transition: opacity $transition;
